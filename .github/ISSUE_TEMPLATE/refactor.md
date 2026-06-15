@@ -1,3 +1,11 @@
+---
+name: "리팩토링 (Refactor)"
+about: "코드 구조 개선 및 리팩토링 사항을 제안합니다."
+title: "[REFACTOR] "
+labels: "refactor"
+assignees: ""
+---
+
 ### ♻️ 리팩토링 요소
 
 > 리팩토링이 필요한 내용을 작성해주세요.

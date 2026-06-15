@@ -1,3 +1,11 @@
+---
+name: "기능 추가 (Feature)"
+about: "새로운 기능 구현을 제안합니다."
+title: "[FEAT] "
+labels: "feat"
+assignees: ""
+---
+
 ### 📄 설명
 
 > 새로운 기능에 대한 설명을 작성해 주세요.  
