@@ -9,7 +9,49 @@
 }
 
 :root {
+  /* 디자인 시스템 컬러 토큰 */
+  --color-bg-app: #FBF8F2;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-surface-green: #DFF1DE;
+  --color-bg-brand: #155F3A;
+  --color-bg-badge: #DFF2DF;
+  --color-accent-yellow: #F6D35B;
+  --color-accent-coral: #EF6848;
+  --color-bg-device: #111111;
+  --color-text-gray: #6F6A62;
+
   --font-pretendard-jp: "PretendardJPVariable", system-ui, sans-serif;
+}
+
+@theme {
+  /* 폰트 패밀리 설정 */
+  --font-pretendard: var(--font-pretendard-jp);
+
+  /* 타이포그래피 스케일 설정 */
+  --text-hero: 34px;
+  --text-hero--line-height: 38px;
+  --text-hero--font-weight: 700;
+
+  --text-screen-title: 24px;
+  --text-screen-title--font-weight: 700;
+
+  --text-section-heading: 16px;
+  --text-section-heading--font-weight: 600;
+
+  --text-body-copy: 13px;
+  --text-body-copy--line-height: 15px;
+  --text-body-copy--font-weight: 500;
+
+  /* 테일윈드 유틸리티용 컬러 매핑 */
+  --color-app: var(--color-bg-app);
+  --color-elevated: var(--color-bg-elevated);
+  --color-surface-green: var(--color-bg-surface-green);
+  --color-brand: var(--color-bg-brand);
+  --color-badge: var(--color-bg-badge);
+  --color-brand-yellow: var(--color-accent-yellow);
+  --color-brand-coral: var(--color-accent-coral);
+  --color-device: var(--color-bg-device);
+  --color-subtext: var(--color-text-gray);
 }
 
 html,
