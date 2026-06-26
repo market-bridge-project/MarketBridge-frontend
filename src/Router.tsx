@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import MapPage from './pages/MapPage'
-import SearchPage from './pages/RecommendPage'
+import RecommendPage from './pages/RecommendPage'
 import RecommendResult from './pages/RecommendResultPage'
 import StoreDetail from './pages/StoreDetailPage'
+import StoreList from './pages/StoreListPage'
 import { LandingPage } from './pages/LandingPage'
 
 const router = createBrowserRouter([
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'recommended',
-        element: <SearchPage />,
+        element: <RecommendPage />,
       },
       {
         path: 'recommend-result',
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'store-detail',
         element: <StoreDetail />,
+      },
+      {
+        path: 'store-list',
+        element: <StoreList />,
       },
       {
         path: 'landing',
