@@ -4,6 +4,7 @@ import { LandingPage } from './pages/Landing/LandingPage'
 import { SearchPage, RecommendResult, StoreDetail } from './pages'
 
 
+
 const router = createBrowserRouter([
   {
     path: '/',
