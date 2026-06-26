@@ -11,6 +11,7 @@
 :root {
   /* 디자인 시스템 컬러 토큰 */
   --color-bg-app: #fbf8f2;
+  --color-bg-green: #C8E5C6;
   --color-bg-elevated: #ffffff;
   --color-bg-surface-green: #dff1de;
   --color-bg-brand: #155f3a;
@@ -19,6 +20,10 @@
   --color-accent-coral: #ef6848;
   --color-bg-device: #111111;
   --color-text-gray: #6f6a62;
+  --color-border-default: #E5E2DC;
+  --color-bg-glow: #ECF6E7;
+  --color-text-primary: #22211F;
+  --color-text-secondary: #6F6A62;
 
   --font-pretendard-jp: PretendardJPVariable, system-ui, sans-serif;
 }
@@ -52,8 +57,17 @@
   --text-body-copy--line-height: 15px;
   --text-body-copy--font-weight: 500;
 
+  --text-top: 30px;
+  --text-top--line-height: 38px;
+  --text-top--font-weight: 700;
+
+  --text-body-secondary: 15px;
+  --text-body-secondary--line-height: 22px;
+  --text-body-secondary--font-weight: 400;
+
   /* 테일윈드 유틸리티용 컬러 매핑 */
   --color-app: var(--color-bg-app);
+  --color-green: var(--color-bg-green);
   --color-elevated: var(--color-bg-elevated);
   --color-surface-green: var(--color-bg-surface-green);
   --color-brand: var(--color-bg-brand);
@@ -62,6 +76,10 @@
   --color-brand-coral: var(--color-accent-coral);
   --color-device: var(--color-bg-device);
   --color-subtext: var(--color-text-gray);
+  --color-border-default: var(--color-border-default);
+  --color-glow: var(--color-bg-glow);
+  --color-primary: var(--color-text-primary);
+  --color-secondary: var(--color-text-secondary);
 }
 
 html,
