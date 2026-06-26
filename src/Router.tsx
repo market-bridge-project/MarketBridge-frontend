@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
-import { LandingPage } from './pages/Landing/LandingPage'
+import { LandingPage } from './pages/LandingPage'
 import { SearchPage, RecommendResult, StoreDetail } from './pages'
 
 
