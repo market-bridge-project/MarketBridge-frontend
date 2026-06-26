@@ -35,7 +35,7 @@ const StoreDetail = () => {
           {DUMMY_TAGS.map((tag, i) => (
             <span
               key={i}
-              className="rounded-full border border-gray-300 bg-badge px-4 py-2 text-sm font-medium"
+              className="rounded-full border border-border-default bg-badge px-4 py-2 font-pretendard text-[13px] font-medium leading-[16px] text-brand"
             >
               {tag}
             </span>
@@ -46,7 +46,7 @@ const StoreDetail = () => {
         <p className="mt-2 text-sm text-gray-600">dfsdf</p>
 
         <h3 className="mt-6 text-base font-bold">메뉴판</h3>
-        <div className="mt-3 rounded-2xl border border-border-default bg-white p-5">
+        <div className="mt-3 rounded-2xl border border-border-default bg-white p-5 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]">
           <ul className="flex flex-col gap-4">
             {DUMMY_MENUS.map((menu, i) => (
               <li key={i} className="flex items-center justify-between">
@@ -59,7 +59,7 @@ const StoreDetail = () => {
         </div>
 
         <h3 className="mt-6 text-base font-bold">운영 정보</h3>
-        <div className="mt-3 rounded-2xl border border-border-default bg-white p-5">
+        <div className="mt-3 rounded-2xl border border-border-default bg-white p-5 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]">
           <p className="text-sm leading-relaxed text-gray-600">
             중앙 통로 3번 입구 · 10:00 ~ 22:00
             <br />
@@ -71,7 +71,7 @@ const StoreDetail = () => {
       <div className="px-5 pt-4 pb-8">
         <button
           type="button"
-          className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white"
+          className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
         >
           지도에서 위치 보기
         </button>
