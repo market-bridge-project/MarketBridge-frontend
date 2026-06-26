@@ -20,6 +20,8 @@
   --color-accent-coral: #ef6848;
   --color-bg-device: #111111;
   --color-text-gray: #6f6a62;
+  --color-border-default: #E5E2DC;
+  --color-bg-glow: #ECF6E7;
 
   --font-pretendard-jp: PretendardJPVariable, system-ui, sans-serif;
 }
@@ -72,6 +74,8 @@
   --color-brand-coral: var(--color-accent-coral);
   --color-device: var(--color-bg-device);
   --color-subtext: var(--color-text-gray);
+  --color-border-default: var(--color-border-default);
+  --color-glow: var(--color-bg-glow);
 }
 
 html,

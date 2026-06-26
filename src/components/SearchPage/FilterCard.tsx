@@ -22,7 +22,7 @@ export const FilterCard = ({
   onToggleDuration,
 }: FilterCardProps) => {
   return (
-    <div className="flex flex-col gap-6 rounded-2xl bg-green p-6">
+    <div className="flex flex-col gap-6 rounded-2xl bg-[#FFFFFFB2] p-6">
       <FilterSection
         title="누구와"
         options={COMPANION_OPTIONS}
