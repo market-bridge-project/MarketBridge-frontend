@@ -40,7 +40,7 @@ const StoreListPage = () => {
     }
 
     debounceTimer.current = setTimeout(() => {
-      setDebouncedQuery(searchQuery)
+      setDebouncedQuery(searchQuery.trim())
     }, DEBOUNCE_DELAY)
 
     return () => {
