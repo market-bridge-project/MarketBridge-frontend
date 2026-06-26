@@ -22,6 +22,8 @@
   --color-text-gray: #6f6a62;
   --color-border-default: #E5E2DC;
   --color-bg-glow: #ECF6E7;
+  --color-text-primary: #22211F;
+  --color-text-secondary: #6F6A62;
 
   --font-pretendard-jp: PretendardJPVariable, system-ui, sans-serif;
 }
@@ -76,6 +78,8 @@
   --color-subtext: var(--color-text-gray);
   --color-border-default: var(--color-border-default);
   --color-glow: var(--color-bg-glow);
+  --color-primary: var(--color-text-primary);
+  --color-secondary: var(--color-text-secondary);
 }
 
 html,

@@ -36,8 +36,10 @@ const SearchPage = () => {
         <button
           type="button"
           onClick={() => navigate(-1)}
+          className="flex items-center gap-1"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
+          <span className="text-[16px] font-semibold leading-[20px] text-brand">지도</span>
         </button>
         <h1 className="flex-1 text-center text-sm font-semibold">
           AI 코스 추천
@@ -74,7 +76,7 @@ const SearchPage = () => {
           type="button"
           disabled={!hasSelection}
           onClick={handleSubmit}
-          className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white disabled:opacity-40"
+          className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)] disabled:opacity-40"
         >
           AI 추천 받기
         </button>
