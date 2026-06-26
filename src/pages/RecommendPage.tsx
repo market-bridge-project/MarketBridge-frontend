@@ -33,7 +33,7 @@ const SearchPage = () => {
       <header className="flex items-center px-5 py-3">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
           className="flex items-center gap-1"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
