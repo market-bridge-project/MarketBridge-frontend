@@ -3,7 +3,6 @@ import { LandingHeader } from './components/LandingHeader'
 import { LandingContent } from './components/LandingContent'
 import { LandingFooter } from './components/LandingFooter'
 
-// 랜딩 페이지
 export const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-app flex flex-col items-center justify-center py-8 px-4 font-pretendard">

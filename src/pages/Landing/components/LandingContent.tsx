@@ -1,7 +1,6 @@
 import React from 'react'
 import { MapCard } from './MapCard'
 
-// 랜딩 본문
 export const LandingContent: React.FC = () => {
   return (
     <section className="animate-fade-in-up delay-100 w-full flex flex-col gap-5">

@@ -4,7 +4,6 @@ interface MarketBadgeProps {
   text: string
 }
 
-// 시장 뱃지
 export const MarketBadge: React.FC<MarketBadgeProps> = ({ text }) => {
   return (
     <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-badge text-brand rounded-full text-xs font-semibold">

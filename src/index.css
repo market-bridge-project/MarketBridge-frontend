@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @font-face {
-  font-family: 'PretendardJPVariable';
+  font-family: PretendardJPVariable;
   src: url('./assets/fonts/PretendardJPVariable.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
@@ -20,7 +20,7 @@
   --color-bg-device: #111111;
   --color-text-gray: #6f6a62;
 
-  --font-pretendard-jp: 'PretendardJPVariable', system-ui, sans-serif;
+  --font-pretendard-jp: PretendardJPVariable, system-ui, sans-serif;
 }
 
 @media (max-width: 362px) {
