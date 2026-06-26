@@ -17,7 +17,11 @@ const DUMMY_COURSES = [
   { name: '광장 호떡집', tags: '간식 · 호떡' },
 ]
 
-export const RecommendModal = ({ open, onClose, filters }: RecommendModalProps) => {
+export const RecommendModal = ({
+  open,
+  onClose,
+  filters,
+}: RecommendModalProps) => {
   const navigate = useNavigate()
 
   if (!open) return null
@@ -52,7 +56,9 @@ export const RecommendModal = ({ open, onClose, filters }: RecommendModalProps) 
 
         <div className="px-6 pt-3 pb-4">
           <div className="rounded-2xl border border-[#155F3A3D] bg-elevated p-4">
-            <p className="mb-3 text-sm font-semibold text-brand">추천 코스 미리보기</p>
+            <p className="mb-3 text-sm font-semibold text-brand">
+              추천 코스 미리보기
+            </p>
             <ul className="flex flex-col gap-2">
               {DUMMY_COURSES.map((course, i) => (
                 <li

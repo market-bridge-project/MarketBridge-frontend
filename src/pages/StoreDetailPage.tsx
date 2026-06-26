@@ -1,30 +1,23 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { DUMMY_STORES } from '@/api/stores'
 import backIcon from '../assets/icons/weui_back-filled.svg'
-
-const DUMMY_STORE = {
-  name: '광장 호떡집',
-  category: '음식 · 호떡, 어묵, 핫도그',
-  description: 'dfsdf',
-  isFood: true,
-  tags: ['혼자', '혼자', '혼자'],
-  menus: [
-    { name: '핫도그', price: '2,500원' },
-    { name: '핫도그', price: '2,500원' },
-    { name: '핫도그', price: '2,500원' },
-    { name: '핫도그', price: '2,500원' },
-    { name: '핫도그', price: '2,500원' },
-  ],
-  info: '중앙 통로 3번 입구 · 10:00 ~ 22:00\n월요일 휴무 · 02-XXX-XXXX',
-}
 
 const StoreDetail = () => {
   const navigate = useNavigate()
-  const store = DUMMY_STORE
+  const location = useLocation()
+  const { storeId } = (location.state as { storeId?: string }) ?? {}
+
+  // 데이터베이스에서 선택된 상점을 찾거나, 없을 경우 첫 번째 상점을 기본값으로 지정
+  const store = DUMMY_STORES.find((s) => s.id === storeId) ?? DUMMY_STORES[0]
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
       <header className="flex items-center gap-2 border-b border-gray-200 px-5 py-3">
-        <button type="button" onClick={() => navigate(-1)} className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="flex items-center gap-1"
+        >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
           <span className="text-sm font-medium text-brand">지도</span>
         </button>
@@ -52,7 +45,7 @@ const StoreDetail = () => {
         <h3 className="mt-6 text-base font-bold">한 줄 소개</h3>
         <p className="mt-2 text-sm text-gray-600">{store.description}</p>
 
-        {store.isFood && (
+        {store.isFood && store.menus && (
           <>
             <h3 className="mt-6 text-base font-bold">메뉴판</h3>
             <div className="mt-3 rounded-2xl border border-border-default bg-white p-5 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]">

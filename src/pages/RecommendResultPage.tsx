@@ -22,7 +22,7 @@ const RecommendResult = () => {
       <header className="flex items-center px-5 py-3">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
           className="flex items-center gap-1"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
@@ -60,10 +60,18 @@ const RecommendResult = () => {
                 </span>
                 <div className="h-[78px] w-[73px] shrink-0 rounded-xl border border-border-default bg-glow" />
                 <div className="flex-1 text-left">
-                  <p className="text-[17px] font-bold leading-[22px] text-primary">{course.name}</p>
-                  <p className="mt-1 text-[13px] font-medium leading-[18px] text-secondary">{course.tags}</p>
+                  <p className="text-[17px] font-bold leading-[22px] text-primary">
+                    {course.name}
+                  </p>
+                  <p className="mt-1 text-[13px] font-medium leading-[18px] text-secondary">
+                    {course.tags}
+                  </p>
                 </div>
-                <img src={vectorIcon} alt="상세보기" className="h-[16.97px] w-[9.49px]" />
+                <img
+                  src={vectorIcon}
+                  alt="상세보기"
+                  className="h-[16.97px] w-[9.49px]"
+                />
               </button>
             ))}
           </div>
