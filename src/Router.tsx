@@ -1,11 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
+import MapPage from './pages/MapPage'
 import SearchPage from './pages/RecommendPage'
 import RecommendResult from './pages/RecommendResultPage'
 import StoreDetail from './pages/StoreDetailPage'
 import { LandingPage } from './pages/LandingPage'
-
-
 
 const router = createBrowserRouter([
   {
@@ -14,10 +13,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <SearchPage />,
+        element: <MapPage />,
       },
       {
-        path: 'ai-course-recommend',
+        path: 'recommended',
         element: <SearchPage />,
       },
       {
