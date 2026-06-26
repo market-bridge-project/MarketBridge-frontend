@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FilterCard, RecommendModal } from '../components/SearchPage'
+import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const toggleItem = (list: string[], item: string): string[] => {
   return list.includes(item)
@@ -35,9 +36,8 @@ const SearchPage = () => {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="text-sm font-medium text-brand"
         >
-          &lt; 지도
+          <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
         </button>
         <h1 className="flex-1 text-center text-sm font-semibold">
           AI 코스 추천
@@ -52,7 +52,7 @@ const SearchPage = () => {
             <br />
             찾고 계신가요?
           </h2>
-          <p className="mt-3 text-body-secondary text-subtext">
+          <p className="mt-4 text-body-secondary text-subtext">
             여러 개 선택할 수 있어요. 선택값으로 시장 안 코스를 추천합니다.
           </p>
         </div>

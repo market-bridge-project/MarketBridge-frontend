@@ -9,8 +9,8 @@ export const FilterChip = ({ label, isSelected, onClick }: FilterChipProps) => {
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-        isSelected ? 'bg-brand text-white' : 'bg-elevated text-black'
+      className={`rounded-full border border-gray-300 px-4 py-2 font-pretendard text-[13px] font-black leading-[16px] text-subtext transition-colors ${
+        isSelected ? 'bg-badge' : 'bg-elevated'
       }`}
     >
       {label}
