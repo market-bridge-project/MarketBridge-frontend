@@ -24,7 +24,11 @@ const StoreDetail = () => {
   return (
     <div className="flex min-h-dvh flex-col bg-app">
       <header className="flex items-center gap-2 border-b border-gray-200 px-5 py-3">
-        <button type="button" onClick={() => navigate(-1)} className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1"
+        >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
           <span className="text-sm font-medium text-brand">지도</span>
         </button>

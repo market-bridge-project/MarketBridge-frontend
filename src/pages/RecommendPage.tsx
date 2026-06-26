@@ -4,9 +4,7 @@ import { FilterCard, RecommendModal } from '../components/SearchPage'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const toggleItem = (list: string[], item: string): string[] => {
-  return list.includes(item)
-    ? list.filter((v) => v !== item)
-    : [...list, item]
+  return list.includes(item) ? list.filter((v) => v !== item) : [...list, item]
 }
 
 const SearchPage = () => {
@@ -15,7 +13,7 @@ const SearchPage = () => {
   const [purpose, setPurpose] = useState<string[]>([])
   const [duration, setDuration] = useState<string[]>([])
   const [isRecommendModalOpen, setIsRecommendModalOpen] = useState(false)
-  
+
   const hasSelection =
     companion.length > 0 || purpose.length > 0 || duration.length > 0
 
@@ -39,7 +37,9 @@ const SearchPage = () => {
           className="flex items-center gap-1"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
-          <span className="text-[16px] font-semibold leading-[20px] text-brand">지도</span>
+          <span className="text-[16px] font-semibold leading-[20px] text-brand">
+            지도
+          </span>
         </button>
         <h1 className="flex-1 text-center text-sm font-semibold">
           AI 코스 추천
