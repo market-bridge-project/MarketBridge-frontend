@@ -14,13 +14,23 @@
   --color-bg-elevated: #FFFFFF;
   --color-bg-surface-green: #DFF1DE;
   --color-bg-brand: #155F3A;
-  --color-bg-badge: #DFF2DF;
+  --color-bg-badge: #C8E5C6;
   --color-accent-yellow: #F6D35B;
   --color-accent-coral: #EF6848;
   --color-bg-device: #111111;
   --color-text-gray: #6F6A62;
 
   --font-pretendard-jp: "PretendardJPVariable", system-ui, sans-serif;
+}
+
+@media (max-width: 362px) {
+  :root,
+  html,
+  body {
+    --text-hero: 26px;
+    --text-hero--line-height: 30px;
+    --text-screen-title: 19px;
+  }
 }
 
 @theme {
@@ -56,6 +66,8 @@
 
 html,
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   height: 100dvh;
   margin: 0;
   padding: 0;
@@ -107,3 +119,42 @@ button:disabled {
   display: none;
   /* Chrome, Safari, Opera 대응 */
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 300ms;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+
