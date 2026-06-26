@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @font-face {
-  font-family: "PretendardJPVariable";
-  src: url("./assets/fonts/PretendardJPVariable.woff2") format("woff2");
+  font-family: 'PretendardJPVariable';
+  src: url('./assets/fonts/PretendardJPVariable.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -10,17 +10,17 @@
 
 :root {
   /* 디자인 시스템 컬러 토큰 */
-  --color-bg-app: #FBF8F2;
-  --color-bg-elevated: #FFFFFF;
-  --color-bg-surface-green: #DFF1DE;
-  --color-bg-brand: #155F3A;
-  --color-bg-badge: #C8E5C6;
-  --color-accent-yellow: #F6D35B;
-  --color-accent-coral: #EF6848;
+  --color-bg-app: #fbf8f2;
+  --color-bg-elevated: #ffffff;
+  --color-bg-surface-green: #dff1de;
+  --color-bg-brand: #155f3a;
+  --color-bg-badge: #c8e5c6;
+  --color-accent-yellow: #f6d35b;
+  --color-accent-coral: #ef6848;
   --color-bg-device: #111111;
-  --color-text-gray: #6F6A62;
+  --color-text-gray: #6f6a62;
 
-  --font-pretendard-jp: "PretendardJPVariable", system-ui, sans-serif;
+  --font-pretendard-jp: 'PretendardJPVariable', system-ui, sans-serif;
 }
 
 @media (max-width: 362px) {
@@ -120,7 +120,7 @@ button:disabled {
   /* Chrome, Safari, Opera 대응 */
 }
 
-@keyframes fadeInUp {
+@keyframes fade-in-up {
   from {
     opacity: 0;
     transform: translateY(24px);
@@ -133,7 +133,7 @@ button:disabled {
 
 .animate-fade-in-up {
   opacity: 0;
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .delay-100 {
@@ -145,7 +145,8 @@ button:disabled {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -156,5 +157,3 @@ button:disabled {
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
-
-
