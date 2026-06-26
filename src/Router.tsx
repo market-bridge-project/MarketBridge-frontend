@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
+import SearchPage from './pages/RecommendPage'
+import RecommendResult from './pages/RecommendResultPage'
+import StoreDetail from './pages/StoreDetailPage'
 import { LandingPage } from './pages/LandingPage'
-import { SearchPage, RecommendResult, StoreDetail } from './pages'
 
 
 

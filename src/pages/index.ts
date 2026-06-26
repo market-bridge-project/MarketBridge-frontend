@@ -1,3 +1,3 @@
-export { default as SearchPage } from './SearchPage'
+export { default as SearchPage } from './RecommendPage'
 export { default as RecommendResult } from './RecommendResult'
-export { default as StoreDetail } from './StoreDetail'
+export { default as StoreDetail } from './StoreDetailPage'

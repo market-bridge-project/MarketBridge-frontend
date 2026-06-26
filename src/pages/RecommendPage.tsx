@@ -14,8 +14,8 @@ const SearchPage = () => {
   const [companion, setCompanion] = useState<string[]>([])
   const [purpose, setPurpose] = useState<string[]>([])
   const [duration, setDuration] = useState<string[]>([])
-  const [showResult, setShowResult] = useState(false)
-
+  const [isRecommendModalOpen, setIsRecommendModalOpen] = useState(false)
+  
   const hasSelection =
     companion.length > 0 || purpose.length > 0 || duration.length > 0
 
@@ -27,7 +27,7 @@ const SearchPage = () => {
   )
 
   const handleSubmit = () => {
-    setShowResult(true)
+    setIsRecommendModalOpen(true)
   }
 
   return (
@@ -82,8 +82,8 @@ const SearchPage = () => {
         </button>
       </div>
       <RecommendModal
-        open={showResult}
-        onClose={() => setShowResult(false)}
+        open={isRecommendModalOpen}
+        onClose={() => setIsRecommendModalOpen(false)}
         filters={{ companion, purpose, duration }}
       />
     </div>
