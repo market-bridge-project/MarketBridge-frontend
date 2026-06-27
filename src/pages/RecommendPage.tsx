@@ -76,7 +76,9 @@ const SearchPage = () => {
           type="button"
           disabled={!hasSelection}
           onClick={handleSubmit}
-          className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)] disabled:opacity-40"
+          className={`w-full rounded-2xl py-4 text-[18px] font-bold leading-[22px] shadow-[0_10px_22px_0_rgba(21,95,58,0.24)] ${
+            hasSelection ? 'bg-brand text-on-brand' : 'bg-[#A0BCA8] text-[#FDFBF8]'
+          }`}
         >
           AI 추천 받기
         </button>

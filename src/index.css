@@ -24,6 +24,7 @@
   --color-bg-glow: #ECF6E7;
   --color-text-primary: #22211F;
   --color-text-secondary: #6F6A62;
+  --color-text-on-brand: #FFFFFF;
 
   --font-pretendard-jp: PretendardJPVariable, system-ui, sans-serif;
 }
@@ -80,6 +81,7 @@
   --color-glow: var(--color-bg-glow);
   --color-primary: var(--color-text-primary);
   --color-secondary: var(--color-text-secondary);
+  --color-on-brand: var(--color-text-on-brand);
 }
 
 html,
