@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from 'react'
 import type { Store } from '@/types/store'
 import goToDetailIcon from '@/assets/icons/go_to_detail.svg'
 
@@ -12,11 +13,27 @@ export const StorePreviewSheet = ({
   onClose,
   onDetail,
 }: StorePreviewSheetProps) => {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    },
+    [onClose],
+  )
+
+  useEffect(() => {
+    if (!store) return
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [store, handleKeyDown])
+
   if (!store) return null
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-end" onClick={onClose}>
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${store.name} 미리보기`}
         className="relative mx-auto flex w-full max-w-[430px] max-h-[85vh] overflow-y-auto flex-col gap-[18px] rounded-[28px] bg-app px-6 pt-7 pb-[11px] shadow-[0_14px_30px_0_rgba(43,27,14,0.08)]"
         onClick={(e) => e.stopPropagation()}
       >
