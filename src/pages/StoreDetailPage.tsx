@@ -11,7 +11,7 @@ const StoreDetail = () => {
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
-      <header className="flex items-center gap-2 px-5 py-3">
+      <header className="flex items-center gap-2 bg-app px-5 py-3">
         <button
           type="button"
           onClick={() => navigate('/')}
