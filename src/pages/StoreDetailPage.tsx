@@ -7,12 +7,11 @@ const StoreDetail = () => {
   const location = useLocation()
   const { storeId } = (location.state as { storeId?: string }) ?? {}
 
-  // 데이터베이스에서 선택된 상점을 찾거나, 없을 경우 첫 번째 상점을 기본값으로 지정
   const store = DUMMY_STORES.find((s) => s.id === storeId) ?? DUMMY_STORES[0]
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
-      <header className="flex items-center gap-2 border-b border-gray-200 px-5 py-3">
+      <header className="flex items-center gap-2 bg-app px-5 py-3">
         <button
           type="button"
           onClick={() => navigate('/')}
@@ -23,25 +22,16 @@ const StoreDetail = () => {
         </button>
       </header>
 
-      <div className="flex-1 overflow-y-auto px-5 pb-8">
+      <div className="bg-glow px-5 pb-6">
         <div className="mt-4 overflow-hidden rounded-2xl">
           <div className="aspect-[16/10] w-full bg-gray-200" />
         </div>
 
         <h2 className="mt-5 text-2xl font-bold">{store.name}</h2>
         <p className="mt-1 text-sm text-gray-500">{store.category}</p>
+      </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {store.tags.map((tag, i) => (
-            <span
-              key={i}
-              className="rounded-full border border-border-default bg-badge px-4 py-2 font-pretendard text-[13px] font-medium leading-[16px] text-brand"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
+      <div className="flex-1 overflow-y-auto px-5 pb-8">
         <h3 className="mt-6 text-base font-bold">한 줄 소개</h3>
         <p className="mt-2 text-sm text-gray-600">{store.description}</p>
 
