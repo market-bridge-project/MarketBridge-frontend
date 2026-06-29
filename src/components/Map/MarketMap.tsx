@@ -1,8 +1,10 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { DUMMY_STORES } from '@/api/stores'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
 import MapFloatingMenu from './MapFloatingMenu'
+import { StorePreviewSheet } from '@/components/common/StorePreviewBottomSheet'
 import marketLayoutData from '@/api/market-layout.json'
 import {
   computeLayout,
@@ -15,6 +17,7 @@ import {
 } from './mapLayoutHelper'
 
 const MarketMap = () => {
+  const navigate = useNavigate()
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [winSize, setWinSize] = useState({ w: 450, h: 800 })
   const [zoom, setZoom] = useState(0.65)
@@ -224,6 +227,13 @@ const MarketMap = () => {
     () => computeLayout(marketLayoutData as LayoutItem[], DUMMY_STORES),
     [],
   )
+
+  const selectedStore = useMemo(() => {
+    if (!selectedId) return null
+    const s = positions.find((pos) => pos.store.id === selectedId)?.store
+    if (!s || s.isDummy || s.isVacant) return null
+    return s
+  }, [selectedId, positions])
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow
@@ -498,6 +508,15 @@ const MarketMap = () => {
         onZoomIn={() => handleButtonZoom(0.15)}
         onZoomOut={() => handleButtonZoom(-0.15)}
         isMenuOpen={isMenuOpen}
+      />
+
+      {/* 가게 상세정보 모달 */}
+      <StorePreviewSheet
+        store={selectedStore}
+        onClose={() => setSelectedId(null)}
+        onDetail={(storeId) =>
+          navigate('/store-detail', { state: { storeId } })
+        }
       />
     </div>
   )
