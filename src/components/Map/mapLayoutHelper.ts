@@ -22,14 +22,15 @@ export const Y_SHIFT = 130
 export const TOTAL_MAP_HEIGHT = 3090
 
 export const SECTIONS = [
-  { id: 1, name: '1구역', top: 200 - Y_SHIFT, bottom: 795 - Y_SHIFT },
-  { id: 2, name: '2구역', top: 401 - Y_SHIFT, bottom: 795 - Y_SHIFT },
+  { id: 1, name: '◂ 1구역', top: 200 - Y_SHIFT, bottom: 795 - Y_SHIFT },
+  { id: 2, name: '2구역 ▸', top: 401 - Y_SHIFT, bottom: 795 - Y_SHIFT },
   { id: 3, name: '3구역', top: 832 - Y_SHIFT, bottom: 1126 - Y_SHIFT },
   { id: 4, name: '4구역', top: 1164 - Y_SHIFT, bottom: 1508 - Y_SHIFT },
   { id: 5, name: '5구역', top: 1546 - Y_SHIFT, bottom: 1790 - Y_SHIFT },
   { id: 6, name: '6구역', top: 1828 - Y_SHIFT, bottom: 2122 - Y_SHIFT },
-  { id: 7, name: '7구역', top: 2160 - Y_SHIFT, bottom: 2736 - Y_SHIFT },
-  { id: 8, name: '8구역', top: 2774 - Y_SHIFT, bottom: 3109 - Y_SHIFT },
+  { id: 7, name: '7구역', top: 2160 - Y_SHIFT, bottom: 2470 - Y_SHIFT },
+  { id: 8, name: '8구역', top: 2480 - Y_SHIFT, bottom: 2740 - Y_SHIFT },
+  { id: 9, name: '9구역', top: 2760 - Y_SHIFT, bottom: 3109 - Y_SHIFT },
 ]
 
 export const CROSSWALKS = [

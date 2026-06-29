@@ -425,7 +425,7 @@ const MarketMap = () => {
           />
         ))}
 
-        {/* ══ 구역 라벨 (중앙 통로 정중앙) ══ */}
+        {/* 구역 라벨 (중앙 통로 정중앙) */}
         {SECTIONS.map((section) => (
           <div
             key={section.id}
