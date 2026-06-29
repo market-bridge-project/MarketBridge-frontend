@@ -1,192 +1,25 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { DUMMY_STORES } from '@/api/stores'
-import { Store } from '@/types/store'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
+import MapFloatingMenu from './MapFloatingMenu'
 import marketLayoutData from '@/api/market-layout.json'
-
-interface LayoutItem {
-  id: number | string
-  name: string
-  type: string
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-interface ComputedPosition {
-  store: Store
-  left: number
-  top: number
-  width: number
-  height: number
-}
-
-// ── Y축 상단 휑한 공백 130px을 단정하게 압축하기 위한 시프트 보정치 ──
-const Y_SHIFT = 130
-const TOTAL_MAP_HEIGHT = 3090 // (기존 3220px - 130px) 최상단 여백 최적화 크기
-
-// ── 8개 구역(섹션)의 피그마 실측 경계선 정의 (Y_SHIFT 반영 완료) ──
-const SECTIONS = [
-  { id: 1, name: '1구역', top: 200 - Y_SHIFT, bottom: 795 - Y_SHIFT },
-  { id: 2, name: '2구역', top: 401 - Y_SHIFT, bottom: 795 - Y_SHIFT },
-  { id: 3, name: '3구역', top: 832 - Y_SHIFT, bottom: 1126 - Y_SHIFT },
-  { id: 4, name: '4구역', top: 1164 - Y_SHIFT, bottom: 1508 - Y_SHIFT },
-  { id: 5, name: '5구역', top: 1546 - Y_SHIFT, bottom: 1790 - Y_SHIFT },
-  { id: 6, name: '6구역', top: 1828 - Y_SHIFT, bottom: 2122 - Y_SHIFT },
-  { id: 7, name: '7구역', top: 2160 - Y_SHIFT, bottom: 2736 - Y_SHIFT },
-  { id: 8, name: '8구역', top: 2774 - Y_SHIFT, bottom: 3109 - Y_SHIFT },
-]
-
-// 구역 간 횡단 도로 목록 (상하 카드들과 8px 미세 간격 보장 및 Y_SHIFT 반영 완료)
-const CROSSWALKS = [
-  { id: 'road-1', top: 801 - Y_SHIFT, height: 19 },
-  { id: 'road-2', top: 1134 - Y_SHIFT, height: 22 },
-  { id: 'road-3', top: 1516 - Y_SHIFT, height: 22 },
-  { id: 'road-4', top: 1798 - Y_SHIFT, height: 22 },
-  { id: 'road-5', top: 2130 - Y_SHIFT, height: 22 },
-  { id: 'road-6', top: 2744 - Y_SHIFT, height: 22 },
-]
-
-const CORRIDOR = { left: 645, width: 88 }
-
-// ── market-layout.json 데이터를 우리 Store 스키마와 결합 (사이드 및 Y축 시프트 클리핑 가미) ──
-function computeLayout(
-  layoutItems: LayoutItem[],
-  stores: Store[],
-): { positions: ComputedPosition[]; bigBlocks: LayoutItem[] } {
-  const positions: ComputedPosition[] = []
-  const bigBlocks: LayoutItem[] = []
-
-  layoutItems.forEach((item) => {
-    // 실시간 Y축 시프트 연산 적용
-    let clipY = item.y - Y_SHIFT
-    let clipH = item.height
-
-    if (item.type === 'block') {
-      const MASK_LEFT = 70
-      const MASK_RIGHT = 1368
-
-      let clipX = item.x
-      let clipW = item.width
-
-      // 좌측 마스크 클리핑
-      if (clipX < MASK_LEFT) {
-        const overlap = MASK_LEFT - clipX
-        clipX = MASK_LEFT
-        clipW = Math.max(0, clipW - overlap)
-      }
-
-      // 우측 마스크 클리핑
-      if (clipX + clipW > MASK_RIGHT) {
-        clipW = Math.max(0, MASK_RIGHT - clipX)
-      }
-
-      // 2. 횡단 도로 위아래 8px 안전 마진 클리핑 (시프트된 Y 기준 연산)
-      CROSSWALKS.forEach((road) => {
-        const roadTopLimit = road.top - 8
-        const roadBottomLimit = road.top + road.height + 8
-        const blockBottom = clipY + clipH
-
-        // 블록 하단이 도로 위쪽 제한선을 침범한 경우
-        if (
-          clipY < roadTopLimit &&
-          blockBottom > roadTopLimit &&
-          blockBottom < roadBottomLimit
-        ) {
-          clipH = roadTopLimit - clipY
-        }
-        // 블록 상단이 도로 아래쪽 제한선을 침범한 경우
-        else if (
-          clipY > roadTopLimit &&
-          clipY < roadBottomLimit &&
-          blockBottom > roadBottomLimit
-        ) {
-          const overlap = roadBottomLimit - clipY
-          clipY = roadBottomLimit
-          clipH = Math.max(0, clipH - overlap)
-        }
-        // 블록이 도로 전체를 관통하는 경우
-        else if (clipY < roadTopLimit && blockBottom > roadBottomLimit) {
-          clipH = roadTopLimit - clipY
-        }
-      })
-
-      if (clipW > 0 && clipH > 0) {
-        bigBlocks.push({
-          ...item,
-          x: clipX,
-          y: clipY,
-          width: clipW,
-          height: clipH,
-        })
-      }
-    } else if (item.type === 'empty_cell') {
-      // 소형 공실 셀
-      positions.push({
-        store: {
-          id: String(item.id),
-          name: '',
-          category: '',
-          subCategory: '',
-          hours: '',
-          description: '',
-          isFood: false,
-          tags: [],
-          info: '',
-          rating: 0,
-          badgeText: '',
-          isDummy: true,
-          span: 1,
-        },
-        left: item.x,
-        top: clipY,
-        width: item.width,
-        height: clipH,
-      })
-    } else if (item.type === 'store') {
-      // 영업 점포 또는 빈 점포
-      let storeInfo = stores.find((s) => s.name === item.name)
-
-      if (!storeInfo) {
-        const isVacantStore = item.name === '빈 점포'
-        storeInfo = {
-          id: String(item.id),
-          name: item.name,
-          category: isVacantStore ? '생활·서비스' : '음식',
-          subCategory: isVacantStore ? '공실' : '시장점포',
-          hours: '09:00~21:00',
-          description: isVacantStore
-            ? '공실 상태의 빈 점포 구역입니다.'
-            : '시장의 신선한 점포입니다.',
-          isFood: !isVacantStore && Number(item.id) % 2 === 0,
-          tags: [],
-          info: '',
-          rating: 4.5,
-          badgeText: '',
-          isVacant: isVacantStore,
-        }
-      }
-
-      positions.push({
-        store: storeInfo as Store,
-        left: item.x,
-        top: clipY,
-        width: item.width,
-        height: clipH,
-      })
-    }
-  })
-
-  return { positions, bigBlocks }
-}
+import {
+  computeLayout,
+  TOTAL_MAP_HEIGHT,
+  CORRIDOR,
+  SECTIONS,
+  CROSSWALKS,
+  LayoutItem,
+  Y_SHIFT,
+} from './mapLayoutHelper'
 
 const MarketMap = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [winSize, setWinSize] = useState({ w: 450, h: 800 })
   const [zoom, setZoom] = useState(0.65)
   const [offset, setOffset] = useState({ x: 0, y: 20 })
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
@@ -538,11 +371,11 @@ const MarketMap = () => {
           transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
         }}
       >
-        {/* ══ 시장 바닥 배경 (크림색 벌판 단일화) ══ */}
+        {/* 시장 바닥 배경 */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[#f5f3ef]" />
 
-          {/* ══ 대형 외부 건물·공터 3D 렌더링 (경계 밀착 클리핑 렌더) ══ */}
+          {/* 대형 외부 건물·공터 3D 렌더링 */}
           {bigBlocks.map((block) => (
             <div
               key={block.id}
@@ -635,7 +468,7 @@ const MarketMap = () => {
           <span>시장 입구</span>
         </div>
 
-        {/* ══ 103개 점포 및 회색 빈 블록 3D 카드 렌더링 ══ */}
+        {/* 상점 카드 렌더링 */}
         {positions.map((pos) => (
           <ShopCard
             key={pos.store.id}
@@ -652,12 +485,19 @@ const MarketMap = () => {
         ))}
       </div>
 
-      {/* 줌 컨트롤 */}
+      {/* 메뉴 버튼 */}
+      <MapFloatingMenu
+        isOpen={isMenuOpen}
+        onToggle={() => setIsMenuOpen((prev) => !prev)}
+      />
+
+      {/* 줌 버튼 */}
       <ZoomControls
         zoom={zoom}
         minZoom={minZoom}
         onZoomIn={() => handleButtonZoom(0.15)}
         onZoomOut={() => handleButtonZoom(-0.15)}
+        isMenuOpen={isMenuOpen}
       />
     </div>
   )
