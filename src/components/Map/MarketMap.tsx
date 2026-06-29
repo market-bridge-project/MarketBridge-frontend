@@ -24,6 +24,7 @@ const MarketMap = () => {
   const [offset, setOffset] = useState({ x: 0, y: 20 })
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
   const zoomRef = useRef(zoom)
@@ -261,6 +262,7 @@ const MarketMap = () => {
 
   const onDown = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
+      setIsTransitioning(false)
       ptrs.current.set(e.pointerId, {
         clientX: e.clientX,
         clientY: e.clientY,
@@ -349,12 +351,52 @@ const MarketMap = () => {
     }
   }, [])
 
-  const handleShopClick = useCallback((e: React.MouseEvent, id: string) => {
-    e.stopPropagation()
-    if (moved.current <= 6) {
-      setSelectedId((prev) => (prev === id ? null : id))
-    }
-  }, [])
+  const handleShopClick = useCallback(
+    (e: React.MouseEvent, id: string) => {
+      e.stopPropagation()
+      if (moved.current <= 6) {
+        setSelectedId((prev) => (prev === id ? null : id))
+
+        const pos = positions.find((p) => p.store.id === id)
+        if (pos) {
+          const targetX = pos.left + pos.width / 2
+          const targetY = pos.top + pos.height / 2
+
+          const viewX = winSize.w / 2
+          const viewY = winSize.h / 2 - 100
+
+          let nextX = viewX - targetX * zoom
+          let nextY = viewY - targetY * zoom
+
+          const mapW = 1438 * zoom
+          const mapH = TOTAL_MAP_HEIGHT * zoom
+
+          let minX = winSize.w - mapW
+          let maxX = 0
+          if (mapW < winSize.w) {
+            minX = (winSize.w - mapW) / 2
+            maxX = (winSize.w - mapW) / 2
+          }
+          nextX = Math.max(minX, Math.min(maxX, nextX))
+
+          let minY = winSize.h - mapH
+          let maxY = 0
+          if (mapH < winSize.h) {
+            minY = (winSize.h - mapH) / 2
+            maxY = (winSize.h - mapH) / 2
+          } else {
+            minY -= 180 * zoom
+            maxY += 35 * zoom
+          }
+          nextY = Math.max(minY, Math.min(maxY, nextY))
+
+          setIsTransitioning(true)
+          setOffset({ x: nextX, y: nextY })
+        }
+      }
+    },
+    [positions, zoom, winSize],
+  )
 
   const handleContainerClick = useCallback(() => {
     if (moved.current <= 6) {
@@ -379,6 +421,9 @@ const MarketMap = () => {
           width: 1438,
           height: TOTAL_MAP_HEIGHT,
           transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
+          transition: isTransitioning
+            ? 'transform 500ms cubic-bezier(0.25, 1, 0.5, 1)'
+            : 'none',
         }}
       >
         {/* 시장 바닥 배경 */}
