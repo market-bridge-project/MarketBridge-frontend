@@ -1,0 +1,1676 @@
+[
+  {
+    "id": 1,
+    "name": "BGT소금빵",
+    "type": "store",
+    "x": 383,
+    "y": 200,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 2,
+    "name": "모두뼈다귀",
+    "type": "store",
+    "x": 383,
+    "y": 250,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 3,
+    "name": "좋은축산마을",
+    "type": "store",
+    "x": 383,
+    "y": 300,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 4,
+    "name": "해피브레드",
+    "type": "store",
+    "x": 383,
+    "y": 350,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 5,
+    "name": "잠실김밥",
+    "type": "store",
+    "x": 383,
+    "y": 400,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 6,
+    "name": "알파디씨마트",
+    "type": "store",
+    "x": 383,
+    "y": 450,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 7,
+    "name": "새마을천막사(서울텐트)",
+    "type": "store",
+    "x": 383,
+    "y": 550,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 8,
+    "name": "코끼리약국",
+    "type": "store",
+    "x": 501,
+    "y": 200,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": 9,
+    "name": "남서울반찬",
+    "type": "store",
+    "x": 501,
+    "y": 300,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 10,
+    "name": "명성왕족발",
+    "type": "store",
+    "x": 501,
+    "y": 350,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 11,
+    "name": "민영활어공장",
+    "type": "store",
+    "x": 501,
+    "y": 400,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 12,
+    "name": "바다한스푼-어사또",
+    "type": "store",
+    "x": 501,
+    "y": 450,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 13,
+    "name": "새마을순대국",
+    "type": "store",
+    "x": 501,
+    "y": 500,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 14,
+    "name": "남서울건어물",
+    "type": "store",
+    "x": 501,
+    "y": 550,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 15,
+    "name": "우연 정육식당",
+    "type": "store",
+    "x": 501,
+    "y": 600,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 16,
+    "name": "남서울축산전문점",
+    "type": "store",
+    "x": 501,
+    "y": 650,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 17,
+    "name": "생선파는 청년들",
+    "type": "store",
+    "x": 501,
+    "y": 700,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 18,
+    "name": "미남생선",
+    "type": "store",
+    "x": 501,
+    "y": 750,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 19,
+    "name": "땅스부대찌개",
+    "type": "store",
+    "x": 745,
+    "y": 201,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 20,
+    "name": "과일나라 과일천국",
+    "type": "store",
+    "x": 907,
+    "y": 201,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 21,
+    "name": "대영신천지 꽃집",
+    "type": "store",
+    "x": 1069,
+    "y": 201,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 22,
+    "name": "오렌지분식",
+    "type": "store",
+    "x": 745,
+    "y": 401,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 23,
+    "name": "두란노커피",
+    "type": "store",
+    "x": 745,
+    "y": 451,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 24,
+    "name": "고향전집",
+    "type": "store",
+    "x": 745,
+    "y": 501,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 25,
+    "name": "생선파는 청년들",
+    "type": "store",
+    "x": 745,
+    "y": 551,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 26,
+    "name": "강남지물",
+    "type": "store",
+    "x": 745,
+    "y": 651,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 27,
+    "name": "칼라분식",
+    "type": "store",
+    "x": 745,
+    "y": 701,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 28,
+    "name": "자연애곳간",
+    "type": "store",
+    "x": 907,
+    "y": 401,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 29,
+    "name": "명동이발",
+    "type": "store",
+    "x": 907,
+    "y": 751,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 30,
+    "name": "대성정육점",
+    "type": "store",
+    "x": 1025,
+    "y": 401,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 31,
+    "name": "상인회사무실",
+    "type": "store",
+    "x": 1025,
+    "y": 601,
+    "width": 112,
+    "height": 194
+  },
+  {
+    "id": 32,
+    "name": "신천포차",
+    "type": "store",
+    "x": 263,
+    "y": 1083,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 33,
+    "name": "나눔상회",
+    "type": "store",
+    "x": 381,
+    "y": 1083,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 34,
+    "name": "생선구이·잠실새마을생선",
+    "type": "store",
+    "x": 499,
+    "y": 832,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 35,
+    "name": "강경상회",
+    "type": "store",
+    "x": 499,
+    "y": 882,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 36,
+    "name": "늘푸른야채가게",
+    "type": "store",
+    "x": 499,
+    "y": 932,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 37,
+    "name": "마을축산",
+    "type": "store",
+    "x": 499,
+    "y": 982,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": 38,
+    "name": "싱싱한과일(풍선생선)",
+    "type": "store",
+    "x": 499,
+    "y": 1082,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 39,
+    "name": "새내방앗간",
+    "type": "store",
+    "x": 745,
+    "y": 832,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 40,
+    "name": "새마을지물포",
+    "type": "store",
+    "x": 745,
+    "y": 882,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 41,
+    "name": "행복전집",
+    "type": "store",
+    "x": 745,
+    "y": 932,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 42,
+    "name": "명가떡집",
+    "type": "store",
+    "x": 745,
+    "y": 982,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 43,
+    "name": "박가네두부",
+    "type": "store",
+    "x": 745,
+    "y": 1032,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 44,
+    "name": "강동참기름",
+    "type": "store",
+    "x": 745,
+    "y": 1082,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 45,
+    "name": "천수횟집",
+    "type": "store",
+    "x": 263,
+    "y": 1164,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 46,
+    "name": "포도마당",
+    "type": "store",
+    "x": 263,
+    "y": 1364,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 47,
+    "name": "팥단지",
+    "type": "store",
+    "x": 263,
+    "y": 1464,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 48,
+    "name": "잠실생삼겹살",
+    "type": "store",
+    "x": 381,
+    "y": 1164,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 49,
+    "name": "서울축산",
+    "type": "store",
+    "x": 499,
+    "y": 1164,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 50,
+    "name": "서울떡집",
+    "type": "store",
+    "x": 499,
+    "y": 1214,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 51,
+    "name": "미소담찬",
+    "type": "store",
+    "x": 499,
+    "y": 1264,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": 52,
+    "name": "매일야채",
+    "type": "store",
+    "x": 499,
+    "y": 1364,
+    "width": 136,
+    "height": 144
+  },
+  {
+    "id": 53,
+    "name": "중앙청과",
+    "type": "store",
+    "x": 745,
+    "y": 1164,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 54,
+    "name": "와구이닭",
+    "type": "store",
+    "x": 745,
+    "y": 1214,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 55,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 745,
+    "y": 1264,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 56,
+    "name": "맛사랑전집",
+    "type": "store",
+    "x": 745,
+    "y": 1314,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 57,
+    "name": "쌍둥이네 수제한과",
+    "type": "store",
+    "x": 745,
+    "y": 1364,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 58,
+    "name": "명가왕만두",
+    "type": "store",
+    "x": 745,
+    "y": 1414,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 59,
+    "name": "새마을농산",
+    "type": "store",
+    "x": 501,
+    "y": 1546,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 60,
+    "name": "보금당",
+    "type": "store",
+    "x": 501,
+    "y": 1596,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 61,
+    "name": "박가네 두부",
+    "type": "store",
+    "x": 501,
+    "y": 1646,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 62,
+    "name": "다모아패션",
+    "type": "store",
+    "x": 501,
+    "y": 1696,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 63,
+    "name": "우리청과",
+    "type": "store",
+    "x": 501,
+    "y": 1746,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 64,
+    "name": "우리한우 곰탕",
+    "type": "store",
+    "x": 745,
+    "y": 1546,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 65,
+    "name": "대보선식",
+    "type": "store",
+    "x": 745,
+    "y": 1596,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 66,
+    "name": "기섭이네생선가게",
+    "type": "store",
+    "x": 745,
+    "y": 1646,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 67,
+    "name": "별콩 다방",
+    "type": "store",
+    "x": 745,
+    "y": 1696,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 68,
+    "name": "깻잎닭강정",
+    "type": "store",
+    "x": 745,
+    "y": 1746,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 69,
+    "name": "정민식품",
+    "type": "store",
+    "x": 383,
+    "y": 1828,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 70,
+    "name": "곱창과 순댓국",
+    "type": "store",
+    "x": 501,
+    "y": 1828,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 71,
+    "name": "장충동족발",
+    "type": "store",
+    "x": 501,
+    "y": 1878,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 72,
+    "name": "맥반석 김",
+    "type": "store",
+    "x": 501,
+    "y": 1928,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 73,
+    "name": "오복떡방앗간",
+    "type": "store",
+    "x": 501,
+    "y": 1978,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 74,
+    "name": "김자순 수제돈까스",
+    "type": "store",
+    "x": 501,
+    "y": 2028,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": 75,
+    "name": "명품치킨",
+    "type": "store",
+    "x": 745,
+    "y": 1828,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 76,
+    "name": "트라이쌍방울",
+    "type": "store",
+    "x": 745,
+    "y": 1878,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 77,
+    "name": "공씨네 족발",
+    "type": "store",
+    "x": 745,
+    "y": 1928,
+    "width": 156,
+    "height": 144
+  },
+  {
+    "id": 78,
+    "name": "반찬나라",
+    "type": "store",
+    "x": 745,
+    "y": 2078,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 79,
+    "name": "민속보리밥",
+    "type": "store",
+    "x": 907,
+    "y": 1828,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 80,
+    "name": "호주뉴질랜드건강면세점",
+    "type": "store",
+    "x": 501,
+    "y": 2160,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 81,
+    "name": "도그버디애완용품",
+    "type": "store",
+    "x": 501,
+    "y": 2210,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 82,
+    "name": "치킨박사",
+    "type": "store",
+    "x": 501,
+    "y": 2260,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 83,
+    "name": "동양식품",
+    "type": "store",
+    "x": 501,
+    "y": 2310,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 84,
+    "name": "옛날산골바베큐",
+    "type": "store",
+    "x": 501,
+    "y": 2360,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 85,
+    "name": "속옷할인매장",
+    "type": "store",
+    "x": 501,
+    "y": 2410,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 86,
+    "name": "주연식자재(농산물직판장)",
+    "type": "store",
+    "x": 745,
+    "y": 2160,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 87,
+    "name": "김반장 꼬마 김밥",
+    "type": "store",
+    "x": 745,
+    "y": 2260,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 88,
+    "name": "서울찹쌀꽈배기",
+    "type": "store",
+    "x": 745,
+    "y": 2310,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 89,
+    "name": "족발미녀",
+    "type": "store",
+    "x": 745,
+    "y": 2360,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 90,
+    "name": "다미청과",
+    "type": "store",
+    "x": 745,
+    "y": 2410,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 91,
+    "name": "파오파오",
+    "type": "store",
+    "x": 501,
+    "y": 2492,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 92,
+    "name": "동천곱창",
+    "type": "store",
+    "x": 501,
+    "y": 2542,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 93,
+    "name": "잠실수구레닭발",
+    "type": "store",
+    "x": 501,
+    "y": 2592,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 94,
+    "name": "한모네순대",
+    "type": "store",
+    "x": 501,
+    "y": 2642,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 95,
+    "name": "나주왕대포",
+    "type": "store",
+    "x": 501,
+    "y": 2692,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 96,
+    "name": "청춘청과",
+    "type": "store",
+    "x": 745,
+    "y": 2492,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 97,
+    "name": "조선육회",
+    "type": "store",
+    "x": 745,
+    "y": 2592,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 98,
+    "name": "정성가득 국수",
+    "type": "store",
+    "x": 745,
+    "y": 2642,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 99,
+    "name": "홍코너 수제튀김",
+    "type": "store",
+    "x": 745,
+    "y": 2692,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 100,
+    "name": "미처버린파닭",
+    "type": "store",
+    "x": 745,
+    "y": 2774,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 101,
+    "name": "이모네곱창",
+    "type": "store",
+    "x": 745,
+    "y": 2824,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 102,
+    "name": "새마을빨래방",
+    "type": "store",
+    "x": 745,
+    "y": 2874,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 103,
+    "name": "빈 점포",
+    "type": "store",
+    "x": 503,
+    "y": 2980,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 104,
+    "name": "큰나무 유통",
+    "type": "store",
+    "x": 503,
+    "y": 3030,
+    "width": 136,
+    "height": 79
+  },
+  {
+    "id": "Cell110",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 501,
+    "width": 112,
+    "height": 143
+  },
+  {
+    "id": "Cell111",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 650,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": "Cell112",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 1025,
+    "y": 501,
+    "width": 112,
+    "height": 93
+  },
+  {
+    "id": "Cell113",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 265,
+    "y": 932,
+    "width": 228,
+    "height": 144
+  },
+  {
+    "id": "Cell114",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1264,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": "Cell115",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1365,
+    "width": 112,
+    "height": 143
+  },
+  {
+    "id": "Cell116",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2772,
+    "width": 116,
+    "height": 94
+  },
+  {
+    "id": "Cell117",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2872,
+    "width": 116,
+    "height": 44
+  },
+  {
+    "id": "Cell118",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2922,
+    "width": 116,
+    "height": 94
+  },
+  {
+    "id": "Cell119",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 3022,
+    "width": 116,
+    "height": 87
+  },
+  {
+    "id": "Cell120",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 1069,
+    "y": 255,
+    "width": 156,
+    "height": 40
+  },
+  {
+    "id": "Cell121",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 451,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Cell122",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 383,
+    "y": 650,
+    "width": 112,
+    "height": 144
+  },
+  {
+    "id": "Cell123",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 265,
+    "y": 832,
+    "width": 228,
+    "height": 94
+  },
+  {
+    "id": "Cell124",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1214,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell125",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 263,
+    "y": 1214,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Cell126",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 263,
+    "y": 1264,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Cell127",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 263,
+    "y": 1314,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Cell128",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1546,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell129",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1546,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell130",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1546,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell131",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1596,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell132",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1646,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell133",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1696,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell134",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1746,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell135",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2774,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "Cell136",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2824,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "Cell137",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2874,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "Cell138",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2924,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "Cell139",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2974,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "Cell140",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 3024,
+    "width": 110,
+    "height": 86
+  },
+  {
+    "id": "Cell141",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2492,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": "Cell142",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2542,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": "Cell143",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2592,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": "Cell144",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2642,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": "Cell145",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2692,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": "Cell146",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2492,
+    "width": 108,
+    "height": 44
+  },
+  {
+    "id": "Cell147",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2542,
+    "width": 108,
+    "height": 94
+  },
+  {
+    "id": "Cell148",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2642,
+    "width": 108,
+    "height": 44
+  },
+  {
+    "id": "Cell149",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2692,
+    "width": 108,
+    "height": 44
+  },
+  {
+    "id": "Cell150",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 503,
+    "y": 2773,
+    "width": 136,
+    "height": 149
+  },
+  {
+    "id": "Cell151",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 503,
+    "y": 2928,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "Cell152",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 745,
+    "y": 2974,
+    "width": 156,
+    "height": 136
+  },
+  {
+    "id": "Cell153",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2160,
+    "width": 119,
+    "height": 44
+  },
+  {
+    "id": "Cell154",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2210,
+    "width": 119,
+    "height": 94
+  },
+  {
+    "id": "Cell155",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2310,
+    "width": 119,
+    "height": 92
+  },
+  {
+    "id": "Cell156",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2408,
+    "width": 119,
+    "height": 44
+  },
+  {
+    "id": "Cell157",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2160,
+    "width": 110,
+    "height": 94
+  },
+  {
+    "id": "Cell158",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2260,
+    "width": 110,
+    "height": 94
+  },
+  {
+    "id": "Cell159",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2360,
+    "width": 110,
+    "height": 94
+  },
+  {
+    "id": "Cell160",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1878,
+    "width": 114,
+    "height": 94
+  },
+  {
+    "id": "Cell161",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1978,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell162",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2028,
+    "width": 114,
+    "height": 94
+  },
+  {
+    "id": "Cell163",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 1928,
+    "width": 114,
+    "height": 94
+  },
+  {
+    "id": "Cell164",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2028,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Cell165",
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2078,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Block16",
+    "name": "외부건물_우측1구역하단",
+    "type": "block",
+    "x": 927,
+    "y": 820,
+    "width": 222,
+    "height": 318
+  },
+  {
+    "id": "Block17",
+    "name": "외부건물_우측2구역",
+    "type": "block",
+    "x": 927,
+    "y": 1152,
+    "width": 531,
+    "height": 368
+  },
+  {
+    "id": "Block18",
+    "name": "외부건물_우측3구역",
+    "type": "block",
+    "x": 927,
+    "y": 1534,
+    "width": 339,
+    "height": 268
+  },
+  {
+    "id": "Block19",
+    "name": "외부건물_우측4구역",
+    "type": "block",
+    "x": 1041,
+    "y": 1816,
+    "width": 417,
+    "height": 318
+  },
+  {
+    "id": "Block20",
+    "name": "외부건물_우측5구역좁음",
+    "type": "block",
+    "x": 1041,
+    "y": 2148,
+    "width": 185,
+    "height": 318
+  },
+  {
+    "id": "Block21",
+    "name": "외부건물_우측6구역",
+    "type": "block",
+    "x": 1041,
+    "y": 2480,
+    "width": 340,
+    "height": 268
+  },
+  {
+    "id": "Block22",
+    "name": "외부건물_우측7-8구역",
+    "type": "block",
+    "x": 1041,
+    "y": 2762,
+    "width": 417,
+    "height": 357
+  },
+  {
+    "id": "Block23",
+    "name": "외부건물_우측6구역옆",
+    "type": "block",
+    "x": 1395,
+    "y": 2480,
+    "width": 112,
+    "height": 268
+  },
+  {
+    "id": "Block24",
+    "name": "외부건물_우측5구역옆",
+    "type": "block",
+    "x": 1240,
+    "y": 2148,
+    "width": 239,
+    "height": 318
+  },
+  {
+    "id": "Block25",
+    "name": "외부건물_우측3구역옆",
+    "type": "block",
+    "x": 1280,
+    "y": 1534,
+    "width": 339,
+    "height": 268
+  },
+  {
+    "id": "Block26",
+    "name": "외부건물_우측1구역중",
+    "type": "block",
+    "x": 1163,
+    "y": 820,
+    "width": 296,
+    "height": 318
+  },
+  {
+    "id": "Block27",
+    "name": "외부건물_우측1구역상단",
+    "type": "block",
+    "x": 1163,
+    "y": 388,
+    "width": 296,
+    "height": 417
+  },
+  {
+    "id": "Block28",
+    "name": "외부건물_입구우측",
+    "type": "block",
+    "x": 1251,
+    "y": 188,
+    "width": 219,
+    "height": 186
+  },
+  {
+    "id": "Block29",
+    "name": "외부건물_입구상단가로",
+    "type": "block",
+    "x": 733,
+    "y": 321,
+    "width": 430,
+    "height": 53
+  },
+  {
+    "id": "Block30",
+    "name": "외부건물_30",
+    "type": "block",
+    "x": -20,
+    "y": 188,
+    "width": 377,
+    "height": 618
+  },
+  {
+    "id": "Block31",
+    "name": "외부건물_좌측1구역",
+    "type": "block",
+    "x": -138,
+    "y": 820,
+    "width": 377,
+    "height": 318
+  },
+  {
+    "id": "Block32",
+    "name": "외부건물_좌측2구역",
+    "type": "block",
+    "x": 70,
+    "y": 1152,
+    "width": 169,
+    "height": 368
+  },
+  {
+    "id": "Block33",
+    "name": "외부건물_좌측3구역우",
+    "type": "block",
+    "x": -28,
+    "y": 1534,
+    "width": 385,
+    "height": 268
+  },
+  {
+    "id": "Block34",
+    "name": "외부건물_좌측4구역",
+    "type": "block",
+    "x": -28,
+    "y": 2148,
+    "width": 385,
+    "height": 318
+  },
+  {
+    "id": "Block35",
+    "name": "외부건물_좌측5구역",
+    "type": "block",
+    "x": -57,
+    "y": 1816,
+    "width": 200,
+    "height": 318
+  },
+  {
+    "id": "Block36",
+    "name": "외부건물_좌측4구역하단좌",
+    "type": "block",
+    "x": 157,
+    "y": 1816,
+    "width": 200,
+    "height": 318
+  },
+  {
+    "id": "Block37",
+    "name": "외부건물_37",
+    "type": "block",
+    "x": 50,
+    "y": 2480,
+    "width": 307,
+    "height": 268
+  },
+  {
+    "id": "Block38",
+    "name": "외부건물_좌측4구역하단우",
+    "type": "block",
+    "x": -28,
+    "y": 2762,
+    "width": 385,
+    "height": 168
+  },
+  {
+    "id": "Block39",
+    "name": "외부건물_좌측6구역",
+    "type": "block",
+    "x": -28,
+    "y": 2944,
+    "width": 385,
+    "height": 176
+  },
+  {
+    "id": "Block40",
+    "name": "외부건물_좌측7구역",
+    "type": "block",
+    "x": -14,
+    "y": 2480,
+    "width": 50,
+    "height": 268
+  },
+  {
+    "id": "Block41",
+    "name": "외부건물_좌측8구역",
+    "type": "block",
+    "x": -113,
+    "y": 1152,
+    "width": 169,
+    "height": 368
+  }
+]
