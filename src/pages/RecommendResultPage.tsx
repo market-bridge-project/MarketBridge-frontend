@@ -17,6 +17,9 @@ const RecommendResult = () => {
 
   const title = `${companion[0] ?? ''} ${purpose[0] ?? ''}를\n${duration[0] ?? ''} 가지는 코스`
 
+  const isShort = duration.includes('짧게') || duration.includes('중간')
+  const courses = isShort ? DUMMY_COURSES.slice(0, 3) : DUMMY_COURSES
+
   return (
     <div className="flex min-h-dvh flex-col bg-app">
       <header className="flex items-center px-5 py-3">
@@ -34,7 +37,7 @@ const RecommendResult = () => {
         <div className="w-10" />
       </header>
 
-      <section className="relative h-[170px] overflow-hidden bg-surface-green px-5 pt-4">
+      <section className="relative flex h-[170px] items-center overflow-hidden bg-surface-green px-5">
         <h2 className="text-top leading-[38px] font-bold whitespace-pre-line">
           {title}
         </h2>
@@ -48,7 +51,7 @@ const RecommendResult = () => {
       <div className="flex-1 px-5 pt-8">
         <div className="rounded-3xl bg-white p-[18px] shadow-[0_14px_30px_0_rgba(43,27,14,0.08)]">
           <div className="flex flex-col gap-4">
-            {DUMMY_COURSES.map((course, i) => (
+            {courses.map((course, i) => (
               <button
                 key={i}
                 type="button"
@@ -78,13 +81,20 @@ const RecommendResult = () => {
         </div>
       </div>
 
-      <div className="px-5 pt-6 pb-8">
+      <div className="flex gap-3 px-5 pt-6 pb-8">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="w-full rounded-2xl border border-border-default bg-elevated py-4 text-base font-semibold text-brand shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
+          className="flex-1 rounded-2xl border border-border-default bg-elevated py-4 text-[18px] font-bold leading-[22px] text-brand shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
         >
           다시 추천받기
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate('/store-detail')}
+          className="flex-1 rounded-2xl bg-brand py-4 text-[18px] font-bold leading-[22px] text-white shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
+        >
+          코스 확인하기
         </button>
       </div>
     </div>
