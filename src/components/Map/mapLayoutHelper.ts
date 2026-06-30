@@ -128,7 +128,7 @@ export function computeLayout(
         height: clipH,
       })
     } else if (item.type === 'store') {
-      let storeInfo = stores.find((s) => s.name === item.name)
+      let storeInfo = stores.find((s) => s.id === String(item.id))
 
       if (!storeInfo) {
         const isVacantStore = item.name === '빈 점포'
