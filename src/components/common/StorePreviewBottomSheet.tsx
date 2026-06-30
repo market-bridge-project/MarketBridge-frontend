@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import type { Store } from '@/types/store'
-import goToDetailIcon from '@/assets/icons/go_to_detail.svg'
 
 interface StorePreviewSheetProps {
   store: Store | null
@@ -28,32 +28,27 @@ export const StorePreviewSheet = ({
 
   if (!store) return null
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex flex-col justify-end"
+      className="fixed inset-0 z-50 flex flex-col justify-end bg-black/[0.28] transition-colors duration-300"
       onClick={onClose}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-label={`${store.name} 미리보기`}
-        className="relative mx-auto flex w-full max-w-[430px] max-h-[85vh] overflow-y-auto flex-col gap-[18px] rounded-[28px] bg-app px-6 pt-7 pb-[11px] shadow-[0_14px_30px_0_rgba(43,27,14,0.08)]"
+        className="relative mx-auto flex w-full max-w-[430px] max-h-[85vh] overflow-y-auto flex-col gap-[18px] rounded-t-[28px] rounded-b-none bg-app px-6 pt-7 pb-0 shadow-[0_14px_30px_0_rgba(43,27,14,0.08)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={goToDetailIcon}
-          alt=""
-          className="absolute top-4 left-1/2 h-[5px] w-[60px] -translate-x-1/2"
-        />
-        <div className="overflow-hidden rounded-2xl">
+        <div className="overflow-hidden rounded-2xl w-full h-[10rem] bg-glow shrink-0">
           {store.imageUrl ? (
             <img
               src={store.imageUrl}
               alt={store.name}
-              className="aspect-[16/10] w-full object-cover"
+              className="w-full h-full object-cover"
             />
           ) : (
-            <div className="aspect-[16/10] w-full bg-gray-200" />
+            <div className="w-full h-full bg-gray-200" />
           )}
         </div>
 
@@ -62,16 +57,17 @@ export const StorePreviewSheet = ({
         </h2>
 
         <div className="flex flex-wrap gap-2">
-          {store.tags.map((tag, i) => (
-            <span
-              key={i}
-              className={`rounded-full border border-border-default px-3 py-1 text-[13px] font-semibold leading-[16px] ${
-                i === 0 ? 'text-brand' : 'text-secondary'
-              }`}
-            >
-              {tag}
+          {/* 메인 8대 대카테고리 칩 */}
+          <span className="shrink-0 rounded-full border px-3 py-1.5 text-[13px] font-semibold bg-brand text-white border-brand shadow-[0_4px_10px_rgba(21,95,58,0.15)]">
+            {store.category}
+          </span>
+
+          {/* 상세 소분류 카테고리 칩 */}
+          {store.subCategory && (
+            <span className="shrink-0 rounded-full border border-border-default bg-white px-3 py-1.5 text-[13px] font-semibold text-primary shadow-[0_2px_6px_rgba(0,0,0,0.015)]">
+              {store.subCategory}
             </span>
-          ))}
+          )}
         </div>
 
         <div>
@@ -83,14 +79,17 @@ export const StorePreviewSheet = ({
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={() => onDetail(store.id)}
-          className="w-full rounded-[16px] bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
-        >
-          상세보기
-        </button>
+        <div className="pt-4 pb-8">
+          <button
+            type="button"
+            onClick={() => onDetail(store.id)}
+            className="w-full rounded-[16px] bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
+          >
+            상세보기
+          </button>
+        </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

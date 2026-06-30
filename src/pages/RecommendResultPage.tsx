@@ -22,19 +22,15 @@ const RecommendResult = () => {
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
-      <header className="flex items-center px-5 py-3">
+      <header className="relative flex items-center justify-center bg-app px-5 py-3 border-b border-border-default">
         <button
           type="button"
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1"
+          onClick={() => navigate(-1)}
+          className="absolute left-5 flex items-center"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
-          <span className="text-[16px] font-semibold leading-[20px] text-brand">
-            지도
-          </span>
         </button>
-        <h1 className="flex-1 text-center text-sm font-semibold">추천 결과</h1>
-        <div className="w-10" />
+        <h1 className="text-[16px] font-bold text-primary">추천 결과</h1>
       </header>
 
       <section className="relative flex h-[170px] items-center overflow-hidden bg-surface-green px-5">
@@ -55,7 +51,9 @@ const RecommendResult = () => {
               <button
                 key={i}
                 type="button"
-                onClick={() => navigate('/store-detail')}
+                onClick={() =>
+                  navigate('/store-detail', { state: { storeId: '22' } })
+                }
                 className="flex items-center gap-4 rounded-2xl border border-border-default bg-white p-4 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">
@@ -91,7 +89,9 @@ const RecommendResult = () => {
         </button>
         <button
           type="button"
-          onClick={() => navigate('/store-detail')}
+          onClick={() =>
+            navigate('/store-detail', { state: { storeId: '22' } })
+          }
           className="flex-1 rounded-2xl bg-brand py-4 text-[18px] font-bold leading-[22px] text-white shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
         >
           코스 확인하기
