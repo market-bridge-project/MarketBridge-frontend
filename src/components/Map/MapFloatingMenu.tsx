@@ -21,7 +21,16 @@ const MapFloatingMenu = ({ isOpen, onToggle }: MapFloatingMenuProps) => {
       {/* 검색 버튼 */}
       <button
         type="button"
-        onClick={() => navigate('/store-list')}
+        onClick={(e) => {
+          e.stopPropagation()
+          navigate('/store-list')
+        }}
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerMove={(e) => e.stopPropagation()}
+        onPointerUp={(e) => e.stopPropagation()}
+        onPointerCancel={(e) => e.stopPropagation()}
+        tabIndex={isOpen ? 0 : -1}
+        aria-hidden={!isOpen}
         className={`absolute right-[25px] bottom-[162px] z-50 w-[125px] h-[48px] rounded-full bg-[rgba(255,255,255,0.90)] border border-[#EDE5DE] flex items-center pl-[12px] pr-[14px] shadow-[0_8px_20px_-6px_rgba(10,54,28,0.12)] active:scale-95 transition-all duration-300 ease-out select-none ${
           isOpen
             ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
@@ -42,7 +51,16 @@ const MapFloatingMenu = ({ isOpen, onToggle }: MapFloatingMenuProps) => {
       {/* AI 추천 버튼 */}
       <button
         type="button"
-        onClick={() => navigate('/recommended')}
+        onClick={(e) => {
+          e.stopPropagation()
+          navigate('/recommended')
+        }}
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerMove={(e) => e.stopPropagation()}
+        onPointerUp={(e) => e.stopPropagation()}
+        onPointerCancel={(e) => e.stopPropagation()}
+        tabIndex={isOpen ? 0 : -1}
+        aria-hidden={!isOpen}
         className={`absolute right-[25px] bottom-[102px] z-50 w-[125px] h-[48px] rounded-full bg-[rgba(255,255,255,0.90)] border border-[#EDE5DE] flex items-center pl-[12px] pr-[14px] shadow-[0_8px_20px_-6px_rgba(10,54,28,0.12)] active:scale-95 transition-all duration-300 ease-out select-none ${
           isOpen
             ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'

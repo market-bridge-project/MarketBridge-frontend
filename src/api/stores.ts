@@ -534,7 +534,23 @@ export const DUMMY_STORES: Store[] = [
     column: 'leftOuter',
     span: 1,
   },
-  // 34번 결번 처리로 인해 목록에 없음
+  {
+    id: '34',
+    name: '생선구이·잠실새마을생선',
+    category: '음식',
+    subCategory: '생선구이 · 생선조림',
+    hours: '09:30~21:00',
+    description:
+      '노릇노릇하고 바삭하게 구워낸 맛있는 생선구이 정식 전문점입니다.',
+    isFood: true,
+    tags: ['생선구이', '고등어구이', '식사'],
+    info: '3블록 좌측외열 34번 · 09:30 ~ 21:00',
+    rating: 4.7,
+    badgeText: '식',
+    block: 3,
+    column: 'leftOuter',
+    span: 1,
+  },
 
   {
     id: '35',
