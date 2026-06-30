@@ -14,6 +14,8 @@ import {
   CROSSWALKS,
   LayoutItem,
   Y_SHIFT,
+  calculateZoomOffset,
+  MAX_ZOOM,
 } from './mapLayoutHelper'
 
 const MarketMap = () => {
@@ -102,49 +104,26 @@ const MarketMap = () => {
       const currentZoom = zoomRef.current
       const currentOffset = offsetRef.current
 
-      const nextZoom = Math.max(minZoom, Math.min(2.5, currentZoom + factor))
+      const nextZoom = Math.max(
+        minZoom,
+        Math.min(MAX_ZOOM, currentZoom + factor),
+      )
       if (nextZoom === currentZoom) return
 
-      // 줌인/줌아웃 직전 마우스 위치의 지도 공간상 물리 좌표
-      const mapX = (mouseX - currentOffset.x) / currentZoom
-      const mapY = (mouseY - currentOffset.y) / currentZoom
+      const nextOffset = calculateZoomOffset(
+        nextZoom,
+        mouseX,
+        mouseY,
+        currentZoom,
+        currentOffset,
+        winSize,
+      )
 
-      // 새로운 줌 배율 하에 마우스가 동일 픽셀 상에 머물도록 오프셋 변위 역유도
-      let nextX = mouseX - mapX * nextZoom
-      let nextY = mouseY - mapY * nextZoom
-
-      // 2D 맵 구속 제한(클램프) 실시간 반영
-      const mapW = 1438 * nextZoom
-      const mapH = TOTAL_MAP_HEIGHT * nextZoom
-
-      let minX = winSize.w - mapW
-      let maxX = 0
-      if (mapW < winSize.w) {
-        minX = (winSize.w - mapW) / 2
-        maxX = (winSize.w - mapW) / 2
-      } else {
-        minX -= 0
-        maxX += 0
-      }
-      nextX = Math.max(minX, Math.min(maxX, nextX))
-
-      let minY = winSize.h - mapH
-      let maxY = 0
-      if (mapH < winSize.h) {
-        minY = (winSize.h - mapH) / 2
-        maxY = (winSize.h - mapH) / 2
-      } else {
-        minY -= 180 * nextZoom
-        maxY += 35 * nextZoom
-      }
-      nextY = Math.max(minY, Math.min(maxY, nextY))
-
-      // 일괄 최신 상태 갱신
       setZoom(nextZoom)
-      setOffset({ x: nextX, y: nextY })
+      setOffset(nextOffset)
     }
 
-    // passive: false 옵션을 반드시 주어야 e.preventDefault()가 브라우저에서 차단 처리됩니다.
+    // passive: false 옵션을 반드시 주어야 e.preventDefault()가 브라우저에서 차단
     container.addEventListener('gesturestart', handleGesture, {
       passive: false,
     })
@@ -172,45 +151,23 @@ const MarketMap = () => {
       const currentZoom = zoomRef.current
       const currentOffset = offsetRef.current
 
-      const nextZoom = Math.max(minZoom, Math.min(2.5, currentZoom + factor))
+      const nextZoom = Math.max(
+        minZoom,
+        Math.min(MAX_ZOOM, currentZoom + factor),
+      )
       if (nextZoom === currentZoom) return
 
-      // 줌인/줌아웃 직전 화면 정중앙의 지도 공간상 물리 좌표
-      const mapX = (centerX - currentOffset.x) / currentZoom
-      const mapY = (centerY - currentOffset.y) / currentZoom
-
-      // 새로운 줌 배율 하에 화면 정중앙이 고정되도록 오프셋 역유도
-      let nextX = centerX - mapX * nextZoom
-      let nextY = centerY - mapY * nextZoom
-
-      // 2D 맵 경계 구속 제한(클램프) 반영
-      const mapW = 1438 * nextZoom
-      const mapH = TOTAL_MAP_HEIGHT * nextZoom
-
-      let minX = winSize.w - mapW
-      let maxX = 0
-      if (mapW < winSize.w) {
-        minX = (winSize.w - mapW) / 2
-        maxX = (winSize.w - mapW) / 2
-      } else {
-        minX -= 0
-        maxX += 0
-      }
-      nextX = Math.max(minX, Math.min(maxX, nextX))
-
-      let minY = winSize.h - mapH
-      let maxY = 0
-      if (mapH < winSize.h) {
-        minY = (winSize.h - mapH) / 2
-        maxY = (winSize.h - mapH) / 2
-      } else {
-        minY -= 180 * nextZoom
-        maxY += 35 * nextZoom
-      }
-      nextY = Math.max(minY, Math.min(maxY, nextY))
+      const nextOffset = calculateZoomOffset(
+        nextZoom,
+        centerX,
+        centerY,
+        currentZoom,
+        currentOffset,
+        winSize,
+      )
 
       setZoom(nextZoom)
-      setOffset({ x: nextX, y: nextY })
+      setOffset(nextOffset)
     },
     [winSize, minZoom],
   )
@@ -260,7 +217,7 @@ const MarketMap = () => {
     b: { clientX: number; clientY: number },
   ) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
 
-  const onDown = useCallback(
+  const handlePointerDown = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
       setIsTransitioning(false)
       ptrs.current.set(e.pointerId, {
@@ -280,7 +237,7 @@ const MarketMap = () => {
     [zoom],
   )
 
-  const onMove = useCallback(
+  const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
       if (!isDown.current) return
       ptrs.current.set(e.pointerId, {
@@ -328,28 +285,47 @@ const MarketMap = () => {
         last.current = { x: e.clientX, y: e.clientY }
       } else if (ptrs.current.size === 2) {
         const [a, b] = Array.from(ptrs.current.values())
-        if (dist0.current > 0) {
-          setZoom(
-            Math.max(
-              minZoom,
-              Math.min(2.5, zoom0.current * (eucl(a, b) / dist0.current)),
-            ),
+        if (dist0.current > 0 && containerRef.current) {
+          const nextZoom = Math.max(
+            minZoom,
+            Math.min(MAX_ZOOM, zoom0.current * (eucl(a, b) / dist0.current)),
           )
+
+          if (nextZoom !== zoomRef.current) {
+            const rect = containerRef.current.getBoundingClientRect()
+            const pivotX = (a.clientX + b.clientX) / 2 - rect.left
+            const pivotY = (a.clientY + b.clientY) / 2 - rect.top
+
+            const nextOffset = calculateZoomOffset(
+              nextZoom,
+              pivotX,
+              pivotY,
+              zoomRef.current,
+              offsetRef.current,
+              winSize,
+            )
+
+            setZoom(nextZoom)
+            setOffset(nextOffset)
+          }
         }
       }
     },
     [zoom, winSize, minZoom],
   )
 
-  const onUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    ptrs.current.delete(e.pointerId)
-    if (ptrs.current.size === 0) {
-      isDown.current = false
-    } else if (ptrs.current.size === 1) {
-      const r = Array.from(ptrs.current.values())[0]
-      last.current = { x: r.clientX, y: r.clientY }
-    }
-  }, [])
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      ptrs.current.delete(e.pointerId)
+      if (ptrs.current.size === 0) {
+        isDown.current = false
+      } else if (ptrs.current.size === 1) {
+        const r = Array.from(ptrs.current.values())[0]
+        last.current = { x: r.clientX, y: r.clientY }
+      }
+    },
+    [],
+  )
 
   const handleShopClick = useCallback(
     (e: React.MouseEvent, id: string) => {
@@ -408,13 +384,13 @@ const MarketMap = () => {
     <div
       ref={containerRef}
       className="w-full h-full relative overflow-hidden cursor-grab active:cursor-grabbing touch-none select-none bg-[#f5f3ef]"
-      onPointerDown={onDown}
-      onPointerMove={onMove}
-      onPointerUp={onUp}
-      onPointerCancel={onUp}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       onClick={handleContainerClick}
     >
-      {/* 2D 캔버스 레이어 — 깔끔한 2D 플랫 뷰 적용 */}
+      {/* 2D 캔버스 레이어 */}
       <div
         className="relative origin-top-left will-change-transform"
         style={{
@@ -446,7 +422,7 @@ const MarketMap = () => {
           ))}
         </div>
 
-        {/* ══ 중앙 통로 (연한 초록색 스트립 - Y_SHIFT 오프셋 매칭) ══ */}
+        {/* 중앙 통로 (연한 초록색 스트립) */}
         <div
           className="absolute z-[5] pointer-events-none"
           style={{
@@ -464,7 +440,7 @@ const MarketMap = () => {
           <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 border-l-[2px] border-dashed border-[#155f3a] opacity-35" />
         </div>
 
-        {/* ══ 블록 횡단 보도 (빈 횡단 간격 - 좌우 경계 밖까지 연장하여 끊김 제거) ══ */}
+        {/* 블록 횡단 보도 */}
         {CROSSWALKS.map((road) => (
           <div
             key={road.id}
@@ -497,7 +473,7 @@ const MarketMap = () => {
           </div>
         ))}
 
-        {/* ══ 시장 입구(북쪽) 라벨 ══ */}
+        {/* 시장 입구(북쪽) 라벨 */}
         <div
           className="absolute z-20 flex flex-col items-center text-[#6F6A62] text-[13px] font-extrabold pointer-events-none"
           style={{
@@ -510,7 +486,7 @@ const MarketMap = () => {
           <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[7px] border-t-[#155f3a] mt-1.5" />
         </div>
 
-        {/* ══ 시장 입구(남쪽) 라벨 ══ */}
+        {/* 시장 입구(남쪽) 라벨 */}
         <div
           className="absolute z-20 flex flex-col items-center text-[#6F6A62] text-[13px] font-extrabold pointer-events-none"
           style={{
