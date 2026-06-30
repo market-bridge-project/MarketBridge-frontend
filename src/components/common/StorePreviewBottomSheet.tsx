@@ -29,7 +29,10 @@ export const StorePreviewSheet = ({
   if (!store) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex flex-col justify-end"
+      onClick={onClose}
+    >
       <div
         role="dialog"
         aria-modal="true"
@@ -54,7 +57,9 @@ export const StorePreviewSheet = ({
           )}
         </div>
 
-        <h2 className="text-[28px] font-bold leading-[34px] text-primary">{store.name}</h2>
+        <h2 className="text-[28px] font-bold leading-[34px] text-primary">
+          {store.name}
+        </h2>
 
         <div className="flex flex-wrap gap-2">
           {store.tags.map((tag, i) => (
@@ -70,8 +75,12 @@ export const StorePreviewSheet = ({
         </div>
 
         <div>
-          <h3 className="font-pretendard text-[16px] font-black leading-[22px] text-primary">한 줄 소개</h3>
-          <p className="mt-1 font-pretendard text-[14px] font-black leading-[22px] text-secondary">{store.description}</p>
+          <h3 className="font-pretendard text-[16px] font-black leading-[22px] text-primary">
+            한 줄 소개
+          </h3>
+          <p className="mt-1 font-pretendard text-[14px] font-black leading-[22px] text-secondary">
+            {store.description}
+          </p>
         </div>
 
         <button

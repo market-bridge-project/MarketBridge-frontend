@@ -12,4 +12,9 @@ export interface Store {
   rating: number
   badgeText: string
   imageUrl?: string
+  block?: number
+  column?: 'leftOuter' | 'leftInner' | 'rightInner' | 'rightOuter'
+  span?: number
+  isDummy?: boolean
+  isVacant?: boolean
 }
