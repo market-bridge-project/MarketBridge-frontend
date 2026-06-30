@@ -11,14 +11,13 @@ const StoreDetail = () => {
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
-      <header className="flex items-center gap-2 bg-app px-5 py-3">
+      <header className="relative flex items-center justify-center bg-app px-5 py-3 h-12 shrink-0 border-b border-border-default">
         <button
           type="button"
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1"
+          onClick={() => navigate(-1)}
+          className="absolute left-5 flex items-center"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
-          <span className="text-sm font-medium text-brand">지도</span>
         </button>
       </header>
 
@@ -63,6 +62,7 @@ const StoreDetail = () => {
       <div className="px-5 pt-4 pb-8">
         <button
           type="button"
+          onClick={() => navigate('/', { state: { focusStoreId: store.id } })}
           className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
         >
           지도에서 위치 보기
