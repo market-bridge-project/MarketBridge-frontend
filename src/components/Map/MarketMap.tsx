@@ -16,6 +16,7 @@ import {
   Y_SHIFT,
   calculateZoomOffset,
   MAX_ZOOM,
+  MAP_WIDTH,
 } from './mapLayoutHelper'
 
 const MarketMap = () => {
@@ -36,7 +37,7 @@ const MarketMap = () => {
 
   // 최소 줌은 winSize.w에 연동
   const minZoom = useMemo(() => {
-    return Math.max(0.65, (winSize.w * 0.95) / 1438)
+    return Math.max(0.65, (winSize.w * 0.95) / MAP_WIDTH)
   }, [winSize.w])
 
   // 실제 컨테이너 clientWidth 실측 및 초기 줌/정중앙 오프셋 수립
@@ -48,13 +49,13 @@ const MarketMap = () => {
       const w = containerRef.current.clientWidth || 450
       const h = containerRef.current.clientHeight || 800
       setWinSize({ w, h })
-      setZoom((z) => Math.max(z, Math.max(0.65, (w * 0.95) / 1438)))
+      setZoom((z) => Math.max(z, Math.max(0.65, (w * 0.95) / MAP_WIDTH)))
     }
 
     const initW = containerRef.current.clientWidth || 450
     const initH = containerRef.current.clientHeight || 800
-    const initMinZoom = Math.max(0.65, (initW * 0.95) / 1438)
-    const initX = (initW - 1438 * initMinZoom) / 2
+    const initMinZoom = Math.max(0.65, (initW * 0.95) / MAP_WIDTH)
+    const initX = (initW - MAP_WIDTH * initMinZoom) / 2
 
     setWinSize({ w: initW, h: initH })
     setZoom(initMinZoom)
@@ -249,7 +250,7 @@ const MarketMap = () => {
         const dy = e.clientY - last.current.y
         moved.current += Math.hypot(dx, dy)
 
-        const mapW = 1438 * zoom
+        const mapW = MAP_WIDTH * zoom
         const mapH = TOTAL_MAP_HEIGHT * zoom
 
         let minX = winSize.w - mapW
@@ -344,7 +345,7 @@ const MarketMap = () => {
           let nextX = viewX - targetX * zoom
           let nextY = viewY - targetY * zoom
 
-          const mapW = 1438 * zoom
+          const mapW = MAP_WIDTH * zoom
           const mapH = TOTAL_MAP_HEIGHT * zoom
 
           let minX = winSize.w - mapW
@@ -394,7 +395,7 @@ const MarketMap = () => {
       <div
         className="relative origin-top-left will-change-transform"
         style={{
-          width: 1438,
+          width: MAP_WIDTH,
           height: TOTAL_MAP_HEIGHT,
           transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
           transition: isTransitioning
