@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import type { Store } from '@/types/store'
 
@@ -13,17 +13,62 @@ export const StorePreviewSheet = ({
   onClose,
   onDetail,
 }: StorePreviewSheetProps) => {
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const previousActiveElement = useRef<HTMLElement | null>(null)
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusableElements =
+          dialogRef.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+          )
+        if (focusableElements.length === 0) return
+
+        const firstElement = focusableElements[0]
+        const lastElement = focusableElements[focusableElements.length - 1]
+
+        if (e.shiftKey) {
+          if (
+            document.activeElement === firstElement ||
+            document.activeElement === dialogRef.current
+          ) {
+            e.preventDefault()
+            lastElement.focus()
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault()
+            firstElement.focus()
+          }
+        }
+      }
     },
     [onClose],
   )
 
   useEffect(() => {
     if (!store) return
+
+    previousActiveElement.current = document.activeElement as HTMLElement
+
+    // 모달이 열리면 포커스를 다이얼로그 컨테이너로 이동
+    if (dialogRef.current) {
+      dialogRef.current.focus()
+    }
+
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      if (previousActiveElement.current) {
+        previousActiveElement.current.focus()
+      }
+    }
   }, [store, handleKeyDown])
 
   if (!store) return null
@@ -34,10 +79,12 @@ export const StorePreviewSheet = ({
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={`${store.name} 미리보기`}
-        className="relative mx-auto flex w-full max-w-[430px] max-h-[85vh] overflow-y-auto flex-col gap-[18px] rounded-t-[28px] rounded-b-none bg-app px-6 pt-7 pb-0 shadow-[0_14px_30px_0_rgba(43,27,14,0.08)]"
+        tabIndex={-1}
+        className="relative mx-auto flex w-full max-w-[430px] max-h-[85vh] overflow-y-auto flex-col gap-[18px] rounded-t-[28px] rounded-b-none bg-app px-6 pt-7 pb-0 shadow-[0_14px_30px_0_rgba(43,27,14,0.08)] outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="overflow-hidden rounded-2xl w-full h-[10rem] bg-glow shrink-0">
