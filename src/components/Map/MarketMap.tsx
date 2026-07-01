@@ -30,6 +30,7 @@ const MarketMap = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isMeasured, setIsMeasured] = useState(false)
 
   // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
   const zoomRef = useRef(zoom)
@@ -51,6 +52,7 @@ const MarketMap = () => {
       const w = containerRef.current.clientWidth || 450
       const h = containerRef.current.clientHeight || 800
       setWinSize({ w, h })
+      setIsMeasured(true)
       setZoom((z) => Math.max(z, Math.max(0.65, (w * 0.95) / MAP_WIDTH)))
     }
 
@@ -60,6 +62,7 @@ const MarketMap = () => {
     const initX = (initW - MAP_WIDTH * initMinZoom) / 2
 
     setWinSize({ w: initW, h: initH })
+    setIsMeasured(true)
     setZoom(initMinZoom)
     setOffset({ x: initX, y: 20 })
 
@@ -196,37 +199,37 @@ const MarketMap = () => {
     return s
   }, [selectedId, positions])
 
-  // 상세보기 페이지에서 '지도에서 위치 보기' 클릭해 진입 시 해당 매장을 정중앙에 정밀 포커싱하고 모달을 띄우는 반응형 로직
+  // 상세보기 페이지에서 넘어온 포커스 요청(focusStoreId)을 지도 화면 정중앙에 정렬하고 강조
   useEffect(() => {
     const focusStoreId = (location.state as { focusStoreId?: string })
       ?.focusStoreId
-    if (!focusStoreId || positions.length === 0 || winSize.w === 450) return
+    if (!focusStoreId || positions.length === 0 || !isMeasured) return
 
-    // 1. 해당 상점의 2D 기하 레이아웃 정보 매핑
     const pos = positions.find((p) => p.store.id === focusStoreId)
     if (!pos) return
 
-    // 2. 적당하고 눈에 띄는 기본 초점 줌 적용 (최소 줌보다 넓은 1.5배율 권장)
     const targetZoom = Math.max(1.5, minZoom)
     setZoom(targetZoom)
 
-    // 3. 상점 중심 좌표 연산 (ComputedPosition은 left/top 사용)
     const shopCenterX = pos.left + pos.width / 2
     const shopCenterY = pos.top + pos.height / 2
 
-    // 4. 상점이 뷰포트 영역의 정중앙에 맺히도록 줌 배율을 감안해 타겟 오프셋 연산
     const targetX = winSize.w / 2 - shopCenterX * targetZoom
     const targetY = winSize.h / 2 - shopCenterY * targetZoom
 
     setOffset({ x: targetX, y: targetY })
-
-    // 5. selectedId(모달)는 건드리지 않고, 하이라이팅 전용 상태만 세팅
-    //    → 딤 백드롭 없이 점포 셀만 강조되며 지도가 정상 조작 가능
     setHighlightedId(focusStoreId)
 
-    // 6. 히스토리 상태를 소거하여 페이지 새로고침/재진입 시 포커싱 현상 중복 유발 방지
     navigate(location.pathname, { replace: true, state: {} })
-  }, [location.state, positions, winSize, minZoom, navigate, location.pathname])
+  }, [
+    location.state,
+    positions,
+    winSize,
+    minZoom,
+    navigate,
+    location.pathname,
+    isMeasured,
+  ])
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow

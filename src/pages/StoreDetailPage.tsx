@@ -9,12 +9,20 @@ const StoreDetail = () => {
 
   const store = DUMMY_STORES.find((s) => s.id === storeId) ?? DUMMY_STORES[0]
 
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1)
+    } else {
+      navigate('/')
+    }
+  }
+
   return (
     <div className="flex min-h-dvh flex-col bg-app">
       <header className="relative flex items-center justify-center bg-app px-5 py-3 h-12 shrink-0 border-b border-border-default">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           className="absolute left-5 flex items-center"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
