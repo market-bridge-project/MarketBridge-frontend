@@ -30,21 +30,15 @@ const SearchPage = () => {
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
-      <header className="flex items-center px-5 py-3">
+      <header className="relative flex items-center justify-center bg-app px-5 py-3 border-b border-border-default">
         <button
           type="button"
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1"
+          onClick={() => navigate(-1)}
+          className="absolute left-5 flex items-center"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
-          <span className="text-[16px] font-semibold leading-[20px] text-brand">
-            지도
-          </span>
         </button>
-        <h1 className="flex-1 text-center text-sm font-semibold">
-          AI 코스 추천
-        </h1>
-        <div className="w-10" />
+        <h1 className="text-[16px] font-bold text-primary">AI 코스 추천</h1>
       </header>
 
       <main className="bg-surface-green px-5 pt-4 pb-8">
