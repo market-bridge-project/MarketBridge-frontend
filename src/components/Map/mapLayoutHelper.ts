@@ -166,6 +166,36 @@ export function computeLayout(
 export const MAX_ZOOM = 2.5
 export const MAP_WIDTH = 1438
 
+export function clampOffset(
+  offset: { x: number; y: number },
+  zoom: number,
+  winSize: { w: number; h: number },
+): { x: number; y: number } {
+  const mapW = MAP_WIDTH * zoom
+  const mapH = TOTAL_MAP_HEIGHT * zoom
+
+  let minX = winSize.w - mapW
+  let maxX = 0
+  if (mapW < winSize.w) {
+    minX = (winSize.w - mapW) / 2
+    maxX = (winSize.w - mapW) / 2
+  }
+  const nextX = Math.max(minX, Math.min(maxX, offset.x))
+
+  let minY = winSize.h - mapH
+  let maxY = 0
+  if (mapH < winSize.h) {
+    minY = (winSize.h - mapH) / 2
+    maxY = (winSize.h - mapH) / 2
+  } else {
+    minY -= 180 * zoom
+    maxY += 35 * zoom
+  }
+  const nextY = Math.max(minY, Math.min(maxY, offset.y))
+
+  return { x: nextX, y: nextY }
+}
+
 export function calculateZoomOffset(
   nextZoom: number,
   pivotX: number,
@@ -177,30 +207,8 @@ export function calculateZoomOffset(
   const mapX = (pivotX - currentOffset.x) / currentZoom
   const mapY = (pivotY - currentOffset.y) / currentZoom
 
-  let nextX = pivotX - mapX * nextZoom
-  let nextY = pivotY - mapY * nextZoom
+  const nextX = pivotX - mapX * nextZoom
+  const nextY = pivotY - mapY * nextZoom
 
-  const mapW = MAP_WIDTH * nextZoom
-  const mapH = TOTAL_MAP_HEIGHT * nextZoom
-
-  let minX = winSize.w - mapW
-  let maxX = 0
-  if (mapW < winSize.w) {
-    minX = (winSize.w - mapW) / 2
-    maxX = (winSize.w - mapW) / 2
-  }
-  nextX = Math.max(minX, Math.min(maxX, nextX))
-
-  let minY = winSize.h - mapH
-  let maxY = 0
-  if (mapH < winSize.h) {
-    minY = (winSize.h - mapH) / 2
-    maxY = (winSize.h - mapH) / 2
-  } else {
-    minY -= 180 * nextZoom
-    maxY += 35 * nextZoom
-  }
-  nextY = Math.max(minY, Math.min(maxY, nextY))
-
-  return { x: nextX, y: nextY }
+  return clampOffset({ x: nextX, y: nextY }, nextZoom, winSize)
 }
