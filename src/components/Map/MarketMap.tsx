@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { DUMMY_STORES } from '@/api/stores'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
@@ -17,17 +17,21 @@ import {
   calculateZoomOffset,
   MAX_ZOOM,
   MAP_WIDTH,
+  clampOffset,
 } from './mapLayoutHelper'
 
 const MarketMap = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [winSize, setWinSize] = useState({ w: 450, h: 800 })
   const [zoom, setZoom] = useState(0.65)
   const [offset, setOffset] = useState({ x: 0, y: 20 })
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isMeasured, setIsMeasured] = useState(false)
 
   // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
   const zoomRef = useRef(zoom)
@@ -49,6 +53,7 @@ const MarketMap = () => {
       const w = containerRef.current.clientWidth || 450
       const h = containerRef.current.clientHeight || 800
       setWinSize({ w, h })
+      setIsMeasured(true)
       setZoom((z) => Math.max(z, Math.max(0.65, (w * 0.95) / MAP_WIDTH)))
     }
 
@@ -58,6 +63,7 @@ const MarketMap = () => {
     const initX = (initW - MAP_WIDTH * initMinZoom) / 2
 
     setWinSize({ w: initW, h: initH })
+    setIsMeasured(true)
     setZoom(initMinZoom)
     setOffset({ x: initX, y: 20 })
 
@@ -194,6 +200,44 @@ const MarketMap = () => {
     return s
   }, [selectedId, positions])
 
+  // 상세보기 페이지에서 넘어온 포커스 요청(focusStoreId)을 지도 화면 정중앙에 정렬하고 강조
+  useEffect(() => {
+    const focusStoreId = (location.state as { focusStoreId?: string })
+      ?.focusStoreId
+    if (!focusStoreId || positions.length === 0 || !isMeasured) return
+
+    const pos = positions.find((p) => p.store.id === focusStoreId)
+    if (!pos) return
+
+    const targetZoom = Math.max(1.5, minZoom)
+    setZoom(targetZoom)
+
+    const shopCenterX = pos.left + pos.width / 2
+    const shopCenterY = pos.top + pos.height / 2
+
+    const targetX = winSize.w / 2 - shopCenterX * targetZoom
+    const targetY = winSize.h / 2 - shopCenterY * targetZoom
+
+    // 트랜지션 스타일을 먼저 활성화한 후, 50ms 뒤에 줌과 오프셋을 적용하여 애니메이션 효과 보장
+    setIsTransitioning(true)
+    const timer = setTimeout(() => {
+      setZoom(targetZoom)
+      setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
+      setHighlightedId(focusStoreId)
+      navigate(location.pathname, { replace: true, state: {} })
+    }, 50)
+
+    return () => clearTimeout(timer)
+  }, [
+    location.state,
+    positions,
+    winSize,
+    minZoom,
+    navigate,
+    location.pathname,
+    isMeasured,
+  ])
+
   useEffect(() => {
     const originalOverflow = document.body.style.overflow
     const originalPosition = document.body.style.position
@@ -250,38 +294,10 @@ const MarketMap = () => {
         const dy = e.clientY - last.current.y
         moved.current += Math.hypot(dx, dy)
 
-        const mapW = MAP_WIDTH * zoom
-        const mapH = TOTAL_MAP_HEIGHT * zoom
-
-        let minX = winSize.w - mapW
-        let maxX = 0
-
-        if (mapW < winSize.w) {
-          minX = (winSize.w - mapW) / 2
-          maxX = (winSize.w - mapW) / 2
-        } else {
-          minX -= 0
-          maxX += 0
-        }
-
-        let minY = winSize.h - mapH
-        let maxY = 0
-
-        if (mapH < winSize.h) {
-          minY = (winSize.h - mapH) / 2
-          maxY = (winSize.h - mapH) / 2
-        } else {
-          minY -= 180 * zoom
-          maxY += 35 * zoom
-        }
-
         setOffset((p) => {
           const nextX = p.x + dx
           const nextY = p.y + dy
-          return {
-            x: Math.max(minX, Math.min(maxX, nextX)),
-            y: Math.max(minY, Math.min(maxY, nextY)),
-          }
+          return clampOffset({ x: nextX, y: nextY }, zoom, winSize)
         })
         last.current = { x: e.clientX, y: e.clientY }
       } else if (ptrs.current.size === 2) {
@@ -333,6 +349,7 @@ const MarketMap = () => {
       e.stopPropagation()
       if (moved.current <= 6) {
         setSelectedId((prev) => (prev === id ? null : id))
+        setHighlightedId(null)
 
         const pos = positions.find((p) => p.store.id === id)
         if (pos) {
@@ -342,33 +359,11 @@ const MarketMap = () => {
           const viewX = winSize.w / 2
           const viewY = winSize.h / 2 - 100
 
-          let nextX = viewX - targetX * zoom
-          let nextY = viewY - targetY * zoom
-
-          const mapW = MAP_WIDTH * zoom
-          const mapH = TOTAL_MAP_HEIGHT * zoom
-
-          let minX = winSize.w - mapW
-          let maxX = 0
-          if (mapW < winSize.w) {
-            minX = (winSize.w - mapW) / 2
-            maxX = (winSize.w - mapW) / 2
-          }
-          nextX = Math.max(minX, Math.min(maxX, nextX))
-
-          let minY = winSize.h - mapH
-          let maxY = 0
-          if (mapH < winSize.h) {
-            minY = (winSize.h - mapH) / 2
-            maxY = (winSize.h - mapH) / 2
-          } else {
-            minY -= 180 * zoom
-            maxY += 35 * zoom
-          }
-          nextY = Math.max(minY, Math.min(maxY, nextY))
+          const nextX = viewX - targetX * zoom
+          const nextY = viewY - targetY * zoom
 
           setIsTransitioning(true)
-          setOffset({ x: nextX, y: nextY })
+          setOffset(clampOffset({ x: nextX, y: nextY }, zoom, winSize))
         }
       }
     },
@@ -378,6 +373,7 @@ const MarketMap = () => {
   const handleContainerClick = useCallback(() => {
     if (moved.current <= 6) {
       setSelectedId(null)
+      setHighlightedId(null)
     }
   }, [])
 
@@ -505,7 +501,9 @@ const MarketMap = () => {
           <ShopCard
             key={pos.store.id}
             store={pos.store}
-            isSelected={selectedId === pos.store.id}
+            isSelected={
+              selectedId === pos.store.id || highlightedId === pos.store.id
+            }
             onClick={handleShopClick}
             style={{
               left: pos.left,

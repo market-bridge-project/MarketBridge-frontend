@@ -100,19 +100,15 @@ const StoreListPage = () => {
   return (
     <div className="flex min-h-dvh flex-col bg-app">
       {/* 헤더 영역 */}
-      <header className="flex items-center justify-between bg-app px-5 py-3 shrink-0">
+      <header className="relative flex items-center justify-center bg-app px-5 py-3 shrink-0 border-b border-border-default">
         <button
           type="button"
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1.5"
+          onClick={() => navigate(-1)}
+          className="absolute left-5 flex items-center"
         >
           <img src={backIcon} alt="뒤로가기" className="h-6 w-3" />
-          <span className="text-[16px] font-semibold leading-[20px] text-brand">
-            지도
-          </span>
         </button>
-        <h1 className="text-[16px] font-semibold text-primary">카테고리</h1>
-        <div className="w-12" />
+        <h1 className="text-[16px] font-bold text-primary">카테고리</h1>
       </header>
 
       <main className="flex-1 flex flex-col">
