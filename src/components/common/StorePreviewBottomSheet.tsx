@@ -15,42 +15,40 @@ export const StorePreviewSheet = ({
 }: StorePreviewSheetProps) => {
   const dialogRef = useRef<HTMLDivElement>(null)
   const previousActiveElement = useRef<HTMLElement | null>(null)
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-        return
-      }
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onCloseRef.current()
+      return
+    }
 
-      if (e.key === 'Tab' && dialogRef.current) {
-        const focusableElements =
-          dialogRef.current.querySelectorAll<HTMLElement>(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-          )
-        if (focusableElements.length === 0) return
+    if (e.key === 'Tab' && dialogRef.current) {
+      const focusableElements = dialogRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      )
+      if (focusableElements.length === 0) return
 
-        const firstElement = focusableElements[0]
-        const lastElement = focusableElements[focusableElements.length - 1]
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements[focusableElements.length - 1]
 
-        if (e.shiftKey) {
-          if (
-            document.activeElement === firstElement ||
-            document.activeElement === dialogRef.current
-          ) {
-            e.preventDefault()
-            lastElement.focus()
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            e.preventDefault()
-            firstElement.focus()
-          }
+      if (e.shiftKey) {
+        if (
+          document.activeElement === firstElement ||
+          document.activeElement === dialogRef.current
+        ) {
+          e.preventDefault()
+          lastElement.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement.focus()
         }
       }
-    },
-    [onClose],
-  )
+    }
+  }, [])
 
   useEffect(() => {
     if (!store) return
@@ -104,12 +102,10 @@ export const StorePreviewSheet = ({
         </h2>
 
         <div className="flex flex-wrap gap-2">
-          {/* 메인 8대 대카테고리 칩 */}
           <span className="shrink-0 rounded-full border px-3 py-1.5 text-[13px] font-semibold bg-brand text-white border-brand shadow-[0_4px_10px_rgba(21,95,58,0.15)]">
             {store.category}
           </span>
 
-          {/* 상세 소분류 카테고리 칩 */}
           {store.subCategory && (
             <span className="shrink-0 rounded-full border border-border-default bg-white px-3 py-1.5 text-[13px] font-semibold text-primary shadow-[0_2px_6px_rgba(0,0,0,0.015)]">
               {store.subCategory}
