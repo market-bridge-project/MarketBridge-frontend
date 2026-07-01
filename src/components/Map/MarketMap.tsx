@@ -17,6 +17,7 @@ import {
   calculateZoomOffset,
   MAX_ZOOM,
   MAP_WIDTH,
+  clampOffset,
 } from './mapLayoutHelper'
 
 const MarketMap = () => {
@@ -217,7 +218,8 @@ const MarketMap = () => {
     const targetX = winSize.w / 2 - shopCenterX * targetZoom
     const targetY = winSize.h / 2 - shopCenterY * targetZoom
 
-    setOffset({ x: targetX, y: targetY })
+    setIsTransitioning(true)
+    setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
     setHighlightedId(focusStoreId)
 
     navigate(location.pathname, { replace: true, state: {} })
@@ -287,38 +289,10 @@ const MarketMap = () => {
         const dy = e.clientY - last.current.y
         moved.current += Math.hypot(dx, dy)
 
-        const mapW = MAP_WIDTH * zoom
-        const mapH = TOTAL_MAP_HEIGHT * zoom
-
-        let minX = winSize.w - mapW
-        let maxX = 0
-
-        if (mapW < winSize.w) {
-          minX = (winSize.w - mapW) / 2
-          maxX = (winSize.w - mapW) / 2
-        } else {
-          minX -= 0
-          maxX += 0
-        }
-
-        let minY = winSize.h - mapH
-        let maxY = 0
-
-        if (mapH < winSize.h) {
-          minY = (winSize.h - mapH) / 2
-          maxY = (winSize.h - mapH) / 2
-        } else {
-          minY -= 180 * zoom
-          maxY += 35 * zoom
-        }
-
         setOffset((p) => {
           const nextX = p.x + dx
           const nextY = p.y + dy
-          return {
-            x: Math.max(minX, Math.min(maxX, nextX)),
-            y: Math.max(minY, Math.min(maxY, nextY)),
-          }
+          return clampOffset({ x: nextX, y: nextY }, zoom, winSize)
         })
         last.current = { x: e.clientX, y: e.clientY }
       } else if (ptrs.current.size === 2) {
@@ -380,33 +354,11 @@ const MarketMap = () => {
           const viewX = winSize.w / 2
           const viewY = winSize.h / 2 - 100
 
-          let nextX = viewX - targetX * zoom
-          let nextY = viewY - targetY * zoom
-
-          const mapW = MAP_WIDTH * zoom
-          const mapH = TOTAL_MAP_HEIGHT * zoom
-
-          let minX = winSize.w - mapW
-          let maxX = 0
-          if (mapW < winSize.w) {
-            minX = (winSize.w - mapW) / 2
-            maxX = (winSize.w - mapW) / 2
-          }
-          nextX = Math.max(minX, Math.min(maxX, nextX))
-
-          let minY = winSize.h - mapH
-          let maxY = 0
-          if (mapH < winSize.h) {
-            minY = (winSize.h - mapH) / 2
-            maxY = (winSize.h - mapH) / 2
-          } else {
-            minY -= 180 * zoom
-            maxY += 35 * zoom
-          }
-          nextY = Math.max(minY, Math.min(maxY, nextY))
+          const nextX = viewX - targetX * zoom
+          const nextY = viewY - targetY * zoom
 
           setIsTransitioning(true)
-          setOffset({ x: nextX, y: nextY })
+          setOffset(clampOffset({ x: nextX, y: nextY }, zoom, winSize))
         }
       }
     },
