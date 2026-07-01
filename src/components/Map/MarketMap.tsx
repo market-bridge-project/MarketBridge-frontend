@@ -218,11 +218,16 @@ const MarketMap = () => {
     const targetX = winSize.w / 2 - shopCenterX * targetZoom
     const targetY = winSize.h / 2 - shopCenterY * targetZoom
 
+    // 트랜지션 스타일을 먼저 활성화한 후, 50ms 뒤에 줌과 오프셋을 적용하여 애니메이션 효과 보장
     setIsTransitioning(true)
-    setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
-    setHighlightedId(focusStoreId)
+    const timer = setTimeout(() => {
+      setZoom(targetZoom)
+      setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
+      setHighlightedId(focusStoreId)
+      navigate(location.pathname, { replace: true, state: {} })
+    }, 50)
 
-    navigate(location.pathname, { replace: true, state: {} })
+    return () => clearTimeout(timer)
   }, [
     location.state,
     positions,
