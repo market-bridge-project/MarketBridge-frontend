@@ -15,7 +15,7 @@ const SearchPage = () => {
   const [isRecommendModalOpen, setIsRecommendModalOpen] = useState(false)
 
   const hasSelection =
-    companion.length > 0 || purpose.length > 0 || duration.length > 0
+    companion.length > 0 && purpose.length > 0 && duration.length > 0
 
   const handleToggle = useCallback(
     (setter: React.Dispatch<React.SetStateAction<string[]>>) =>
