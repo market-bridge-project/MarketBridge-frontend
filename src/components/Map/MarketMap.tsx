@@ -308,6 +308,7 @@ const MarketMap = () => {
       activeCourseIds.length === 0 ||
       positions.length === 0 ||
       !isMeasured ||
+      !isCourseVisible ||
       hasCenteredCourse
     ) {
       return
@@ -369,6 +370,7 @@ const MarketMap = () => {
     location.pathname,
     isMeasured,
     hasCenteredCourse,
+    isCourseVisible,
     courseStoreIds,
   ])
 
