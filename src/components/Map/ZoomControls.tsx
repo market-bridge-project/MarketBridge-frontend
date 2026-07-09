@@ -17,8 +17,8 @@ const ZoomControls = ({
 }: ZoomControlsProps) => {
   return (
     <div
-      className={`absolute right-[25px] flex flex-col z-50 select-none transition-all duration-300 ease-out ${
-        isMenuOpen ? 'bottom-[222px]' : 'bottom-[102px]'
+      className={`absolute right-[16px] flex flex-col z-50 select-none transition-all duration-300 ease-out ${
+        isMenuOpen ? 'bottom-[208px]' : 'bottom-[80px]'
       }`}
       onPointerDown={(e) => e.stopPropagation()}
       onPointerMove={(e) => e.stopPropagation()}
