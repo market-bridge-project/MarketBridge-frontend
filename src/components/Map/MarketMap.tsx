@@ -20,6 +20,31 @@ import {
   clampOffset,
 } from './mapLayoutHelper'
 
+const COURSE_STORE_IDS_STORAGE_KEY = 'courseStoreIds'
+const COURSE_TITLE_STORAGE_KEY = 'courseTitle'
+const IS_COURSE_VISIBLE_STORAGE_KEY = 'isCourseVisible'
+
+const readLocalStorage = (key: string) => {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+const readCourseStoreIds = (): string[] => {
+  try {
+    const saved = readLocalStorage(COURSE_STORE_IDS_STORAGE_KEY)
+    const parsed: unknown = saved ? JSON.parse(saved) : []
+    return Array.isArray(parsed) &&
+      parsed.every((id): id is string => typeof id === 'string')
+      ? parsed
+      : []
+  } catch {
+    return []
+  }
+}
+
 const MarketMap = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -32,20 +57,14 @@ const MarketMap = () => {
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isMeasured, setIsMeasured] = useState(false)
-  const [courseStoreIds, setCourseStoreIds] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('courseStoreIds')
-      return saved ? JSON.parse(saved) : []
-    } catch {
-      return []
-    }
-  })
+  const [courseStoreIds, setCourseStoreIds] =
+    useState<string[]>(readCourseStoreIds)
   const [courseTitle, setCourseTitle] = useState<string | null>(() => {
-    return localStorage.getItem('courseTitle')
+    return readLocalStorage(COURSE_TITLE_STORAGE_KEY)
   })
   const [hasCenteredCourse, setHasCenteredCourse] = useState(false)
   const [isCourseVisible, setIsCourseVisible] = useState(() => {
-    return localStorage.getItem('isCourseVisible') !== 'false'
+    return readLocalStorage(IS_COURSE_VISIBLE_STORAGE_KEY) !== 'false'
   })
 
   // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
@@ -268,9 +287,19 @@ const MarketMap = () => {
       setCourseStoreIds(stateCourseIds)
       setCourseTitle(stateCourseTitle || '추천 코스')
       setIsCourseVisible(true)
-      localStorage.setItem('courseStoreIds', JSON.stringify(stateCourseIds))
-      localStorage.setItem('courseTitle', stateCourseTitle || '추천 코스')
-      localStorage.setItem('isCourseVisible', 'true')
+      try {
+        localStorage.setItem(
+          COURSE_STORE_IDS_STORAGE_KEY,
+          JSON.stringify(stateCourseIds),
+        )
+        localStorage.setItem(
+          COURSE_TITLE_STORAGE_KEY,
+          stateCourseTitle || '추천 코스',
+        )
+        localStorage.setItem(IS_COURSE_VISIBLE_STORAGE_KEY, 'true')
+      } catch {
+        // Silently catch write quota or blocked errors
+      }
       setHasCenteredCourse(false) // 새로운 코스가 확정되었으므로 다시 포커싱되게 리셋
     }
 
@@ -741,7 +770,14 @@ const MarketMap = () => {
             onClick={() => {
               const nextVisible = !isCourseVisible
               setIsCourseVisible(nextVisible)
-              localStorage.setItem('isCourseVisible', String(nextVisible))
+              try {
+                localStorage.setItem(
+                  IS_COURSE_VISIBLE_STORAGE_KEY,
+                  String(nextVisible),
+                )
+              } catch {
+                // Silently catch write errors
+              }
             }}
             className="flex items-center justify-center hover:opacity-70 transition-opacity cursor-pointer text-secondary"
             title={isCourseVisible ? '코스 숨기기' : '코스 보이기'}
