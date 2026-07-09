@@ -20,6 +20,31 @@ import {
   clampOffset,
 } from './mapLayoutHelper'
 
+const COURSE_STORE_IDS_STORAGE_KEY = 'courseStoreIds'
+const COURSE_TITLE_STORAGE_KEY = 'courseTitle'
+const IS_COURSE_VISIBLE_STORAGE_KEY = 'isCourseVisible'
+
+const readLocalStorage = (key: string) => {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+const readCourseStoreIds = (): string[] => {
+  try {
+    const saved = readLocalStorage(COURSE_STORE_IDS_STORAGE_KEY)
+    const parsed: unknown = saved ? JSON.parse(saved) : []
+    return Array.isArray(parsed) &&
+      parsed.every((id): id is string => typeof id === 'string')
+      ? parsed
+      : []
+  } catch {
+    return []
+  }
+}
+
 const MarketMap = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -32,6 +57,15 @@ const MarketMap = () => {
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isMeasured, setIsMeasured] = useState(false)
+  const [courseStoreIds, setCourseStoreIds] =
+    useState<string[]>(readCourseStoreIds)
+  const [courseTitle, setCourseTitle] = useState<string | null>(() => {
+    return readLocalStorage(COURSE_TITLE_STORAGE_KEY)
+  })
+  const [hasCenteredCourse, setHasCenteredCourse] = useState(false)
+  const [isCourseVisible, setIsCourseVisible] = useState(() => {
+    return readLocalStorage(IS_COURSE_VISIBLE_STORAGE_KEY) !== 'false'
+  })
 
   // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
   const zoomRef = useRef(zoom)
@@ -236,6 +270,108 @@ const MarketMap = () => {
     navigate,
     location.pathname,
     isMeasured,
+  ])
+
+  // 코스 추천 결과 처리 및 카메라 포커싱 (localStorage 연동)
+  useEffect(() => {
+    const stateCourseIds = (location.state as { courseStoreIds?: string[] })
+      ?.courseStoreIds
+    const stateCourseTitle = (location.state as { courseTitle?: string })
+      ?.courseTitle
+
+    let activeCourseIds = courseStoreIds
+
+    // 1. 라우터 상태에 새 코스가 전달된 경우 localStorage 덮어쓰기
+    if (stateCourseIds && stateCourseIds.length > 0) {
+      activeCourseIds = stateCourseIds
+      setCourseStoreIds(stateCourseIds)
+      setCourseTitle(stateCourseTitle || '추천 코스')
+      setIsCourseVisible(true)
+      try {
+        localStorage.setItem(
+          COURSE_STORE_IDS_STORAGE_KEY,
+          JSON.stringify(stateCourseIds),
+        )
+        localStorage.setItem(
+          COURSE_TITLE_STORAGE_KEY,
+          stateCourseTitle || '추천 코스',
+        )
+        localStorage.setItem(IS_COURSE_VISIBLE_STORAGE_KEY, 'true')
+      } catch {
+        // Silently catch write quota or blocked errors
+      }
+      setHasCenteredCourse(false) // 새로운 코스가 확정되었으므로 다시 포커싱되게 리셋
+    }
+
+    // 포커싱 조건 만족 검사
+    if (
+      activeCourseIds.length === 0 ||
+      positions.length === 0 ||
+      !isMeasured ||
+      !isCourseVisible ||
+      hasCenteredCourse
+    ) {
+      return
+    }
+
+    // 코스 점포들의 위치 찾기
+    const coursePositions = positions.filter((p) =>
+      activeCourseIds.includes(p.store.id),
+    )
+    if (coursePositions.length === 0) return
+
+    // 바운딩 박스 계산
+    const lefts = coursePositions.map((p) => p.left)
+    const rights = coursePositions.map((p) => p.left + p.width)
+    const tops = coursePositions.map((p) => p.top)
+    const bottoms = coursePositions.map((p) => p.top + p.height)
+
+    const minX = Math.min(...lefts)
+    const maxX = Math.max(...rights)
+    const minY = Math.min(...tops)
+    const maxY = Math.max(...bottoms)
+
+    const centerX = (minX + maxX) / 2
+    const centerY = (minY + maxY) / 2
+
+    const boxW = Math.max(100, maxX - minX)
+    const boxH = Math.max(100, maxY - minY)
+
+    const targetZoom = Math.min(
+      1.5,
+      Math.max(
+        minZoom,
+        Math.min((winSize.w * 0.7) / boxW, (winSize.h * 0.7) / boxH),
+      ),
+    )
+
+    const targetX = winSize.w / 2 - centerX * targetZoom
+    const targetY = winSize.h / 2 - centerY * targetZoom
+
+    setIsTransitioning(true)
+    const timer = setTimeout(() => {
+      setZoom(targetZoom)
+      setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
+      setHasCenteredCourse(true)
+
+      // 라우터 상태로 들어온 새로운 진입인 경우에만 history state를 클리어하여 뒤로가기 동작 대응
+      if (stateCourseIds && stateCourseIds.length > 0) {
+        navigate(location.pathname, { replace: true, state: {} })
+      }
+    }, 50)
+
+    return () => clearTimeout(timer)
+  }, [
+    location.state,
+    positions,
+    winSize,
+    minZoom,
+    navigate,
+    location.pathname,
+    isMeasured,
+    hasCenteredCourse,
+    isCourseVisible,
+    courseStoreIds,
   ])
 
   useEffect(() => {
@@ -497,22 +633,101 @@ const MarketMap = () => {
         </div>
 
         {/* 상점 카드 렌더링 */}
-        {positions.map((pos) => (
-          <ShopCard
-            key={pos.store.id}
-            store={pos.store}
-            isSelected={
-              selectedId === pos.store.id || highlightedId === pos.store.id
-            }
-            onClick={handleShopClick}
-            style={{
-              left: pos.left,
-              top: pos.top,
-              width: pos.width,
-              height: pos.height,
-            }}
-          />
-        ))}
+        {positions.map((pos) => {
+          const isCourseStore =
+            isCourseVisible && courseStoreIds.includes(pos.store.id)
+          return (
+            <ShopCard
+              key={pos.store.id}
+              store={pos.store}
+              isSelected={
+                selectedId === pos.store.id ||
+                highlightedId === pos.store.id ||
+                isCourseStore
+              }
+              isCourseStore={isCourseStore}
+              onClick={handleShopClick}
+              style={{
+                left: pos.left,
+                top: pos.top,
+                width: pos.width,
+                height: pos.height,
+              }}
+            />
+          )
+        })}
+
+        {/* 코스 추천 연결 경로 선 (점선 형태) */}
+        {isCourseVisible && courseStoreIds.length > 1 && (
+          <svg className="absolute inset-0 pointer-events-none z-20 w-full h-full">
+            <polyline
+              points={courseStoreIds
+                .map((storeId) => {
+                  const pos = positions.find((p) => p.store.id === storeId)
+                  if (!pos) return ''
+                  const x = pos.left + pos.width / 2
+                  const y = pos.top + pos.height / 2
+                  return `${x},${y}`
+                })
+                .filter(Boolean)
+                .join(' ')}
+              fill="none"
+              stroke="#155f3a"
+              strokeWidth="4"
+              strokeDasharray="8 6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.8"
+            />
+          </svg>
+        )}
+
+        {/* 코스 추천 점포 핀 (크기 키움 및 카드 중앙을 가리키도록 Y 좌표 보정) */}
+        {isCourseVisible &&
+          courseStoreIds.map((storeId, index) => {
+            const pos = positions.find((p) => p.store.id === storeId)
+            if (!pos) return null
+            return (
+              <div
+                key={`pin-${storeId}`}
+                className="absolute z-30 pointer-events-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
+                style={{
+                  left: pos.left + pos.width / 2,
+                  top: pos.top + pos.height / 2,
+                  width: 46,
+                  height: 54,
+                  transform: 'translate(-50%, -50px)',
+                }}
+              >
+                <svg
+                  width="46"
+                  height="54"
+                  viewBox="0 0 46 54"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M 23 50 C 17 40, 3 34, 3 23 A 20 20 0 1 1 43 23 C 43 34, 29 40, 23 50 Z"
+                    fill="#ef6848"
+                    stroke="#ffffff"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                  />
+                  <text
+                    x="23"
+                    y="23"
+                    dy=".3em"
+                    fill="#ffffff"
+                    fontSize="15"
+                    fontWeight="900"
+                    textAnchor="middle"
+                  >
+                    {index + 1}
+                  </text>
+                </svg>
+              </div>
+            )
+          })}
       </div>
 
       {/* 메뉴 버튼 */}
@@ -538,6 +753,76 @@ const MarketMap = () => {
           navigate('/store-detail', { state: { storeId } })
         }
       />
+
+      {/* 코스 추천 정보 배너 */}
+      {courseStoreIds.length > 0 && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 bg-white px-4 py-2.5 rounded-full border border-brand/20 shadow-lg animate-fade-in">
+          <div
+            className={`w-2.5 h-2.5 rounded-full relative ${isCourseVisible ? 'bg-brand-coral' : 'bg-secondary/40'}`}
+          >
+            {isCourseVisible && (
+              <span className="absolute inline-flex h-full w-full rounded-full bg-brand-coral opacity-75 animate-ping" />
+            )}
+          </div>
+          <span className="text-[13px] font-bold text-primary whitespace-nowrap">
+            {courseTitle || '추천 코스'}
+          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              const nextVisible = !isCourseVisible
+              setIsCourseVisible(nextVisible)
+              try {
+                localStorage.setItem(
+                  IS_COURSE_VISIBLE_STORAGE_KEY,
+                  String(nextVisible),
+                )
+              } catch {
+                // Silently catch write errors
+              }
+            }}
+            className="flex items-center justify-center hover:opacity-70 transition-opacity cursor-pointer text-secondary"
+            title={isCourseVisible ? '코스 숨기기' : '코스 보이기'}
+            aria-label={isCourseVisible ? '코스 숨기기' : '코스 보이기'}
+            aria-pressed={isCourseVisible}
+          >
+            {isCourseVisible ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                <path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                <line x1="2" y1="2" x2="22" y2="22" />
+              </svg>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
