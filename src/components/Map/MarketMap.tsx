@@ -769,7 +769,8 @@ const MarketMap = () => {
           </span>
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               const nextVisible = !isCourseVisible
               setIsCourseVisible(nextVisible)
               try {
@@ -783,6 +784,8 @@ const MarketMap = () => {
             }}
             className="flex items-center justify-center hover:opacity-70 transition-opacity cursor-pointer text-secondary"
             title={isCourseVisible ? '코스 숨기기' : '코스 보이기'}
+            aria-label={isCourseVisible ? '코스 숨기기' : '코스 보이기'}
+            aria-pressed={isCourseVisible}
           >
             {isCourseVisible ? (
               <svg
