@@ -90,7 +90,7 @@ const RecommendResult = () => {
         <button
           type="button"
           onClick={() =>
-            navigate('/', {
+            navigate('/map', {
               state: {
                 courseStoreIds: courses.map((c) => c.id),
                 courseTitle: title.replace('\n', ' '),
