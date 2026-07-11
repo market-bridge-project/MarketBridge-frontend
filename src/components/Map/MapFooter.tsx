@@ -7,7 +7,7 @@ const MapFooter = () => {
     <footer className="shrink-0 border-t border-border-default bg-elevated">
       <button
         type="button"
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/map')}
         className="flex w-full items-center justify-center py-4 text-[16px] font-bold text-brand"
       >
         지도
