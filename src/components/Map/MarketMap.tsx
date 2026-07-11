@@ -1,6 +1,9 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { DUMMY_STORES } from '@/api/stores'
+import { getStores } from '@/api/store'
+import { StoreResponse } from '@/types/store'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
 import MapFloatingMenu from './MapFloatingMenu'
@@ -18,6 +21,7 @@ import {
   MAX_ZOOM,
   MAP_WIDTH,
   clampOffset,
+  getMappedLayoutWithApiData,
 } from './mapLayoutHelper'
 
 const COURSE_STORE_IDS_STORAGE_KEY = 'courseStoreIds'
@@ -222,10 +226,19 @@ const MarketMap = () => {
   const moved = useRef(0)
   const isDown = useRef(false)
 
-  const { positions, bigBlocks } = useMemo(
-    () => computeLayout(marketLayoutData as LayoutItem[], DUMMY_STORES),
-    [],
-  )
+  const { data: apiStores } = useQuery<StoreResponse[]>({
+    queryKey: ['apiStores'],
+    queryFn: getStores,
+  })
+
+  const { positions, bigBlocks } = useMemo(() => {
+    const { layoutItems, stores } = getMappedLayoutWithApiData(
+      marketLayoutData as LayoutItem[],
+      DUMMY_STORES,
+      apiStores,
+    )
+    return computeLayout(layoutItems, stores)
+  }, [apiStores])
 
   const selectedStore = useMemo(() => {
     if (!selectedId) return null

@@ -18,3 +18,13 @@ export interface Store {
   isDummy?: boolean
   isVacant?: boolean
 }
+
+export interface StoreResponse {
+  id: number
+  name: string
+  category: string
+  subCategory?: string
+  hours?: string
+  description?: string
+  rating?: number
+}

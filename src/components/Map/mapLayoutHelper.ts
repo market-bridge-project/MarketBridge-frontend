@@ -1,4 +1,4 @@
-import { Store } from '@/types/store'
+import { Store, StoreResponse } from '@/types/store'
 
 export interface LayoutItem {
   id: number | string
@@ -211,4 +211,49 @@ export function calculateZoomOffset(
   const nextY = pivotY - mapY * nextZoom
 
   return clampOffset({ x: nextX, y: nextY }, nextZoom, winSize)
+}
+
+export function getMappedLayoutWithApiData(
+  layoutItems: LayoutItem[],
+  stores: Store[],
+  apiStores?: StoreResponse[],
+): { layoutItems: LayoutItem[]; stores: Store[] } {
+  if (!apiStores || apiStores.length === 0) {
+    return { layoutItems, stores }
+  }
+
+  // 로컬 DUMMY_STORES의 점포 ID와 카테고리를 백엔드 데이터 기준으로 동적 매핑
+  const mappedStores = stores.map((store) => {
+    const matched = apiStores.find((b) => b.name === store.name)
+    if (matched) {
+      return {
+        ...store,
+        id: String(matched.id),
+        name: matched.name,
+        category: matched.category,
+        subCategory: matched.subCategory || store.subCategory,
+        hours: matched.hours || store.hours,
+        description: matched.description || store.description,
+        rating: matched.rating || store.rating,
+      }
+    }
+    return store
+  })
+
+  // 지도 레이아웃 배치 데이터(market-layout.json)의 점포 ID를 백엔드 데이터 기준으로 동적 매핑
+  const mappedLayout = layoutItems.map((item) => {
+    if (item.type === 'store') {
+      const matched = apiStores.find((b) => b.name === item.name)
+      if (matched) {
+        return {
+          ...item,
+          id: String(matched.id),
+          name: matched.name,
+        }
+      }
+    }
+    return item
+  })
+
+  return { layoutItems: mappedLayout, stores: mappedStores }
 }
