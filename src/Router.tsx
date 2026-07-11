@@ -14,6 +14,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <LandingPage />,
+      },
+      {
+        path: 'map',
         element: <MapPage />,
       },
       {
@@ -31,10 +35,6 @@ const router = createBrowserRouter([
       {
         path: 'store-list',
         element: <StoreList />,
-      },
-      {
-        path: 'landing',
-        element: <LandingPage />,
       },
     ],
   },
