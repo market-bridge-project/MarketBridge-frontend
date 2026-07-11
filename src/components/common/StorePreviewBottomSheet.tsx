@@ -82,10 +82,11 @@ export const StorePreviewSheet = ({
         aria-modal="true"
         aria-label={`${store.name} 미리보기`}
         tabIndex={-1}
-        className="relative mx-auto flex w-full max-w-[430px] max-h-[85vh] overflow-y-auto flex-col gap-[18px] rounded-t-[28px] rounded-b-none bg-app px-6 pt-7 pb-0 shadow-[0_14px_30px_0_rgba(43,27,14,0.08)] outline-none"
+        className="relative mx-auto flex w-full max-w-[430px] max-h-[60vh] overflow-y-auto flex-col gap-4.5 rounded-t-[28px] rounded-b-none bg-app px-6 pt-5 pb-6 shadow-[0_14px_30px_0_rgba(43,27,14,0.08)] outline-none"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="overflow-hidden rounded-2xl w-full h-[10rem] bg-glow shrink-0">
+        {/* 점포 이미지 */}
+        <div className="overflow-hidden rounded-2xl w-full h-24 bg-glow shrink-0">
           {store.imageUrl ? (
             <img
               src={store.imageUrl}
@@ -97,36 +98,41 @@ export const StorePreviewSheet = ({
           )}
         </div>
 
-        <h2 className="text-[28px] font-bold leading-[34px] text-primary">
-          {store.name}
-        </h2>
+        {/* 타이틀 및 카테고리 태그 */}
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xl font-bold leading-7 text-primary tracking-normal">
+            {store.name}
+          </h2>
 
-        <div className="flex flex-wrap gap-2">
-          <span className="shrink-0 rounded-full border px-3 py-1.5 text-[13px] font-semibold bg-brand text-white border-brand shadow-[0_4px_10px_rgba(21,95,58,0.15)]">
-            {store.category}
-          </span>
-
-          {store.subCategory && (
-            <span className="shrink-0 rounded-full border border-border-default bg-white px-3 py-1.5 text-[13px] font-semibold text-primary shadow-[0_2px_6px_rgba(0,0,0,0.015)]">
-              {store.subCategory}
+          <div className="flex flex-wrap gap-2">
+            <span className="shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-semibold bg-brand text-white border-brand shadow-[0_4px_10px_rgba(21,95,58,0.15)]">
+              {store.category}
             </span>
-          )}
+
+            {store.subCategory && (
+              <span className="shrink-0 rounded-full border border-border-default bg-white px-2.5 py-1 text-[11px] font-semibold text-primary shadow-[0_2px_6px_rgba(0,0,0,0.015)]">
+                {store.subCategory}
+              </span>
+            )}
+          </div>
         </div>
 
-        <div>
-          <h3 className="font-pretendard text-[16px] font-black leading-[22px] text-primary">
+        {/* 한 줄 소개 */}
+        <div className="flex flex-col gap-1.5">
+          <h3 className="font-pretendard text-[14px] font-black leading-5 text-primary tracking-normal">
             한 줄 소개
           </h3>
-          <p className="mt-1 font-pretendard text-[14px] font-black leading-[22px] text-secondary">
+          <p className="font-pretendard text-[12px] font-medium leading-relaxed text-secondary break-keep tracking-normal">
             {store.description}
           </p>
         </div>
 
-        <div className="pt-4 pb-8">
+        {/* 상세보기 버튼 */}
+        <div className="mt-4 shrink-0">
           <button
             type="button"
             onClick={() => onDetail(store.id)}
-            className="w-full rounded-[16px] bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
+            className="w-full rounded-[16px] bg-brand py-3 text-[14px] font-semibold text-white shadow-[0_8px_18px_0_rgba(21,95,58,0.20)] active:scale-[0.98] transition-transform duration-150"
           >
             상세보기
           </button>
