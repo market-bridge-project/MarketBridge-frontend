@@ -4,10 +4,10 @@ import vectorIcon from '../assets/icons/Vector.svg'
 import mapIcon from '../assets/icons/map_icon.svg'
 
 const DUMMY_COURSES = [
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
+  { id: '1', name: 'BGT소금빵', tags: '떡·빵·간식 · 소금빵' },
+  { id: '22', name: '오렌지분식', tags: '음식 · 떡볶이' },
+  { id: '47', name: '포도마당', tags: '음식 · 포차' },
+  { id: '100', name: '큰나무 유통', tags: '생활·서비스 · 유통' },
 ]
 
 const RecommendResult = () => {
@@ -52,7 +52,7 @@ const RecommendResult = () => {
                 key={i}
                 type="button"
                 onClick={() =>
-                  navigate('/store-detail', { state: { storeId: '22' } })
+                  navigate('/store-detail', { state: { storeId: course.id } })
                 }
                 className="flex items-center gap-4 rounded-2xl border border-border-default bg-white p-4 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
               >
@@ -90,7 +90,12 @@ const RecommendResult = () => {
         <button
           type="button"
           onClick={() =>
-            navigate('/store-detail', { state: { storeId: '22' } })
+            navigate('/map', {
+              state: {
+                courseStoreIds: courses.map((c) => c.id),
+                courseTitle: title.replace('\n', ' '),
+              },
+            })
           }
           className="flex-1 rounded-2xl bg-brand py-4 text-[18px] font-bold leading-[22px] text-white shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
         >

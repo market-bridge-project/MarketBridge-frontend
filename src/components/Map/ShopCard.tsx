@@ -5,11 +5,18 @@ import storeIconSvg from '@/assets/icons/StoreIcon.svg'
 interface ShopCardProps {
   store: Store
   isSelected: boolean
+  isCourseStore?: boolean
   onClick: (e: React.MouseEvent, id: string) => void
   style: React.CSSProperties
 }
 
-const ShopCard = ({ store, isSelected, onClick, style }: ShopCardProps) => {
+const ShopCard = ({
+  store,
+  isSelected,
+  isCourseStore,
+  onClick,
+  style,
+}: ShopCardProps) => {
   // 1. 공터 (Dummy) 혹은 빈 점포 (Vacant) 인 경우 회색 테마 적용
   const isGrayCell = store.isDummy || store.isVacant
 
@@ -25,6 +32,8 @@ const ShopCard = ({ store, isSelected, onClick, style }: ShopCardProps) => {
   }
 
   // 2. 일반 영업 점포 (흰색 배경 + 녹색 테두리 + 녹색 하단 그림자)
+  const bgClass = isCourseStore ? 'bg-[#FFE3DE]' : 'bg-[#fefcfa]'
+
   const borderClass = isSelected
     ? 'border-2 border-[#155f3a]'
     : 'border border-[#155f3a]/25'
@@ -38,7 +47,7 @@ const ShopCard = ({ store, isSelected, onClick, style }: ShopCardProps) => {
       type="button"
       onClick={(e) => onClick(e, store.id)}
       style={style}
-      className={`absolute rounded-lg bg-[#fefcfa] ${borderClass} ${shadowClass}
+      className={`absolute rounded-lg ${bgClass} ${borderClass} ${shadowClass}
         cursor-pointer select-none transition-all duration-150
         flex items-center gap-1.5 px-2 overflow-hidden`}
     >

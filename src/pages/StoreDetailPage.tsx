@@ -13,7 +13,7 @@ const StoreDetail = () => {
     if (window.history.state && window.history.state.idx > 0) {
       navigate(-1)
     } else {
-      navigate('/')
+      navigate('/map')
     }
   }
 
@@ -70,7 +70,9 @@ const StoreDetail = () => {
       <div className="px-5 pt-4 pb-8">
         <button
           type="button"
-          onClick={() => navigate('/', { state: { focusStoreId: store.id } })}
+          onClick={() =>
+            navigate('/map', { state: { focusStoreId: store.id } })
+          }
           className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
         >
           지도에서 위치 보기
