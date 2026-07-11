@@ -1,16 +1,27 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import svgr from 'vite-plugin-svgr'
 
-export default defineConfig({
-  plugins: [react(), tailwindcss(), svgr()],
-  server: {
-    port: 3000, // 포트 번호 설정
-  },
-  resolve: {
-    alias: {
-      '@': '/src', // 절대경로로 설정 (Vite에선 '/'는 프로젝트 루트)
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+
+  return {
+    plugins: [react(), tailwindcss(), svgr()],
+    server: {
+      port: 3000,
+      proxy: {
+        '/api': {
+          target: env.VITE_API_BASE_URL || 'http://localhost:8080',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
     },
-  },
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
+  }
 })
