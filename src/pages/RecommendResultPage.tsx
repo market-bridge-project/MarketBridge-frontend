@@ -1,24 +1,14 @@
 import { useNavigate, useLocation } from 'react-router-dom'
+import type { RecommendResult } from '../types/recommend'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 import vectorIcon from '../assets/icons/Vector.svg'
 import mapIcon from '../assets/icons/map_icon.svg'
 
-const DUMMY_COURSES = [
-  { id: '1', name: 'BGT소금빵', tags: '떡·빵·간식 · 소금빵' },
-  { id: '22', name: '오렌지분식', tags: '음식 · 떡볶이' },
-  { id: '47', name: '포도마당', tags: '음식 · 포차' },
-  { id: '100', name: '큰나무 유통', tags: '생활·서비스 · 유통' },
-]
-
-const RecommendResult = () => {
+const RecommendResultPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { companion = [], purpose = [], duration = [] } = location.state ?? {}
-
-  const title = `${companion[0] ?? ''} ${purpose[0] ?? ''}를\n${duration[0] ?? ''} 가지는 코스`
-
-  const isShort = duration.includes('짧게') || duration.includes('중간')
-  const courses = isShort ? DUMMY_COURSES.slice(0, 3) : DUMMY_COURSES
+  const { courseTitle = '', stores = [] } =
+    (location.state as RecommendResult) ?? {}
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">
@@ -35,7 +25,7 @@ const RecommendResult = () => {
 
       <section className="relative flex h-[170px] items-center overflow-hidden bg-surface-green px-5">
         <h2 className="text-top leading-[38px] font-bold whitespace-pre-line">
-          {title}
+          {courseTitle}
         </h2>
         <img
           src={mapIcon}
@@ -47,25 +37,35 @@ const RecommendResult = () => {
       <div className="flex-1 px-5 pt-8">
         <div className="rounded-3xl bg-white p-[18px] shadow-[0_14px_30px_0_rgba(43,27,14,0.08)]">
           <div className="flex flex-col gap-4">
-            {courses.map((course, i) => (
+            {stores.map((store, i) => (
               <button
-                key={i}
+                key={store.storeId}
                 type="button"
                 onClick={() =>
-                  navigate('/store-detail', { state: { storeId: course.id } })
+                  navigate('/store-detail', {
+                    state: { storeId: store.storeId },
+                  })
                 }
                 className="flex items-center gap-4 rounded-2xl border border-border-default bg-white p-4 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">
                   {i + 1}
                 </span>
-                <div className="h-[78px] w-[73px] shrink-0 rounded-xl border border-border-default bg-glow" />
+                {store.thumbnailUrl ? (
+                  <img
+                    src={store.thumbnailUrl}
+                    alt={store.name}
+                    className="h-[78px] w-[73px] shrink-0 rounded-xl border border-border-default object-cover"
+                  />
+                ) : (
+                  <div className="h-[78px] w-[73px] shrink-0 rounded-xl border border-border-default bg-glow" />
+                )}
                 <div className="flex-1 text-left">
                   <p className="text-[17px] font-bold leading-[22px] text-primary">
-                    {course.name}
+                    {store.name}
                   </p>
                   <p className="mt-1 text-[13px] font-medium leading-[18px] text-secondary">
-                    {course.tags}
+                    {store.category}
                   </p>
                 </div>
                 <img
@@ -92,8 +92,8 @@ const RecommendResult = () => {
           onClick={() =>
             navigate('/map', {
               state: {
-                courseStoreIds: courses.map((c) => c.id),
-                courseTitle: title.replace('\n', ' '),
+                courseStoreIds: stores.map((s) => s.storeId),
+                courseTitle: courseTitle.replace('\n', ' '),
               },
             })
           }
@@ -106,4 +106,4 @@ const RecommendResult = () => {
   )
 }
 
-export default RecommendResult
+export default RecommendResultPage
