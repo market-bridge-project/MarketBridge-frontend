@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 import { FilterCard, RecommendModal } from '../components/SearchPage'
+import { postRecommend } from '../api/recommend'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const toggleItem = (list: string[], item: string): string[] => {
@@ -17,6 +19,11 @@ const SearchPage = () => {
   const hasSelection =
     companion.length > 0 && purpose.length > 0 && duration.length > 0
 
+  const recommendMutation = useMutation({
+    mutationFn: postRecommend,
+    onSuccess: () => setIsRecommendModalOpen(true),
+  })
+
   const handleToggle = useCallback(
     (setter: React.Dispatch<React.SetStateAction<string[]>>) =>
       (value: string) =>
@@ -25,7 +32,11 @@ const SearchPage = () => {
   )
 
   const handleSubmit = () => {
-    setIsRecommendModalOpen(true)
+    recommendMutation.mutate({
+      who: companion[0],
+      what: purpose[0],
+      time: duration[0],
+    })
   }
 
   return (
@@ -72,7 +83,7 @@ const SearchPage = () => {
         </p>
         <button
           type="button"
-          disabled={!hasSelection}
+          disabled={!hasSelection || recommendMutation.isPending}
           onClick={handleSubmit}
           className={`w-full rounded-2xl py-4 shadow-[0_10px_22px_0_rgba(21,95,58,0.24)] ${
             hasSelection
@@ -80,13 +91,18 @@ const SearchPage = () => {
               : 'bg-[#A0BCA8] text-[#FDFBF8] text-[18px] font-bold leading-[22px]'
           }`}
         >
-          AI 추천 받기
+          {recommendMutation.isPending ? '추천 받는 중...' : 'AI 추천 받기'}
         </button>
+        {recommendMutation.isError && (
+          <p className="mt-3 text-center text-[13px] font-medium text-red-500">
+            추천을 받아오지 못했어요. 다시 시도해주세요.
+          </p>
+        )}
       </div>
       <RecommendModal
         open={isRecommendModalOpen}
         onClose={() => setIsRecommendModalOpen(false)}
-        filters={{ companion, purpose, duration }}
+        result={recommendMutation.data}
       />
     </div>
   )
