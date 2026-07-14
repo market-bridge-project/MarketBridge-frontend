@@ -1,8 +1,9 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { FilterCard, RecommendModal } from '../components/SearchPage'
 import { postRecommend } from '../api/recommend'
+import { getKeywords } from '../api/keyword'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const toggleItem = (list: string[], item: string): string[] => {
@@ -18,6 +19,15 @@ const SearchPage = () => {
 
   const hasSelection =
     companion.length > 0 && purpose.length > 0 && duration.length > 0
+
+  const {
+    data: keywords,
+    isLoading: isKeywordsLoading,
+    isError: isKeywordsError,
+  } = useQuery({
+    queryKey: ['keywords'],
+    queryFn: getKeywords,
+  })
 
   const recommendMutation = useMutation({
     mutationFn: postRecommend,
@@ -67,14 +77,27 @@ const SearchPage = () => {
       </main>
 
       <div className="flex-1 px-5 pt-8">
-        <FilterCard
-          companion={companion}
-          purpose={purpose}
-          duration={duration}
-          onToggleCompanion={handleToggle(setCompanion)}
-          onTogglePurpose={handleToggle(setPurpose)}
-          onToggleDuration={handleToggle(setDuration)}
-        />
+        {isKeywordsLoading && (
+          <p className="text-center text-sm text-gray-500">불러오는 중...</p>
+        )}
+        {!isKeywordsLoading && (isKeywordsError || !keywords) && (
+          <p className="text-center text-sm text-gray-500">
+            선택지를 불러오지 못했어요.
+          </p>
+        )}
+        {keywords && (
+          <FilterCard
+            companion={companion}
+            purpose={purpose}
+            duration={duration}
+            companionOptions={keywords.WHO ?? []}
+            purposeOptions={keywords.WHAT ?? []}
+            durationOptions={keywords.DURATION ?? []}
+            onToggleCompanion={handleToggle(setCompanion)}
+            onTogglePurpose={handleToggle(setPurpose)}
+            onToggleDuration={handleToggle(setDuration)}
+          />
+        )}
       </div>
 
       <div className="px-5 pt-6 pb-8">
