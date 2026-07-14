@@ -73,9 +73,9 @@ const StoreDetail = () => {
 
             {store.keywords.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
-                {store.keywords.map((keyword, i) => (
+                {store.keywords.map((keyword) => (
                   <span
-                    key={i}
+                    key={keyword.name}
                     className="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-600"
                   >
                     {keyword.label}
@@ -96,12 +96,15 @@ const StoreDetail = () => {
                 <h3 className="mt-6 text-base font-bold">메뉴판</h3>
                 <div className="mt-3 rounded-2xl border border-border-default bg-white p-5 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]">
                   <ul className="flex flex-col gap-4">
-                    {store.menus.map((menu, i) => (
-                      <li key={i} className="flex items-center justify-between">
+                    {store.menus.map((menu) => (
+                      <li
+                        key={menu.name}
+                        className="flex items-center justify-between"
+                      >
                         <span className="text-sm font-medium">{menu.name}</span>
                         <span className="mx-2 flex-1 border-b border-dotted border-gray-300" />
                         <span className="text-sm font-bold">
-                          {menu.price.toLocaleString()}원
+                          {menu.price.toLocaleString('ko-KR')}원
                         </span>
                       </li>
                     ))}
