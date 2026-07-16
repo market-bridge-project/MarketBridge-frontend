@@ -17,4 +17,5 @@ export interface Store {
   span?: number
   isDummy?: boolean
   isVacant?: boolean
+  storeNo?: number | null
 }

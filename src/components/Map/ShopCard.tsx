@@ -65,7 +65,7 @@ const ShopCard = ({
           {store.name}
         </span>
         <span className="text-[7.5px] text-[#6F6A62]/70 font-semibold mt-0.5">
-          {store.id}
+          {store.storeNo ?? store.id}
         </span>
       </div>
     </button>
