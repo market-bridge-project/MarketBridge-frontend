@@ -8,6 +8,7 @@ export interface LayoutItem {
   y: number
   width: number
   height: number
+  storeNo?: number | null
 }
 
 export interface ComputedPosition {
@@ -147,6 +148,13 @@ export function computeLayout(
           rating: 4.5,
           badgeText: '',
           isVacant: isVacantStore,
+          storeNo: item.storeNo,
+        }
+      } else {
+        storeInfo = {
+          ...storeInfo,
+          name: item.name,
+          storeNo: item.storeNo,
         }
       }
 

@@ -5,7 +5,7 @@ import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
 import MapFloatingMenu from './MapFloatingMenu'
 import { StorePreviewSheet } from '@/components/common/StorePreviewBottomSheet'
-import marketLayoutData from '@/api/market-layout.json'
+import marketLayoutData from '@/api/market-layout-fin.json'
 import {
   computeLayout,
   TOTAL_MAP_HEIGHT,
