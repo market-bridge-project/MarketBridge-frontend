@@ -28,4 +28,5 @@ export interface StoreResponse {
   hours?: string
   description?: string
   rating?: number
+  imageUrl?: string | null
 }

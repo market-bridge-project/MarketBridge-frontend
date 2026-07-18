@@ -10,6 +10,7 @@ export interface LayoutItem {
   height: number
   storeNo?: number | null
   isVacant?: boolean
+  imageUrl?: string | null
 }
 
 export interface ComputedPosition {
@@ -150,6 +151,7 @@ export function computeLayout(
           badgeText: '',
           isVacant: isVacantStore,
           storeNo: item.storeNo,
+          imageUrl: item.imageUrl ?? undefined,
         }
       } else {
         const isVacantStore = item.name === '빈 점포' || item.isVacant
@@ -158,6 +160,7 @@ export function computeLayout(
           name: item.name,
           storeNo: item.storeNo,
           isVacant: isVacantStore,
+          imageUrl: item.imageUrl ?? storeInfo.imageUrl,
         }
       }
 
@@ -301,11 +304,11 @@ export function getMappedLayoutWithApiData(
       }
       const matched = apiStoresById.get(item.storeNo)
       if (matched) {
-        // 표시 이름은 지도 레이아웃(JSON)에 큐레이션된 값을 그대로 사용하고,
-        // 백엔드 원본 name(예: "명성왕족발(이창엽)")으로 덮어쓰지 않습니다.
+        // name은 백엔드 원본으로 덮어쓰지 않고 JSON에 큐레이션된 값을 유지합니다.
         return {
           ...item,
           id: String(matched.id),
+          imageUrl: matched.imageUrl,
         }
       }
       // storeNo가 있지만 백엔드에 해당 id가 없는 경우(폐업 등) '빈 점포'로 처리합니다.

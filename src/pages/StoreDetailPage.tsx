@@ -104,7 +104,9 @@ const StoreDetail = () => {
                         <span className="text-sm font-medium">{menu.name}</span>
                         <span className="mx-2 flex-1 border-b border-dotted border-gray-300" />
                         <span className="text-sm font-bold">
-                          {menu.price.toLocaleString('ko-KR')}원
+                          {typeof menu.price === 'number'
+                            ? `${menu.price.toLocaleString('ko-KR')}원`
+                            : menu.price}
                         </span>
                       </li>
                     ))}
