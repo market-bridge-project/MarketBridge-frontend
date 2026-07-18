@@ -103,10 +103,9 @@ const StoreListPage = () => {
 
     const matchesSearch =
       store.name.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-      store.subCategory.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-      (store.menus &&
-        store.menus.some((menu) =>
-          menu.name.toLowerCase().includes(debouncedQuery.toLowerCase()),
+      (store.menuNames &&
+        store.menuNames.some((menuName) =>
+          menuName.toLowerCase().includes(debouncedQuery.toLowerCase()),
         ))
 
     return matchesCategory && matchesSearch

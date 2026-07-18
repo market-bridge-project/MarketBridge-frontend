@@ -130,12 +130,8 @@ export function computeLayout(
           id: String(item.id),
           name: '',
           category: '',
-          subCategory: '',
           hours: '',
-          description: '',
           isFood: false,
-          info: '',
-          rating: 0,
           isDummy: true,
         },
         left: item.x,
@@ -152,14 +148,8 @@ export function computeLayout(
           id: String(item.id),
           name: item.name,
           category: isVacantStore ? '생활·서비스' : '음식',
-          subCategory: isVacantStore ? '공실' : '시장점포',
           hours: '09:00~21:00',
-          description: isVacantStore
-            ? '공실 상태의 빈 점포 구역입니다.'
-            : '시장의 신선한 점포입니다.',
           isFood: !isVacantStore && Number(item.id) % 2 === 0,
-          info: '',
-          rating: 4.5,
           isVacant: isVacantStore,
           storeNo: item.storeNo,
           imageUrl: item.imageUrl ?? undefined,
@@ -295,11 +285,9 @@ export function getMappedLayoutWithApiData(
         ...store,
         id: String(matched.id),
         category: matched.category,
-        subCategory: matched.subCategory || store.subCategory,
-        hours: matched.hours || store.hours,
-        description: matched.description || store.description,
-        rating: matched.rating || store.rating,
+        hours: matched.openTime || store.hours,
         isFood, // 백엔드 카테고리 기반 아이콘 분류 연동
+        menuNames: matched.menuNames,
       }
     }
     return store
