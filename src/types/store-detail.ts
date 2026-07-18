@@ -5,7 +5,8 @@ export interface StoreKeyword {
 
 export interface StoreMenu {
   name: string
-  price: number
+  // 가격이 숫자가 아니라 "변동" 같은 문자열로 오는 경우가 있음
+  price: number | string
 }
 
 export interface StoreDetail {

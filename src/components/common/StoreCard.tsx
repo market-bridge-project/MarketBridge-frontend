@@ -33,7 +33,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, onClick }) => {
             {store.name}
           </h3>
           <p className="mt-1.5 text-[13px] font-medium leading-none text-secondary truncate">
-            {store.subCategory} · {store.hours}
+            {store.category} · {store.hours}
           </p>
         </div>
       </div>

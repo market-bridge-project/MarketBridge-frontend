@@ -92,7 +92,7 @@ const RecommendResultPage = () => {
           onClick={() =>
             navigate('/map', {
               state: {
-                courseStoreIds: stores.map((s) => s.storeId),
+                courseStoreIds: stores.map((s) => String(s.storeId)),
                 courseTitle: courseTitle.replace('\n', ' '),
               },
             })

@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getStoreDetail } from '@/api/storeDetail'
+import { getCuratedStoreName } from '@/components/Map/mapLayoutHelper'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const StoreDetail = () => {
@@ -18,6 +19,8 @@ const StoreDetail = () => {
     queryFn: () => getStoreDetail(numericStoreId),
     enabled: Number.isFinite(numericStoreId),
   })
+
+  const name = store ? (getCuratedStoreName(store.id) ?? store.name) : ''
 
   const handleBack = () => {
     if (window.history.state && window.history.state.idx > 0) {
@@ -60,7 +63,7 @@ const StoreDetail = () => {
               {store.imageUrl ? (
                 <img
                   src={store.imageUrl}
-                  alt={store.name}
+                  alt={name}
                   className="aspect-[16/10] w-full object-cover"
                 />
               ) : (
@@ -68,7 +71,7 @@ const StoreDetail = () => {
               )}
             </div>
 
-            <h2 className="mt-5 text-2xl font-bold">{store.name}</h2>
+            <h2 className="mt-5 text-2xl font-bold">{name}</h2>
             <p className="mt-1 text-sm text-gray-500">{store.category}</p>
 
             {store.keywords.length > 0 && (
@@ -104,7 +107,9 @@ const StoreDetail = () => {
                         <span className="text-sm font-medium">{menu.name}</span>
                         <span className="mx-2 flex-1 border-b border-dotted border-gray-300" />
                         <span className="text-sm font-bold">
-                          {menu.price.toLocaleString('ko-KR')}원
+                          {typeof menu.price === 'number'
+                            ? `${menu.price.toLocaleString('ko-KR')}원`
+                            : menu.price}
                         </span>
                       </li>
                     ))}
@@ -127,7 +132,7 @@ const StoreDetail = () => {
             <button
               type="button"
               onClick={() =>
-                navigate('/map', { state: { focusStoreId: store.id } })
+                navigate('/map', { state: { focusStoreId: String(store.id) } })
               }
               className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
             >

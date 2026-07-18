@@ -1,6 +1,9 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { DUMMY_STORES } from '@/api/stores'
+import { getStores } from '@/api/store'
+import { StoreResponse } from '@/types/store'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
 import MapFloatingMenu from './MapFloatingMenu'
@@ -18,6 +21,7 @@ import {
   MAX_ZOOM,
   MAP_WIDTH,
   clampOffset,
+  getMappedLayoutWithApiData,
 } from './mapLayoutHelper'
 
 const COURSE_STORE_IDS_STORAGE_KEY = 'courseStoreIds'
@@ -222,10 +226,29 @@ const MarketMap = () => {
   const moved = useRef(0)
   const isDown = useRef(false)
 
-  const { positions, bigBlocks } = useMemo(
-    () => computeLayout(marketLayoutData as LayoutItem[], DUMMY_STORES),
-    [],
-  )
+  const {
+    data: apiStores,
+    error: apiError,
+    isLoading,
+  } = useQuery<StoreResponse[]>({
+    queryKey: ['apiStores'],
+    queryFn: getStores,
+  })
+
+  useEffect(() => {
+    if (apiError) {
+      console.error('[React Query] apiStores error:', apiError)
+    }
+  }, [apiError])
+
+  const { positions, bigBlocks } = useMemo(() => {
+    const { layoutItems, stores } = getMappedLayoutWithApiData(
+      marketLayoutData as LayoutItem[],
+      DUMMY_STORES,
+      apiStores,
+    )
+    return computeLayout(layoutItems, stores)
+  }, [apiStores])
 
   const selectedStore = useMemo(() => {
     if (!selectedId) return null
@@ -523,13 +546,25 @@ const MarketMap = () => {
       onPointerCancel={handlePointerUp}
       onClick={handleContainerClick}
     >
+      {/* 지도 데이터 로딩 오버레이 (컨테이너는 항상 마운트되어야 초기 중앙정렬/줌 측정이 정상 동작함) */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-[#f5f3ef] z-50">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-9 w-9 animate-spin rounded-full border-4 border-[#155f3a] border-t-transparent" />
+            <p className="text-[13px] font-semibold text-[#155f3a] animate-pulse">
+              지도 데이터를 불러오는 중입니다...
+            </p>
+          </div>
+        </div>
+      )}
       {/* 2D 캔버스 레이어 */}
       <div
         className="relative origin-top-left will-change-transform"
         style={{
           width: MAP_WIDTH,
           height: TOTAL_MAP_HEIGHT,
-          transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
+          // translate를 정수 px로 스냅해서 서브픽셀 안티에일리어싱으로 인한 흐림을 줄임
+          transform: `translate(${Math.round(offset.x)}px, ${Math.round(offset.y)}px) scale(${zoom})`,
           transition: isTransitioning
             ? 'transform 500ms cubic-bezier(0.25, 1, 0.5, 1)'
             : 'none',
@@ -749,7 +784,7 @@ const MarketMap = () => {
       <StorePreviewSheet
         store={selectedStore}
         onClose={() => setSelectedId(null)}
-        onDetail={(storeId) =>
+        onDetail={(storeId: string) =>
           navigate('/store-detail', { state: { storeId } })
         }
       />
