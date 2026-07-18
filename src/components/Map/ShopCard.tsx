@@ -61,12 +61,16 @@ const ShopCard = ({
       </div>
       {/* 점포 정보 */}
       <div className="flex flex-col min-w-0 leading-none items-start">
-        <span className="text-[10px] font-bold text-[#155f3a] leading-tight truncate w-full text-left">
+        <span className="text-[10px] font-bold text-[#155f3a] leading-tight w-full text-left break-all whitespace-pre-line">
           {store.name}
         </span>
-        <span className="text-[7.5px] text-[#6F6A62]/70 font-semibold mt-0.5">
-          {store.storeNo ?? store.id}
-        </span>
+        {store.id !== undefined &&
+          store.id !== null &&
+          !Number.isNaN(Number(store.id)) && (
+            <span className="text-[7.5px] text-[#6F6A62]/70 font-semibold mt-0.5">
+              {store.id}
+            </span>
+          )}
       </div>
     </button>
   )

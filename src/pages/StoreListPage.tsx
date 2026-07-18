@@ -1,9 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { SearchBar } from '@/components/common/SearchBar'
 import { CategoryChip } from '@/components/common/CategoryChip'
 import { StoreCard } from '@/components/common/StoreCard'
 import { DUMMY_STORES } from '@/api/stores'
+import { getStores } from '@/api/store'
+import { getMappedLayoutWithApiData } from '@/components/Map/mapLayoutHelper'
+import { StoreResponse } from '@/types/store'
 import backIcon from '@/assets/icons/weui_back-filled.svg'
 import macatSorryIcon from '@/assets/icons/macat_sorry.svg'
 
@@ -30,6 +34,17 @@ const StoreListPage = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     '전체',
   ])
+
+  const { data: apiStores, isLoading } = useQuery<StoreResponse[]>({
+    queryKey: ['apiStores'],
+    queryFn: getStores,
+  })
+
+  // DUMMY_STORES의 ID와 카테고리를 백엔드 데이터와 동적으로 매핑
+  const mappedStores = useMemo(() => {
+    const { stores } = getMappedLayoutWithApiData([], DUMMY_STORES, apiStores)
+    return stores
+  }, [apiStores])
 
   // 검색어 입력 시 디바운싱 적용: 타이핑이 멈춘 후 300ms 뒤에 실제 검색 실행
   useEffect(() => {
@@ -81,7 +96,7 @@ const StoreListPage = () => {
   ]
 
   // 선택된 카테고리와 디바운싱된 검색어에 따라 상점 필터링
-  const filteredStores = DUMMY_STORES.filter((store) => {
+  const filteredStores = mappedStores.filter((store) => {
     const matchesCategory =
       selectedCategories.includes('전체') ||
       selectedCategories.includes(store.category)
@@ -96,6 +111,19 @@ const StoreListPage = () => {
 
     return matchesCategory && matchesSearch
   })
+
+  if (isLoading) {
+    return (
+      <div className="flex h-dvh w-full items-center justify-center bg-app">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-brand border-t-transparent" />
+          <p className="text-sm font-semibold text-secondary animate-pulse">
+            가게 목록을 불러오는 중입니다...
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">

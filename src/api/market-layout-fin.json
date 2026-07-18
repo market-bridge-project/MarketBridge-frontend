@@ -20,7 +20,7 @@
     "height": 186
   },
   {
-    "id": 1,
+    "id": 13,
     "storeNo": 13,
     "name": "BGT호두단팥빵",
     "type": "store",
@@ -30,7 +30,7 @@
     "height": 44
   },
   {
-    "id": 8,
+    "id": 18,
     "storeNo": 18,
     "name": "코끼리약국",
     "type": "store",
@@ -40,7 +40,7 @@
     "height": 94
   },
   {
-    "id": 19,
+    "id": 3,
     "storeNo": 3,
     "name": "땅스부대찌개",
     "type": "store",
@@ -50,7 +50,7 @@
     "height": 94
   },
   {
-    "id": 20,
+    "id": 1,
     "storeNo": 1,
     "name": "과일나라과일천국",
     "type": "store",
@@ -60,7 +60,7 @@
     "height": 94
   },
   {
-    "id": 21,
+    "id": 2,
     "storeNo": 2,
     "name": "대영신천 꽃방",
     "type": "store",
@@ -70,7 +70,7 @@
     "height": 44
   },
   {
-    "id": 2,
+    "id": 15,
     "storeNo": 15,
     "name": "모두뼈다귀감자탕",
     "type": "store",
@@ -90,7 +90,7 @@
     "height": 40
   },
   {
-    "id": 3,
+    "id": 16,
     "storeNo": 16,
     "name": "좋은축산마을",
     "type": "store",
@@ -100,7 +100,7 @@
     "height": 44
   },
   {
-    "id": 9,
+    "id": 19,
     "storeNo": 19,
     "name": "남서울반찬",
     "type": "store",
@@ -120,7 +120,7 @@
     "height": 53
   },
   {
-    "id": 4,
+    "id": 17,
     "storeNo": 17,
     "name": "해피브레드",
     "type": "store",
@@ -130,7 +130,7 @@
     "height": 44
   },
   {
-    "id": 10,
+    "id": 20,
     "storeNo": 20,
     "name": "명성왕족발",
     "type": "store",
@@ -150,7 +150,7 @@
     "height": 417
   },
   {
-    "id": 5,
+    "id": 12,
     "storeNo": 12,
     "name": "잠실김밥",
     "type": "store",
@@ -160,7 +160,7 @@
     "height": 44
   },
   {
-    "id": 11,
+    "id": 21,
     "storeNo": 21,
     "name": "민영활어공장",
     "type": "store",
@@ -170,8 +170,8 @@
     "height": 44
   },
   {
-    "id": 22,
-    "storeNo": 5,
+    "id": 6,
+    "storeNo": 6,
     "name": "오렌지분식",
     "type": "store",
     "x": 745,
@@ -180,8 +180,8 @@
     "height": 44
   },
   {
-    "id": 28,
-    "storeNo": 28,
+    "id": 5,
+    "storeNo": 5,
     "name": "자연애곳간",
     "type": "store",
     "x": 907,
@@ -190,7 +190,7 @@
     "height": 44
   },
   {
-    "id": 30,
+    "id": 4,
     "storeNo": 4,
     "name": "대성정육식당",
     "type": "store",
@@ -200,9 +200,9 @@
     "height": 94
   },
   {
-    "id": 6,
+    "id": 14,
     "storeNo": 14,
-    "name": "알파디씨마트",
+    "name": "알파디씨마트(2층)",
     "type": "store",
     "x": 383,
     "y": 450,
@@ -210,7 +210,7 @@
     "height": 94
   },
   {
-    "id": 12,
+    "id": 22,
     "storeNo": 22,
     "name": "바다한스푼(어사또)",
     "type": "store",
@@ -220,7 +220,7 @@
     "height": 44
   },
   {
-    "id": 23,
+    "id": 7,
     "storeNo": 7,
     "name": "두란노커피",
     "type": "store",
@@ -240,7 +240,7 @@
     "height": 44
   },
   {
-    "id": 13,
+    "id": 23,
     "storeNo": 23,
     "name": "새마을순대국",
     "type": "store",
@@ -250,7 +250,7 @@
     "height": 44
   },
   {
-    "id": 24,
+    "id": 8,
     "storeNo": 8,
     "name": "고향전집",
     "type": "store",
@@ -280,7 +280,7 @@
     "height": 93
   },
   {
-    "id": 7,
+    "id": 29,
     "storeNo": 29,
     "name": "서울텐트",
     "type": "store",
@@ -290,7 +290,7 @@
     "height": 94
   },
   {
-    "id": 14,
+    "id": 24,
     "storeNo": 24,
     "name": "우연",
     "type": "store",
@@ -300,7 +300,7 @@
     "height": 44
   },
   {
-    "id": 25,
+    "id": 26,
     "storeNo": 26,
     "name": "생선파는청년들",
     "type": "store",
@@ -310,7 +310,7 @@
     "height": 94
   },
   {
-    "id": 15,
+    "id": 25,
     "storeNo": 25,
     "name": "남서울축산물전문점",
     "type": "store",
@@ -320,9 +320,9 @@
     "height": 44
   },
   {
-    "id": 31,
+    "id": "special-31",
     "storeNo": null,
-    "name": "새마을시장",
+    "name": "새마을시장\n고객센터",
     "type": "store",
     "x": 1025,
     "y": 601,
@@ -340,7 +340,7 @@
     "height": 144
   },
   {
-    "id": 16,
+    "id": 27,
     "storeNo": 27,
     "name": "생선파는청년들",
     "type": "store",
@@ -360,7 +360,7 @@
     "height": 94
   },
   {
-    "id": 26,
+    "id": 9,
     "storeNo": 9,
     "name": "강남지물포",
     "type": "store",
@@ -370,7 +370,7 @@
     "height": 44
   },
   {
-    "id": 17,
+    "id": 28,
     "storeNo": 28,
     "name": "미남생선",
     "type": "store",
@@ -380,7 +380,7 @@
     "height": 44
   },
   {
-    "id": 27,
+    "id": 10,
     "storeNo": 10,
     "name": "칼라분식",
     "type": "store",
@@ -390,7 +390,7 @@
     "height": 94
   },
   {
-    "id": 18,
+    "id": 30,
     "storeNo": 30,
     "name": "금빛행운복권방",
     "type": "store",
@@ -400,7 +400,7 @@
     "height": 44
   },
   {
-    "id": 29,
+    "id": 11,
     "storeNo": 11,
     "name": "명동이용원",
     "type": "store",
@@ -450,7 +450,7 @@
     "height": 94
   },
   {
-    "id": 34,
+    "id": 31,
     "storeNo": 31,
     "name": "생선구이-잠실새마을생선",
     "type": "store",
@@ -470,7 +470,7 @@
     "height": 44
   },
   {
-    "id": 35,
+    "id": 32,
     "storeNo": 32,
     "name": "강경상회",
     "type": "store",
@@ -500,7 +500,7 @@
     "height": 144
   },
   {
-    "id": 36,
+    "id": 33,
     "storeNo": 33,
     "name": "늘푸른야채",
     "type": "store",
@@ -520,7 +520,7 @@
     "height": 44
   },
   {
-    "id": 37,
+    "id": 34,
     "storeNo": 34,
     "name": "마을축산",
     "type": "store",
@@ -550,7 +550,7 @@
     "height": 44
   },
   {
-    "id": 38,
+    "id": 35,
     "storeNo": 35,
     "name": "싱싱한과일-마을생선",
     "type": "store",
@@ -570,7 +570,7 @@
     "height": 44
   },
   {
-    "id": 32,
+    "id": 37,
     "storeNo": 37,
     "name": "신천포차",
     "type": "store",
@@ -580,7 +580,7 @@
     "height": 44
   },
   {
-    "id": 33,
+    "id": 36,
     "storeNo": 36,
     "name": "나눔상회",
     "type": "store",
@@ -620,7 +620,7 @@
     "height": 368
   },
   {
-    "id": 45,
+    "id": 38,
     "storeNo": 38,
     "name": "천수횟집",
     "type": "store",
@@ -630,7 +630,7 @@
     "height": 44
   },
   {
-    "id": 48,
+    "id": 45,
     "storeNo": 45,
     "name": "잠실생삼겹살",
     "type": "store",
@@ -640,7 +640,7 @@
     "height": 44
   },
   {
-    "id": 49,
+    "id": 46,
     "storeNo": 46,
     "name": "서울축산",
     "type": "store",
@@ -650,7 +650,7 @@
     "height": 44
   },
   {
-    "id": 55,
+    "id": 54,
     "storeNo": 54,
     "name": "중앙청과",
     "type": "store",
@@ -680,7 +680,7 @@
     "height": 44
   },
   {
-    "id": 50,
+    "id": 47,
     "storeNo": 47,
     "name": "서울떡집",
     "type": "store",
@@ -690,7 +690,7 @@
     "height": 44
   },
   {
-    "id": 56,
+    "id": 55,
     "storeNo": 55,
     "name": "서울진바베큐",
     "type": "store",
@@ -720,7 +720,7 @@
     "height": 94
   },
   {
-    "id": 51,
+    "id": 48,
     "storeNo": 48,
     "name": "미소담찬",
     "type": "store",
@@ -730,10 +730,11 @@
     "height": 94
   },
   {
-    "id": 57,
-    "storeNo": 54,
-    "name": "와구이닭",
+    "id": "special-57",
+    "storeNo": null,
+    "name": "빈 점포",
     "type": "store",
+    "isVacant": true,
     "x": 745,
     "y": 1264,
     "width": 156,
@@ -750,7 +751,7 @@
     "height": 44
   },
   {
-    "id": 58,
+    "id": 56,
     "storeNo": 56,
     "name": "맛사랑전집",
     "type": "store",
@@ -760,7 +761,7 @@
     "height": 44
   },
   {
-    "id": 46,
+    "id": 53,
     "storeNo": 53,
     "name": "포도마당",
     "type": "store",
@@ -780,7 +781,7 @@
     "height": 44
   },
   {
-    "id": 52,
+    "id": 49,
     "storeNo": 49,
     "name": "매일야채",
     "type": "store",
@@ -790,7 +791,7 @@
     "height": 144
   },
   {
-    "id": 59,
+    "id": 57,
     "storeNo": 57,
     "name": "쌍둥이네 한과",
     "type": "store",
@@ -800,7 +801,7 @@
     "height": 44
   },
   {
-    "id": 53,
+    "id": 50,
     "storeNo": 50,
     "name": "시골토종 막걸리",
     "type": "store",
@@ -810,7 +811,7 @@
     "height": 44
   },
   {
-    "id": 60,
+    "id": 58,
     "storeNo": 58,
     "name": "명가왕만두",
     "type": "store",
@@ -820,7 +821,7 @@
     "height": 94
   },
   {
-    "id": 47,
+    "id": 52,
     "storeNo": 52,
     "name": "팥단지",
     "type": "store",
@@ -830,7 +831,7 @@
     "height": 44
   },
   {
-    "id": 54,
+    "id": 51,
     "storeNo": 51,
     "name": "달달한 술상",
     "type": "store",
@@ -900,7 +901,7 @@
     "height": 44
   },
   {
-    "id": 61,
+    "id": 64,
     "storeNo": 64,
     "name": "새마을농산",
     "type": "store",
@@ -910,7 +911,7 @@
     "height": 44
   },
   {
-    "id": 66,
+    "id": 59,
     "storeNo": 59,
     "name": "우리한우 곰탕",
     "type": "store",
@@ -930,7 +931,7 @@
     "height": 44
   },
   {
-    "id": 62,
+    "id": 65,
     "storeNo": 65,
     "name": "보금당",
     "type": "store",
@@ -940,7 +941,7 @@
     "height": 44
   },
   {
-    "id": 67,
+    "id": 60,
     "storeNo": 60,
     "name": "대보선식",
     "type": "store",
@@ -960,7 +961,7 @@
     "height": 44
   },
   {
-    "id": 63,
+    "id": 66,
     "storeNo": 66,
     "name": "박가네 두부-명가식품",
     "type": "store",
@@ -970,7 +971,7 @@
     "height": 44
   },
   {
-    "id": 68,
+    "id": 61,
     "storeNo": 61,
     "name": "기섭이네생선가게",
     "type": "store",
@@ -990,8 +991,8 @@
     "height": 44
   },
   {
-    "id": 64,
-    "storeNo": 76,
+    "id": 67,
+    "storeNo": 67,
     "name": "명품구제-다모아패션",
     "type": "store",
     "x": 501,
@@ -1000,7 +1001,7 @@
     "height": 44
   },
   {
-    "id": 69,
+    "id": 62,
     "storeNo": 62,
     "name": "별콩다방",
     "type": "store",
@@ -1020,7 +1021,7 @@
     "height": 44
   },
   {
-    "id": 65,
+    "id": 68,
     "storeNo": 68,
     "name": "우리청과",
     "type": "store",
@@ -1030,7 +1031,7 @@
     "height": 44
   },
   {
-    "id": 70,
+    "id": 63,
     "storeNo": 63,
     "name": "깻잎닭강정",
     "type": "store",
@@ -1070,7 +1071,7 @@
     "height": 318
   },
   {
-    "id": 71,
+    "id": 69,
     "storeNo": 69,
     "name": "정민식품",
     "type": "store",
@@ -1080,7 +1081,7 @@
     "height": 44
   },
   {
-    "id": 72,
+    "id": 70,
     "storeNo": 70,
     "name": "곱창과순댓국의만남",
     "type": "store",
@@ -1090,7 +1091,7 @@
     "height": 44
   },
   {
-    "id": 77,
+    "id": 76,
     "storeNo": 76,
     "name": "명품치킨&꼬치",
     "type": "store",
@@ -1100,7 +1101,7 @@
     "height": 44
   },
   {
-    "id": 81,
+    "id": 75,
     "storeNo": 75,
     "name": "민속보리밥",
     "type": "store",
@@ -1120,7 +1121,7 @@
     "height": 94
   },
   {
-    "id": 73,
+    "id": 71,
     "storeNo": 71,
     "name": "장충동한방족발",
     "type": "store",
@@ -1130,9 +1131,9 @@
     "height": 44
   },
   {
-    "id": 78,
+    "id": 77,
     "storeNo": 77,
-    "name": "트라이쌍방울신천점",
+    "name": "트라이쌍방울",
     "type": "store",
     "x": 745,
     "y": 1878,
@@ -1140,7 +1141,7 @@
     "height": 44
   },
   {
-    "id": 74,
+    "id": 72,
     "storeNo": 72,
     "name": "맥반석김",
     "type": "store",
@@ -1150,7 +1151,7 @@
     "height": 44
   },
   {
-    "id": 79,
+    "id": 78,
     "storeNo": 78,
     "name": "공씨네 족발",
     "type": "store",
@@ -1180,7 +1181,7 @@
     "height": 44
   },
   {
-    "id": 75,
+    "id": 73,
     "storeNo": 73,
     "name": "오복떡방앗간",
     "type": "store",
@@ -1200,7 +1201,7 @@
     "height": 94
   },
   {
-    "id": 76,
+    "id": 74,
     "storeNo": 74,
     "name": "김자순수제돈까스",
     "type": "store",
@@ -1220,7 +1221,7 @@
     "height": 44
   },
   {
-    "id": 80,
+    "id": 79,
     "storeNo": 79,
     "name": "반찬나라",
     "type": "store",
@@ -1280,7 +1281,7 @@
     "height": 44
   },
   {
-    "id": 82,
+    "id": 85,
     "storeNo": 85,
     "name": "월드건강면세점",
     "type": "store",
@@ -1290,7 +1291,7 @@
     "height": 44
   },
   {
-    "id": 88,
+    "id": 80,
     "storeNo": 80,
     "name": "주연식자재",
     "type": "store",
@@ -1320,7 +1321,7 @@
     "height": 94
   },
   {
-    "id": 83,
+    "id": 86,
     "storeNo": 86,
     "name": "도그버디애완용품",
     "type": "store",
@@ -1330,7 +1331,7 @@
     "height": 44
   },
   {
-    "id": 84,
+    "id": 87,
     "storeNo": 87,
     "name": "치킨박사호프",
     "type": "store",
@@ -1340,8 +1341,8 @@
     "height": 44
   },
   {
-    "id": 89,
-    "storeNo": 86,
+    "id": 81,
+    "storeNo": 81,
     "name": "김반장",
     "type": "store",
     "x": 745,
@@ -1370,7 +1371,7 @@
     "height": 92
   },
   {
-    "id": 85,
+    "id": 88,
     "storeNo": 88,
     "name": "동양식품",
     "type": "store",
@@ -1380,7 +1381,7 @@
     "height": 44
   },
   {
-    "id": 90,
+    "id": 82,
     "storeNo": 82,
     "name": "서울은마꽈배기",
     "type": "store",
@@ -1390,7 +1391,7 @@
     "height": 44
   },
   {
-    "id": 86,
+    "id": 89,
     "storeNo": 89,
     "name": "산골옛날바베큐",
     "type": "store",
@@ -1400,7 +1401,7 @@
     "height": 44
   },
   {
-    "id": 91,
+    "id": 83,
     "storeNo": 83,
     "name": "족발미녀잠실점",
     "type": "store",
@@ -1430,7 +1431,7 @@
     "height": 44
   },
   {
-    "id": 87,
+    "id": 90,
     "storeNo": 90,
     "name": "속옷할인매장",
     "type": "store",
@@ -1440,7 +1441,7 @@
     "height": 44
   },
   {
-    "id": 92,
+    "id": 84,
     "storeNo": 84,
     "name": "다미청과",
     "type": "store",
@@ -1500,7 +1501,7 @@
     "height": 44
   },
   {
-    "id": 93,
+    "id": 91,
     "storeNo": 91,
     "name": "파오파오",
     "type": "store",
@@ -1510,7 +1511,7 @@
     "height": 44
   },
   {
-    "id": 98,
+    "id": 96,
     "storeNo": 96,
     "name": "청춘청과",
     "type": "store",
@@ -1540,7 +1541,7 @@
     "height": 44
   },
   {
-    "id": 94,
+    "id": 92,
     "storeNo": 92,
     "name": "동천곱창",
     "type": "store",
@@ -1570,7 +1571,7 @@
     "height": 44
   },
   {
-    "id": 95,
+    "id": 93,
     "storeNo": 93,
     "name": "잠실수구레",
     "type": "store",
@@ -1580,7 +1581,7 @@
     "height": 44
   },
   {
-    "id": 99,
+    "id": 97,
     "storeNo": 97,
     "name": "조선육회",
     "type": "store",
@@ -1600,7 +1601,7 @@
     "height": 44
   },
   {
-    "id": 96,
+    "id": 94,
     "storeNo": 94,
     "name": "한모네소문난순대",
     "type": "store",
@@ -1610,7 +1611,7 @@
     "height": 44
   },
   {
-    "id": 100,
+    "id": 98,
     "storeNo": 98,
     "name": "은정국수",
     "type": "store",
@@ -1640,7 +1641,7 @@
     "height": 44
   },
   {
-    "id": 97,
+    "id": 95,
     "storeNo": 95,
     "name": "나주왕대포",
     "type": "store",
@@ -1650,7 +1651,7 @@
     "height": 44
   },
   {
-    "id": 101,
+    "id": 99,
     "storeNo": 99,
     "name": "홍코너",
     "type": "store",
@@ -1710,9 +1711,9 @@
     "height": 149
   },
   {
-    "id": 102,
+    "id": 100,
     "storeNo": 100,
-    "name": "미처버린파닭",
+    "name": "미쳐버린파닭",
     "type": "store",
     "x": 745,
     "y": 2774,
@@ -1730,7 +1731,7 @@
     "height": 44
   },
   {
-    "id": 103,
+    "id": 101,
     "storeNo": 101,
     "name": "이모네곱창",
     "type": "store",
@@ -1760,7 +1761,7 @@
     "height": 44
   },
   {
-    "id": 104,
+    "id": 102,
     "storeNo": 102,
     "name": "새마을빨래방(호두과자)",
     "type": "store",
@@ -1860,7 +1861,7 @@
     "height": 86
   },
   {
-    "id": 105,
+    "id": 103,
     "storeNo": 103,
     "name": "큰나무유통",
     "type": "store",

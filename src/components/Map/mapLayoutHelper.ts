@@ -9,6 +9,7 @@ export interface LayoutItem {
   width: number
   height: number
   storeNo?: number | null
+  isVacant?: boolean
 }
 
 export interface ComputedPosition {
@@ -132,7 +133,7 @@ export function computeLayout(
       let storeInfo = stores.find((s) => s.id === String(item.id))
 
       if (!storeInfo) {
-        const isVacantStore = item.name === '빈 점포'
+        const isVacantStore = item.name === '빈 점포' || item.isVacant
         storeInfo = {
           id: String(item.id),
           name: item.name,
@@ -151,10 +152,12 @@ export function computeLayout(
           storeNo: item.storeNo,
         }
       } else {
+        const isVacantStore = item.name === '빈 점포' || item.isVacant
         storeInfo = {
           ...storeInfo,
           name: item.name,
           storeNo: item.storeNo,
+          isVacant: isVacantStore,
         }
       }
 
@@ -221,43 +224,95 @@ export function calculateZoomOffset(
   return clampOffset({ x: nextX, y: nextY }, nextZoom, winSize)
 }
 
+function normalizeName(name: string): string {
+  return name
+    .replace(/\s+/g, '')
+    .toLowerCase()
+    .replace(/개/g, '게')
+    .replace(/쳐/g, '처')
+    .replace(/애/g, '에')
+}
+
 export function getMappedLayoutWithApiData(
   layoutItems: LayoutItem[],
   stores: Store[],
-  apiStores?: StoreResponse[],
+  apiStores?: unknown,
 ): { layoutItems: LayoutItem[]; stores: Store[] } {
-  if (!apiStores || apiStores.length === 0) {
+  let apiStoresList: StoreResponse[] = []
+  if (Array.isArray(apiStores)) {
+    apiStoresList = apiStores as StoreResponse[]
+  } else if (apiStores && typeof apiStores === 'object') {
+    const obj = apiStores as Record<string, unknown>
+    if (Array.isArray(obj.result)) {
+      apiStoresList = obj.result as StoreResponse[]
+    } else if (Array.isArray(obj.data)) {
+      apiStoresList = obj.data as StoreResponse[]
+    } else if (Array.isArray(obj.content)) {
+      apiStoresList = obj.content as StoreResponse[]
+    } else if (Array.isArray(obj.stores)) {
+      apiStoresList = obj.stores as StoreResponse[]
+    } else if (Array.isArray(obj.storeList)) {
+      apiStoresList = obj.storeList as StoreResponse[]
+    }
+  }
+
+  if (!apiStoresList || apiStoresList.length === 0) {
     return { layoutItems, stores }
   }
 
   // 로컬 DUMMY_STORES의 점포 ID와 카테고리를 백엔드 데이터 기준으로 동적 매핑
   const mappedStores = stores.map((store) => {
-    const matched = apiStores.find((b) => b.name === store.name)
+    const matched = apiStoresList.find((b) => {
+      const normS = normalizeName(store.name)
+      const normB = normalizeName(b.name)
+      return normS.includes(normB) || normB.includes(normS)
+    })
     if (matched) {
+      const foodCategories = [
+        '음식점',
+        '음식',
+        '떡·빵·간식',
+        '반찬·식재료',
+        '농산물',
+        '수산·정육',
+      ]
+      const isFood = foodCategories.includes(matched.category)
       return {
         ...store,
         id: String(matched.id),
-        name: matched.name,
         category: matched.category,
         subCategory: matched.subCategory || store.subCategory,
         hours: matched.hours || store.hours,
         description: matched.description || store.description,
         rating: matched.rating || store.rating,
+        isFood, // 백엔드 카테고리 기반 아이콘 분류 연동
       }
     }
     return store
   })
 
-  // 지도 레이아웃 배치 데이터(market-layout.json)의 점포 ID를 백엔드 데이터 기준으로 동적 매핑
+  // 지도 레이아웃 배치 데이터(market-layout.json)의 점포를 storeNo(백엔드 id) 기준으로 동적 매핑
+  // storeNo는 물리적 구역 조사 시 부여된 백엔드 id 참조값으로, 이름 유사도 매칭보다 신뢰도가 높음
+  const apiStoresById = new Map(apiStoresList.map((b) => [b.id, b]))
   const mappedLayout = layoutItems.map((item) => {
     if (item.type === 'store') {
-      const matched = apiStores.find((b) => b.name === item.name)
+      if (item.storeNo === null || item.storeNo === undefined) {
+        return item
+      }
+      const matched = apiStoresById.get(item.storeNo)
       if (matched) {
+        // 표시 이름은 지도 레이아웃(JSON)에 큐레이션된 값을 그대로 사용하고,
+        // 백엔드 원본 name(예: "명성왕족발(이창엽)")으로 덮어쓰지 않습니다.
         return {
           ...item,
           id: String(matched.id),
-          name: matched.name,
         }
+      }
+      // storeNo가 있지만 백엔드에 해당 id가 없는 경우(폐업 등) '빈 점포'로 처리합니다.
+      return {
+        ...item,
+        name: '빈 점포',
+        isVacant: true,
       }
     }
     return item
