@@ -1,4 +1,5 @@
 import { Store, StoreResponse } from '@/types/store'
+import marketLayoutData from '@/api/market-layout-fin.json'
 
 export interface LayoutItem {
   id: number | string
@@ -46,6 +47,21 @@ export const CROSSWALKS = [
 ]
 
 export const CORRIDOR = { left: 645, width: 88 }
+
+// storeNo(백엔드 id) -> 지도 JSON에 큐레이션된 점포명. 지도 밖(상세 페이지 등)에서도
+// 백엔드 원본 name 대신 이 이름을 표시해 지도와 표기를 일치시킵니다.
+const curatedStoreNames = new Map<number, string>(
+  (marketLayoutData as LayoutItem[])
+    .filter(
+      (item): item is LayoutItem & { storeNo: number } =>
+        item.type === 'store' && typeof item.storeNo === 'number',
+    )
+    .map((item) => [item.storeNo, item.name]),
+)
+
+export function getCuratedStoreName(storeNo: number): string | undefined {
+  return curatedStoreNames.get(storeNo)
+}
 
 export function computeLayout(
   layoutItems: LayoutItem[],

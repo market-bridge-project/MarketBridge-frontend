@@ -80,7 +80,8 @@ export const StorePreviewSheet = ({
 
   if (!store) return null
 
-  const name = detail?.name ?? store.name
+  // store.name은 지도 JSON에 큐레이션된 값이라 백엔드 원본(detail.name)보다 우선합니다.
+  const name = store.name ?? detail?.name
   const category = detail?.category ?? store.category
   const intro = detail?.intro
   // store.imageUrl은 지도 조회 시 이미 받아온 값이라 상세 API 응답보다 먼저 쓸 수 있음
