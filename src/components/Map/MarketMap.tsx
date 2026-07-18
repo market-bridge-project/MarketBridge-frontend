@@ -236,11 +236,10 @@ const MarketMap = () => {
   })
 
   useEffect(() => {
-    console.log('[React Query] apiStores:', apiStores)
     if (apiError) {
       console.error('[React Query] apiStores error:', apiError)
     }
-  }, [apiStores, apiError])
+  }, [apiError])
 
   const { positions, bigBlocks } = useMemo(() => {
     const { layoutItems, stores } = getMappedLayoutWithApiData(

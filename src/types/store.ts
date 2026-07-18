@@ -6,15 +6,10 @@ export interface Store {
   hours: string
   description: string
   isFood: boolean
-  tags: string[]
   menus?: { name: string; price: string }[]
   info: string
   rating: number
-  badgeText: string
   imageUrl?: string
-  block?: number
-  column?: 'leftOuter' | 'leftInner' | 'rightInner' | 'rightOuter'
-  span?: number
   isDummy?: boolean
   isVacant?: boolean
   storeNo?: number | null
