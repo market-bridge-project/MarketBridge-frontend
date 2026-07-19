@@ -175,9 +175,9 @@ const StoreListPage = () => {
         <div className="flex-1 px-5 pb-8 overflow-y-auto">
           <div className="flex flex-col gap-3">
             {filteredStores.length > 0 ? (
-              filteredStores.map((store, index) => (
+              filteredStores.map((store) => (
                 <StoreCard
-                  key={`${store.id}-${index}`}
+                  key={store.id}
                   store={store}
                   onClick={() =>
                     navigate('/store-detail', { state: { storeId: store.id } })
