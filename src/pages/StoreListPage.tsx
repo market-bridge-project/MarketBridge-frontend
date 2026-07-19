@@ -13,7 +13,7 @@ import macatSorryIcon from '@/assets/icons/macat_sorry.svg'
 
 const CATEGORIES = [
   '전체',
-  '음식',
+  '음식점',
   '수산·정육',
   '농산물',
   '떡·빵·간식',
@@ -22,13 +22,11 @@ const CATEGORIES = [
   '생활·서비스',
 ]
 
-/** 디바운싱 지연 시간 (ms) */
 const DEBOUNCE_DELAY = 300
 
 const StoreListPage = () => {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
-  // 디바운싱이 적용된 실제 검색어 (이 값으로 필터링)
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
@@ -40,15 +38,12 @@ const StoreListPage = () => {
     queryFn: getStores,
   })
 
-  // DUMMY_STORES의 ID와 카테고리를 백엔드 데이터와 동적으로 매핑
   const mappedStores = useMemo(() => {
     const { stores } = getMappedLayoutWithApiData([], DUMMY_STORES, apiStores)
     return stores
   }, [apiStores])
 
-  // 검색어 입력 시 디바운싱 적용: 타이핑이 멈춘 후 300ms 뒤에 실제 검색 실행
   useEffect(() => {
-    // 입력값이 비었으면 즉시 초기화 (불필요한 대기 방지)
     if (searchQuery.trim() === '') {
       setDebouncedQuery('')
       return
@@ -83,7 +78,6 @@ const StoreListPage = () => {
     })
   }
 
-  // 선택 여부 및 원래 인덱스 순서에 따라 카테고리 정렬 (전체는 항상 맨 앞에 고정)
   const orderedCategories = [
     '전체',
     ...CATEGORIES.filter((c) => c !== '전체').sort((a, b) => {
@@ -95,7 +89,6 @@ const StoreListPage = () => {
     }),
   ]
 
-  // 선택된 카테고리와 디바운싱된 검색어에 따라 상점 필터링
   const filteredStores = mappedStores.filter((store) => {
     const matchesCategory =
       selectedCategories.includes('전체') ||

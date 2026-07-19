@@ -48,8 +48,6 @@ export const CROSSWALKS = [
 
 export const CORRIDOR = { left: 645, width: 88 }
 
-// storeNo(백엔드 id) -> 지도 JSON에 큐레이션된 점포명. 지도 밖(상세 페이지 등)에서도
-// 백엔드 원본 name 대신 이 이름을 표시해 지도와 표기를 일치시킵니다.
 const curatedStoreNames = new Map<number, string>(
   (marketLayoutData as LayoutItem[])
     .filter(
@@ -228,13 +226,25 @@ export function calculateZoomOffset(
   return clampOffset({ x: nextX, y: nextY }, nextZoom, winSize)
 }
 
-function normalizeName(name: string): string {
-  return name
-    .replace(/\s+/g, '')
-    .toLowerCase()
-    .replace(/개/g, '게')
-    .replace(/쳐/g, '처')
-    .replace(/애/g, '에')
+const FOOD_CATEGORIES = [
+  '음식점',
+  '음식',
+  '떡·빵·간식',
+  '반찬·식재료',
+  '농산물',
+  '수산·정육',
+]
+
+function toStore(apiStore: StoreResponse): Store {
+  return {
+    id: String(apiStore.id),
+    name: apiStore.name,
+    category: apiStore.category,
+    hours: apiStore.openTime || '',
+    isFood: FOOD_CATEGORIES.includes(apiStore.category),
+    menuNames: apiStore.menuNames,
+    imageUrl: apiStore.imageUrl ?? undefined,
+  }
 }
 
 export function getMappedLayoutWithApiData(
@@ -264,37 +274,8 @@ export function getMappedLayoutWithApiData(
     return { layoutItems, stores }
   }
 
-  // 로컬 DUMMY_STORES의 점포 ID와 카테고리를 백엔드 데이터 기준으로 동적 매핑
-  const mappedStores = stores.map((store) => {
-    const matched = apiStoresList.find((b) => {
-      const normS = normalizeName(store.name)
-      const normB = normalizeName(b.name)
-      return normS.includes(normB) || normB.includes(normS)
-    })
-    if (matched) {
-      const foodCategories = [
-        '음식점',
-        '음식',
-        '떡·빵·간식',
-        '반찬·식재료',
-        '농산물',
-        '수산·정육',
-      ]
-      const isFood = foodCategories.includes(matched.category)
-      return {
-        ...store,
-        id: String(matched.id),
-        category: matched.category,
-        hours: matched.openTime || store.hours,
-        isFood, // 백엔드 카테고리 기반 아이콘 분류 연동
-        menuNames: matched.menuNames,
-      }
-    }
-    return store
-  })
+  const mappedStores = apiStoresList.map(toStore)
 
-  // 지도 레이아웃 배치 데이터(market-layout.json)의 점포를 storeNo(백엔드 id) 기준으로 동적 매핑
-  // storeNo는 물리적 구역 조사 시 부여된 백엔드 id 참조값으로, 이름 유사도 매칭보다 신뢰도가 높음
   const apiStoresById = new Map(apiStoresList.map((b) => [b.id, b]))
   const mappedLayout = layoutItems.map((item) => {
     if (item.type === 'store') {
@@ -303,14 +284,12 @@ export function getMappedLayoutWithApiData(
       }
       const matched = apiStoresById.get(item.storeNo)
       if (matched) {
-        // name은 백엔드 원본으로 덮어쓰지 않고 JSON에 큐레이션된 값을 유지합니다.
         return {
           ...item,
           id: String(matched.id),
           imageUrl: matched.imageUrl,
         }
       }
-      // storeNo가 있지만 백엔드에 해당 id가 없는 경우(폐업 등) '빈 점포'로 처리합니다.
       return {
         ...item,
         name: '빈 점포',
