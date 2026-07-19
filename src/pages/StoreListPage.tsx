@@ -13,7 +13,7 @@ import macatSorryIcon from '@/assets/icons/macat_sorry.svg'
 
 const CATEGORIES = [
   '전체',
-  '음식',
+  '음식점',
   '수산·정육',
   '농산물',
   '떡·빵·간식',
@@ -175,9 +175,9 @@ const StoreListPage = () => {
         <div className="flex-1 px-5 pb-8 overflow-y-auto">
           <div className="flex flex-col gap-3">
             {filteredStores.length > 0 ? (
-              filteredStores.map((store) => (
+              filteredStores.map((store, index) => (
                 <StoreCard
-                  key={store.id}
+                  key={`${store.id}-${index}`}
                   store={store}
                   onClick={() =>
                     navigate('/store-detail', { state: { storeId: store.id } })

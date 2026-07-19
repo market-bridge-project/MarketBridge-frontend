@@ -228,13 +228,25 @@ export function calculateZoomOffset(
   return clampOffset({ x: nextX, y: nextY }, nextZoom, winSize)
 }
 
-function normalizeName(name: string): string {
-  return name
-    .replace(/\s+/g, '')
-    .toLowerCase()
-    .replace(/개/g, '게')
-    .replace(/쳐/g, '처')
-    .replace(/애/g, '에')
+const FOOD_CATEGORIES = [
+  '음식점',
+  '음식',
+  '떡·빵·간식',
+  '반찬·식재료',
+  '농산물',
+  '수산·정육',
+]
+
+function toStore(apiStore: StoreResponse): Store {
+  return {
+    id: String(apiStore.id),
+    name: apiStore.name,
+    category: apiStore.category,
+    hours: apiStore.openTime || '',
+    isFood: FOOD_CATEGORIES.includes(apiStore.category),
+    menuNames: apiStore.menuNames,
+    imageUrl: apiStore.imageUrl ?? undefined,
+  }
 }
 
 export function getMappedLayoutWithApiData(
@@ -264,37 +276,11 @@ export function getMappedLayoutWithApiData(
     return { layoutItems, stores }
   }
 
-  // 로컬 DUMMY_STORES의 점포 ID와 카테고리를 백엔드 데이터 기준으로 동적 매핑
-  const mappedStores = stores.map((store) => {
-    const matched = apiStoresList.find((b) => {
-      const normS = normalizeName(store.name)
-      const normB = normalizeName(b.name)
-      return normS.includes(normB) || normB.includes(normS)
-    })
-    if (matched) {
-      const foodCategories = [
-        '음식점',
-        '음식',
-        '떡·빵·간식',
-        '반찬·식재료',
-        '농산물',
-        '수산·정육',
-      ]
-      const isFood = foodCategories.includes(matched.category)
-      return {
-        ...store,
-        id: String(matched.id),
-        category: matched.category,
-        hours: matched.openTime || store.hours,
-        isFood, // 백엔드 카테고리 기반 아이콘 분류 연동
-        menuNames: matched.menuNames,
-      }
-    }
-    return store
-  })
+  // 백엔드 매장 목록을 그대로 store 목록으로 사용 (이름 유사도 매칭 대신 id 기준 직접 매핑)
+  const mappedStores = apiStoresList.map(toStore)
 
-  // 지도 레이아웃 배치 데이터(market-layout.json)의 점포를 storeNo(백엔드 id) 기준으로 동적 매핑
-  // storeNo는 물리적 구역 조사 시 부여된 백엔드 id 참조값으로, 이름 유사도 매칭보다 신뢰도가 높음
+  // 지도 레이아웃 배치 데이터(market-layout.json)의 점포를 storeNo(백엔드 id) 기준으로 매핑
+  // storeNo는 물리적 구역 조사 시 부여된 백엔드 id 참조값이라 이름 유사도 매칭보다 신뢰도가 높음
   const apiStoresById = new Map(apiStoresList.map((b) => [b.id, b]))
   const mappedLayout = layoutItems.map((item) => {
     if (item.type === 'store') {
