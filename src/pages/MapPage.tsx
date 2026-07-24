@@ -1,6 +1,6 @@
-import MapHeader from '@/components/Map/MapHeader'
-import MapFooter from '@/components/Map/MapFooter'
-import MarketMap from '@/components/Map/MarketMap'
+import MapHeader from '@/components/map/MapHeader'
+import MapFooter from '@/components/map/MapFooter'
+import MarketMap from '@/components/map/MarketMap'
 
 const MapPage = () => {
   return (

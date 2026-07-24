@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { FilterCard, RecommendModal } from '../components/SearchPage'
+import { FilterCard, RecommendModal } from '../components/searchPage'
 import { postRecommend } from '../api/recommend'
 import { getKeywords } from '../api/keyword'
 import backIcon from '../assets/icons/weui_back-filled.svg'

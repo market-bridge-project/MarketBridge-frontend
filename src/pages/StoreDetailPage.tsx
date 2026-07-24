@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getStoreDetail } from '@/api/storeDetail'
-import { getCuratedStoreName } from '@/components/Map/mapLayoutHelper'
+import { getCuratedStoreName } from '@/components/map/mapLayoutHelper'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const StoreDetail = () => {

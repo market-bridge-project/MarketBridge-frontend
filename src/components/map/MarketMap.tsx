@@ -7,7 +7,7 @@ import { StoreResponse } from '@/types/store'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
 import MapFloatingMenu from './MapFloatingMenu'
-import { StorePreviewSheet } from '@/components/common/StorePreviewBottomSheet'
+import { StorePreviewSheet } from './StorePreviewBottomSheet'
 import marketLayoutData from '@/api/market-layout-fin.json'
 import {
   computeLayout,
