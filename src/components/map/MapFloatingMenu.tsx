@@ -2,6 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import listIconSvg from '@/assets/icons/list_icon.svg'
 import aiIconSvg from '@/assets/icons/ai_icon.svg'
 import aiSearchIconSvg from '@/assets/icons/ai_search_icon.svg'
+import typeTestIconSvg from '@/assets/icons/type_test_icon.svg'
+
+const TYPE_TEST_URL = import.meta.env.VITE_TYPE_TEST_URL
 
 interface FloatingActionButtonProps {
   bottom: number
@@ -13,7 +16,7 @@ interface FloatingActionButtonProps {
 }
 
 const FLOATING_BUTTON_BASE_CLASS =
-  'absolute right-[16px] z-50 w-[125px] h-[48px] rounded-full bg-[rgba(255,255,255,0.90)] border border-[#EDE5DE] flex items-center pl-[12px] pr-[14px] shadow-[0_8px_20px_-6px_rgba(10,54,28,0.12)] active:scale-95 transition-all duration-300 ease-out select-none'
+  'absolute right-[16px] z-50 min-w-[125px] w-max h-[48px] rounded-full bg-[rgba(255,255,255,0.90)] border border-[#EDE5DE] flex items-center pl-[12px] pr-[14px] shadow-[0_8px_20px_-6px_rgba(10,54,28,0.12)] active:scale-95 transition-all duration-300 ease-out select-none whitespace-nowrap'
 
 const FloatingActionButton = ({
   bottom,
@@ -68,6 +71,18 @@ const MapFloatingMenu = ({ isOpen, onToggle }: MapFloatingMenuProps) => {
 
   return (
     <>
+      {/* 유형 테스트 버튼 (외부 링크) */}
+      <FloatingActionButton
+        bottom={208}
+        iconSrc={typeTestIconSvg}
+        iconAlt="유형 테스트 아이콘"
+        label="유형 테스트"
+        isOpen={isOpen}
+        onClick={() =>
+          window.open(TYPE_TEST_URL, '_blank', 'noopener,noreferrer')
+        }
+      />
+
       {/* 검색 버튼 */}
       <FloatingActionButton
         bottom={144}
