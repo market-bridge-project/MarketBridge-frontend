@@ -1,540 +1,88 @@
-import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { DUMMY_STORES } from '@/api/stores'
-import { getStores } from '@/api/store'
-import { StoreResponse } from '@/types/store'
+import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ShopCard from './ShopCard'
 import ZoomControls from './ZoomControls'
 import MapFloatingMenu from './MapFloatingMenu'
 import { StorePreviewSheet } from './StorePreviewBottomSheet'
-import marketLayoutData from '@/api/market-layout-fin.json'
 import {
-  computeLayout,
   TOTAL_MAP_HEIGHT,
   CORRIDOR,
   SECTIONS,
   CROSSWALKS,
-  LayoutItem,
   Y_SHIFT,
-  calculateZoomOffset,
-  MAX_ZOOM,
   MAP_WIDTH,
-  clampOffset,
-  getMappedLayoutWithApiData,
 } from './mapLayoutHelper'
-
-const COURSE_STORE_IDS_STORAGE_KEY = 'courseStoreIds'
-const COURSE_TITLE_STORAGE_KEY = 'courseTitle'
-const IS_COURSE_VISIBLE_STORAGE_KEY = 'isCourseVisible'
-
-const readLocalStorage = (key: string) => {
-  try {
-    return localStorage.getItem(key)
-  } catch {
-    return null
-  }
-}
-
-const readCourseStoreIds = (): string[] => {
-  try {
-    const saved = readLocalStorage(COURSE_STORE_IDS_STORAGE_KEY)
-    const parsed: unknown = saved ? JSON.parse(saved) : []
-    return Array.isArray(parsed) &&
-      parsed.every((id): id is string => typeof id === 'string')
-      ? parsed
-      : []
-  } catch {
-    return []
-  }
-}
+import { useMapPanZoom } from './hooks/useMapPanZoom'
+import { useMapStoreData } from './hooks/useMapStoreData'
+import { useStoreSelection } from './hooks/useStoreSelection'
+import { useFocusStoreFromRoute } from './hooks/useFocusStoreFromRoute'
+import { useCourseRoute } from './hooks/useCourseRoute'
+import { useLockBodyScroll } from './hooks/useLockBodyScroll'
 
 const MarketMap = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const [winSize, setWinSize] = useState({ w: 450, h: 800 })
-  const [zoom, setZoom] = useState(0.65)
-  const [offset, setOffset] = useState({ x: 0, y: 20 })
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [highlightedId, setHighlightedId] = useState<string | null>(null)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isMeasured, setIsMeasured] = useState(false)
-  const [courseStoreIds, setCourseStoreIds] =
-    useState<string[]>(readCourseStoreIds)
-  const [courseTitle, setCourseTitle] = useState<string | null>(() => {
-    return readLocalStorage(COURSE_TITLE_STORAGE_KEY)
-  })
-  const [hasCenteredCourse, setHasCenteredCourse] = useState(false)
-  const [isCourseVisible, setIsCourseVisible] = useState(() => {
-    return readLocalStorage(IS_COURSE_VISIBLE_STORAGE_KEY) !== 'false'
-  })
-
-  // 최신 상태를 클로저 갇힘 없이 참조하기 위한 Ref 미러링
-  const zoomRef = useRef(zoom)
-  const offsetRef = useRef(offset)
-  zoomRef.current = zoom
-  offsetRef.current = offset
-
-  // 최소 줌은 winSize.w에 연동
-  const minZoom = useMemo(() => {
-    return Math.max(0.65, (winSize.w * 0.95) / MAP_WIDTH)
-  }, [winSize.w])
-
-  // 실제 컨테이너 clientWidth 실측 및 초기 줌/정중앙 오프셋 수립
-  useEffect(() => {
-    if (!containerRef.current) return
-
-    const updateSize = () => {
-      if (!containerRef.current) return
-      const w = containerRef.current.clientWidth || 450
-      const h = containerRef.current.clientHeight || 800
-      setWinSize({ w, h })
-      setIsMeasured(true)
-      setZoom((z) => Math.max(z, Math.max(0.65, (w * 0.95) / MAP_WIDTH)))
-    }
-
-    const initW = containerRef.current.clientWidth || 450
-    const initH = containerRef.current.clientHeight || 800
-    const initMinZoom = Math.max(0.65, (initW * 0.95) / MAP_WIDTH)
-    const initX = (initW - MAP_WIDTH * initMinZoom) / 2
-
-    setWinSize({ w: initW, h: initH })
-    setIsMeasured(true)
-    setZoom(initMinZoom)
-    setOffset({ x: initX, y: 20 })
-
-    window.addEventListener('resize', updateSize)
-    return () => window.removeEventListener('resize', updateSize)
-  }, [])
-
-  useEffect(() => {
-    setZoom((z) => Math.max(z, minZoom))
-  }, [minZoom])
-
-  // 모바일 브라우저 전체 시스템 핀치 줌 및 노트북 마우스 휠/트랙패드 줌 탈취 제어
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const handleGesture = (e: Event) => {
-      e.preventDefault()
-    }
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 1) {
-        e.preventDefault() // 두 손가락 시스템 줌 동작 강제 중단
-      }
-    }
-
-    // 마우스 휠 및 노트북 트랙패드 핀치 줌 연동 리스너 (마우스 커서 중심 줌 피벗 적용)
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault() // 브라우저 전체 화면 스크롤/줌 차단
-
-      const rect = container.getBoundingClientRect()
-      const mouseX = e.clientX - rect.left
-      const mouseY = e.clientY - rect.top
-
-      const zoomFactor = 0.08
-      let factor = e.deltaY < 0 ? 1 : -1
-
-      if (e.ctrlKey) {
-        factor = -e.deltaY * 0.02
-      } else {
-        factor = factor * zoomFactor
-      }
-
-      // 항상 클로저에서 자유로운 최신의 줌 및 오프셋 실시간 참조
-      const currentZoom = zoomRef.current
-      const currentOffset = offsetRef.current
-
-      const nextZoom = Math.max(
-        minZoom,
-        Math.min(MAX_ZOOM, currentZoom + factor),
-      )
-      if (nextZoom === currentZoom) return
-
-      const nextOffset = calculateZoomOffset(
-        nextZoom,
-        mouseX,
-        mouseY,
-        currentZoom,
-        currentOffset,
-        winSize,
-      )
-
-      setZoom(nextZoom)
-      setOffset(nextOffset)
-    }
-
-    // passive: false 옵션을 반드시 주어야 e.preventDefault()가 브라우저에서 차단
-    container.addEventListener('gesturestart', handleGesture, {
-      passive: false,
-    })
-    container.addEventListener('gesturechange', handleGesture, {
-      passive: false,
-    })
-    container.addEventListener('touchmove', handleTouchMove, { passive: false })
-    container.addEventListener('wheel', handleWheel, { passive: false })
-
-    return () => {
-      container.removeEventListener('gesturestart', handleGesture)
-      container.removeEventListener('gesturechange', handleGesture)
-      container.removeEventListener('touchmove', handleTouchMove)
-      container.removeEventListener('wheel', handleWheel)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minZoom])
-
-  // 줌 +- 버튼 클릭용 화면 정중앙(Viewport Center) 피벗 줌 핸들러
-  const handleButtonZoom = useCallback(
-    (factor: number) => {
-      const centerX = winSize.w / 2
-      const centerY = winSize.h / 2
-
-      const currentZoom = zoomRef.current
-      const currentOffset = offsetRef.current
-
-      const nextZoom = Math.max(
-        minZoom,
-        Math.min(MAX_ZOOM, currentZoom + factor),
-      )
-      if (nextZoom === currentZoom) return
-
-      const nextOffset = calculateZoomOffset(
-        nextZoom,
-        centerX,
-        centerY,
-        currentZoom,
-        currentOffset,
-        winSize,
-      )
-
-      setZoom(nextZoom)
-      setOffset(nextOffset)
-    },
-    [winSize, minZoom],
-  )
-
-  const ptrs = useRef<Map<number, { clientX: number; clientY: number }>>(
-    new Map(),
-  )
-  const last = useRef({ x: 0, y: 0 })
-  const dist0 = useRef(0)
-  const zoom0 = useRef(1)
-  const moved = useRef(0)
-  const isDown = useRef(false)
 
   const {
-    data: apiStores,
-    error: apiError,
-    isLoading,
-  } = useQuery<StoreResponse[]>({
-    queryKey: ['apiStores'],
-    queryFn: getStores,
+    winSize,
+    zoom,
+    offset,
+    minZoom,
+    isMeasured,
+    isTransitioning,
+    setZoom,
+    setOffset,
+    setIsTransitioning,
+    movedRef,
+    handleButtonZoom,
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
+  } = useMapPanZoom(containerRef)
+
+  const { positions, bigBlocks, isLoading } = useMapStoreData()
+
+  const {
+    selectedId,
+    highlightedId,
+    selectedStore,
+    setSelectedId,
+    setHighlightedId,
+    handleShopClick,
+    handleContainerClick,
+  } = useStoreSelection({
+    positions,
+    zoom,
+    winSize,
+    movedRef,
+    setOffset,
+    setIsTransitioning,
   })
 
-  useEffect(() => {
-    if (apiError) {
-      console.error('[React Query] apiStores error:', apiError)
-    }
-  }, [apiError])
-
-  const { positions, bigBlocks } = useMemo(() => {
-    const { layoutItems, stores } = getMappedLayoutWithApiData(
-      marketLayoutData as LayoutItem[],
-      DUMMY_STORES,
-      apiStores,
-    )
-    return computeLayout(layoutItems, stores)
-  }, [apiStores])
-
-  const selectedStore = useMemo(() => {
-    if (!selectedId) return null
-    const s = positions.find((pos) => pos.store.id === selectedId)?.store
-    if (!s || s.isDummy || s.isVacant) return null
-    return s
-  }, [selectedId, positions])
-
-  // 상세보기 페이지에서 넘어온 포커스 요청(focusStoreId)을 지도 화면 정중앙에 정렬하고 강조
-  useEffect(() => {
-    const focusStoreId = (location.state as { focusStoreId?: string })
-      ?.focusStoreId
-    if (!focusStoreId || positions.length === 0 || !isMeasured) return
-
-    const pos = positions.find((p) => p.store.id === focusStoreId)
-    if (!pos) return
-
-    const targetZoom = Math.max(1.5, minZoom)
-    setZoom(targetZoom)
-
-    const shopCenterX = pos.left + pos.width / 2
-    const shopCenterY = pos.top + pos.height / 2
-
-    const targetX = winSize.w / 2 - shopCenterX * targetZoom
-    const targetY = winSize.h / 2 - shopCenterY * targetZoom
-
-    // 트랜지션 스타일을 먼저 활성화한 후, 50ms 뒤에 줌과 오프셋을 적용하여 애니메이션 효과 보장
-    setIsTransitioning(true)
-    const timer = setTimeout(() => {
-      setZoom(targetZoom)
-      setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
-      setHighlightedId(focusStoreId)
-      navigate(location.pathname, { replace: true, state: {} })
-    }, 50)
-
-    return () => clearTimeout(timer)
-  }, [
-    location.state,
+  useFocusStoreFromRoute({
     positions,
-    winSize,
-    minZoom,
-    navigate,
-    location.pathname,
     isMeasured,
-  ])
-
-  // 코스 추천 결과 처리 및 카메라 포커싱 (localStorage 연동)
-  useEffect(() => {
-    const stateCourseIds = (location.state as { courseStoreIds?: string[] })
-      ?.courseStoreIds
-    const stateCourseTitle = (location.state as { courseTitle?: string })
-      ?.courseTitle
-
-    let activeCourseIds = courseStoreIds
-
-    // 1. 라우터 상태에 새 코스가 전달된 경우 localStorage 덮어쓰기
-    if (stateCourseIds && stateCourseIds.length > 0) {
-      activeCourseIds = stateCourseIds
-      setCourseStoreIds(stateCourseIds)
-      setCourseTitle(stateCourseTitle || '추천 코스')
-      setIsCourseVisible(true)
-      try {
-        localStorage.setItem(
-          COURSE_STORE_IDS_STORAGE_KEY,
-          JSON.stringify(stateCourseIds),
-        )
-        localStorage.setItem(
-          COURSE_TITLE_STORAGE_KEY,
-          stateCourseTitle || '추천 코스',
-        )
-        localStorage.setItem(IS_COURSE_VISIBLE_STORAGE_KEY, 'true')
-      } catch {
-        // Silently catch write quota or blocked errors
-      }
-      setHasCenteredCourse(false) // 새로운 코스가 확정되었으므로 다시 포커싱되게 리셋
-    }
-
-    // 포커싱 조건 만족 검사
-    if (
-      activeCourseIds.length === 0 ||
-      positions.length === 0 ||
-      !isMeasured ||
-      !isCourseVisible ||
-      hasCenteredCourse
-    ) {
-      return
-    }
-
-    // 코스 점포들의 위치 찾기
-    const coursePositions = positions.filter((p) =>
-      activeCourseIds.includes(p.store.id),
-    )
-    if (coursePositions.length === 0) return
-
-    // 바운딩 박스 계산
-    const lefts = coursePositions.map((p) => p.left)
-    const rights = coursePositions.map((p) => p.left + p.width)
-    const tops = coursePositions.map((p) => p.top)
-    const bottoms = coursePositions.map((p) => p.top + p.height)
-
-    const minX = Math.min(...lefts)
-    const maxX = Math.max(...rights)
-    const minY = Math.min(...tops)
-    const maxY = Math.max(...bottoms)
-
-    const centerX = (minX + maxX) / 2
-    const centerY = (minY + maxY) / 2
-
-    const boxW = Math.max(100, maxX - minX)
-    const boxH = Math.max(100, maxY - minY)
-
-    const targetZoom = Math.min(
-      1.5,
-      Math.max(
-        minZoom,
-        Math.min((winSize.w * 0.7) / boxW, (winSize.h * 0.7) / boxH),
-      ),
-    )
-
-    const targetX = winSize.w / 2 - centerX * targetZoom
-    const targetY = winSize.h / 2 - centerY * targetZoom
-
-    setIsTransitioning(true)
-    const timer = setTimeout(() => {
-      setZoom(targetZoom)
-      setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
-      setHasCenteredCourse(true)
-
-      // 라우터 상태로 들어온 새로운 진입인 경우에만 history state를 클리어하여 뒤로가기 동작 대응
-      if (stateCourseIds && stateCourseIds.length > 0) {
-        navigate(location.pathname, { replace: true, state: {} })
-      }
-    }, 50)
-
-    return () => clearTimeout(timer)
-  }, [
-    location.state,
-    positions,
-    winSize,
     minZoom,
-    navigate,
-    location.pathname,
-    isMeasured,
-    hasCenteredCourse,
-    isCourseVisible,
-    courseStoreIds,
-  ])
+    winSize,
+    setZoom,
+    setOffset,
+    setIsTransitioning,
+    setHighlightedId,
+  })
 
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow
-    const originalPosition = document.body.style.position
-    const originalWidth = document.body.style.width
-    const originalHeight = document.body.style.height
+  const { courseStoreIds, courseTitle, isCourseVisible, toggleCourseVisible } =
+    useCourseRoute({
+      positions,
+      isMeasured,
+      minZoom,
+      winSize,
+      setZoom,
+      setOffset,
+      setIsTransitioning,
+    })
 
-    document.body.style.overflow = 'hidden'
-    document.body.style.position = 'fixed'
-    document.body.style.width = '100%'
-    document.body.style.height = '100%'
-
-    return () => {
-      document.body.style.overflow = originalOverflow
-      document.body.style.position = originalPosition
-      document.body.style.width = originalWidth
-      document.body.style.height = originalHeight
-    }
-  }, [])
-
-  const eucl = (
-    a: { clientX: number; clientY: number },
-    b: { clientX: number; clientY: number },
-  ) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
-
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      setIsTransitioning(false)
-      ptrs.current.set(e.pointerId, {
-        clientX: e.clientX,
-        clientY: e.clientY,
-      })
-      isDown.current = true
-      moved.current = 0
-      if (ptrs.current.size === 1) {
-        last.current = { x: e.clientX, y: e.clientY }
-      } else if (ptrs.current.size === 2) {
-        const [a, b] = Array.from(ptrs.current.values())
-        dist0.current = eucl(a, b)
-        zoom0.current = zoom
-      }
-    },
-    [zoom],
-  )
-
-  const handlePointerMove = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDown.current) return
-      ptrs.current.set(e.pointerId, {
-        clientX: e.clientX,
-        clientY: e.clientY,
-      })
-      if (ptrs.current.size === 1) {
-        const dx = e.clientX - last.current.x
-        const dy = e.clientY - last.current.y
-        moved.current += Math.hypot(dx, dy)
-
-        setOffset((p) => {
-          const nextX = p.x + dx
-          const nextY = p.y + dy
-          return clampOffset({ x: nextX, y: nextY }, zoom, winSize)
-        })
-        last.current = { x: e.clientX, y: e.clientY }
-      } else if (ptrs.current.size === 2) {
-        const [a, b] = Array.from(ptrs.current.values())
-        if (dist0.current > 0 && containerRef.current) {
-          const nextZoom = Math.max(
-            minZoom,
-            Math.min(MAX_ZOOM, zoom0.current * (eucl(a, b) / dist0.current)),
-          )
-
-          if (nextZoom !== zoomRef.current) {
-            const rect = containerRef.current.getBoundingClientRect()
-            const pivotX = (a.clientX + b.clientX) / 2 - rect.left
-            const pivotY = (a.clientY + b.clientY) / 2 - rect.top
-
-            const nextOffset = calculateZoomOffset(
-              nextZoom,
-              pivotX,
-              pivotY,
-              zoomRef.current,
-              offsetRef.current,
-              winSize,
-            )
-
-            setZoom(nextZoom)
-            setOffset(nextOffset)
-          }
-        }
-      }
-    },
-    [zoom, winSize, minZoom],
-  )
-
-  const handlePointerUp = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      ptrs.current.delete(e.pointerId)
-      if (ptrs.current.size === 0) {
-        isDown.current = false
-      } else if (ptrs.current.size === 1) {
-        const r = Array.from(ptrs.current.values())[0]
-        last.current = { x: r.clientX, y: r.clientY }
-      }
-    },
-    [],
-  )
-
-  const handleShopClick = useCallback(
-    (e: React.MouseEvent, id: string) => {
-      e.stopPropagation()
-      if (moved.current <= 6) {
-        setSelectedId((prev) => (prev === id ? null : id))
-        setHighlightedId(null)
-
-        const pos = positions.find((p) => p.store.id === id)
-        if (pos) {
-          const targetX = pos.left + pos.width / 2
-          const targetY = pos.top + pos.height / 2
-
-          const viewX = winSize.w / 2
-          const viewY = winSize.h / 2 - 100
-
-          const nextX = viewX - targetX * zoom
-          const nextY = viewY - targetY * zoom
-
-          setIsTransitioning(true)
-          setOffset(clampOffset({ x: nextX, y: nextY }, zoom, winSize))
-        }
-      }
-    },
-    [positions, zoom, winSize],
-  )
-
-  const handleContainerClick = useCallback(() => {
-    if (moved.current <= 6) {
-      setSelectedId(null)
-      setHighlightedId(null)
-    }
-  }, [])
+  useLockBodyScroll()
 
   return (
     <div
@@ -806,16 +354,7 @@ const MarketMap = () => {
             type="button"
             onClick={(e) => {
               e.stopPropagation()
-              const nextVisible = !isCourseVisible
-              setIsCourseVisible(nextVisible)
-              try {
-                localStorage.setItem(
-                  IS_COURSE_VISIBLE_STORAGE_KEY,
-                  String(nextVisible),
-                )
-              } catch {
-                // Silently catch write errors
-              }
+              toggleCourseVisible()
             }}
             className="flex items-center justify-center hover:opacity-70 transition-opacity cursor-pointer text-secondary"
             title={isCourseVisible ? '코스 숨기기' : '코스 보이기'}

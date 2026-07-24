@@ -109,8 +109,7 @@ export const StorePreviewSheet = ({
               alt={name}
               className="w-full h-full object-cover"
               decoding="async"
-              // @ts-expect-error fetchPriority는 최신 브라우저 지원 속성, React 타입 정의에 아직 없음
-              fetchpriority="high"
+              fetchPriority="high"
             />
           ) : (
             <div className="w-full h-full bg-gray-200" />
