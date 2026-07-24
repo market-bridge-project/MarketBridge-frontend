@@ -109,7 +109,9 @@ export const StorePreviewSheet = ({
               alt={name}
               className="w-full h-full object-cover"
               decoding="async"
-              // @ts-expect-error fetchPriority는 최신 브라우저 지원 속성, React 타입 정의에 아직 없음
+              // fetchPriority는 React 19부터 인식되는 속성. React 18에선 소문자로 써야 동작함
+              // @ts-expect-error React 18 JSX 타입엔 없음
+              // eslint-disable-next-line react/no-unknown-property
               fetchpriority="high"
             />
           ) : (

@@ -1,7 +1,7 @@
 import React from 'react'
-import { LandingHeader } from '@/components/Landing/LandingHeader'
-import { LandingContent } from '@/components/Landing/LandingContent'
-import { LandingFooter } from '@/components/Landing/LandingFooter'
+import { LandingHeader } from '@/components/landing/LandingHeader'
+import { LandingContent } from '@/components/landing/LandingContent'
+import { LandingFooter } from '@/components/landing/LandingFooter'
 
 export const LandingPage: React.FC = () => {
   return (
