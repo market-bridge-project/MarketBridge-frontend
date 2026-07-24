@@ -1,15 +1,19 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { SearchBar } from '@/components/common/SearchBar'
 import { CategoryChip } from '@/components/common/CategoryChip'
 import { StoreCard } from '@/components/common/StoreCard'
 import { DUMMY_STORES } from '@/api/stores'
+import { getStores } from '@/api/store'
+import { getMappedLayoutWithApiData } from '@/components/map/mapLayoutHelper'
+import { StoreResponse } from '@/types/store'
 import backIcon from '@/assets/icons/weui_back-filled.svg'
 import macatSorryIcon from '@/assets/icons/macat_sorry.svg'
 
 const CATEGORIES = [
   '전체',
-  '음식',
+  '음식점',
   '수산·정육',
   '농산물',
   '떡·빵·간식',
@@ -18,22 +22,28 @@ const CATEGORIES = [
   '생활·서비스',
 ]
 
-/** 디바운싱 지연 시간 (ms) */
 const DEBOUNCE_DELAY = 300
 
 const StoreListPage = () => {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
-  // 디바운싱이 적용된 실제 검색어 (이 값으로 필터링)
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     '전체',
   ])
 
-  // 검색어 입력 시 디바운싱 적용: 타이핑이 멈춘 후 300ms 뒤에 실제 검색 실행
+  const { data: apiStores, isLoading } = useQuery<StoreResponse[]>({
+    queryKey: ['apiStores'],
+    queryFn: getStores,
+  })
+
+  const mappedStores = useMemo(() => {
+    const { stores } = getMappedLayoutWithApiData([], DUMMY_STORES, apiStores)
+    return stores
+  }, [apiStores])
+
   useEffect(() => {
-    // 입력값이 비었으면 즉시 초기화 (불필요한 대기 방지)
     if (searchQuery.trim() === '') {
       setDebouncedQuery('')
       return
@@ -68,7 +78,6 @@ const StoreListPage = () => {
     })
   }
 
-  // 선택 여부 및 원래 인덱스 순서에 따라 카테고리 정렬 (전체는 항상 맨 앞에 고정)
   const orderedCategories = [
     '전체',
     ...CATEGORIES.filter((c) => c !== '전체').sort((a, b) => {
@@ -80,22 +89,33 @@ const StoreListPage = () => {
     }),
   ]
 
-  // 선택된 카테고리와 디바운싱된 검색어에 따라 상점 필터링
-  const filteredStores = DUMMY_STORES.filter((store) => {
+  const filteredStores = mappedStores.filter((store) => {
     const matchesCategory =
       selectedCategories.includes('전체') ||
       selectedCategories.includes(store.category)
 
     const matchesSearch =
       store.name.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-      store.subCategory.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-      (store.menus &&
-        store.menus.some((menu) =>
-          menu.name.toLowerCase().includes(debouncedQuery.toLowerCase()),
+      (store.menuNames &&
+        store.menuNames.some((menuName) =>
+          menuName.toLowerCase().includes(debouncedQuery.toLowerCase()),
         ))
 
     return matchesCategory && matchesSearch
   })
+
+  if (isLoading) {
+    return (
+      <div className="flex h-dvh w-full items-center justify-center bg-app">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-brand border-t-transparent" />
+          <p className="text-sm font-semibold text-secondary animate-pulse">
+            가게 목록을 불러오는 중입니다...
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-dvh flex-col bg-app">

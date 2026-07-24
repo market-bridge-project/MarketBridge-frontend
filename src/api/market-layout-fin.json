@@ -1,0 +1,1873 @@
+[
+  {
+    "id": "Block15",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -20,
+    "y": 188,
+    "width": 377,
+    "height": 618
+  },
+  {
+    "id": "Block13",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1251,
+    "y": 188,
+    "width": 219,
+    "height": 186
+  },
+  {
+    "id": 13,
+    "storeNo": 13,
+    "name": "BGT호두단팥빵",
+    "type": "store",
+    "x": 383,
+    "y": 200,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 18,
+    "storeNo": 18,
+    "name": "코끼리약국",
+    "type": "store",
+    "x": 501,
+    "y": 200,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": 3,
+    "storeNo": 3,
+    "name": "땅스부대찌개",
+    "type": "store",
+    "x": 745,
+    "y": 201,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 1,
+    "storeNo": 1,
+    "name": "과일나라과일천국",
+    "type": "store",
+    "x": 907,
+    "y": 201,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 2,
+    "storeNo": 2,
+    "name": "대영신천 꽃방",
+    "type": "store",
+    "x": 1069,
+    "y": 201,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 15,
+    "storeNo": 15,
+    "name": "모두뼈다귀감자탕",
+    "type": "store",
+    "x": 383,
+    "y": 250,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell11",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 1069,
+    "y": 255,
+    "width": 156,
+    "height": 40
+  },
+  {
+    "id": 16,
+    "storeNo": 16,
+    "name": "좋은축산마을",
+    "type": "store",
+    "x": 383,
+    "y": 300,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 19,
+    "storeNo": 19,
+    "name": "남서울반찬",
+    "type": "store",
+    "x": 501,
+    "y": 300,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "Block14",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 733,
+    "y": 321,
+    "width": 555,
+    "height": 53
+  },
+  {
+    "id": 17,
+    "storeNo": 17,
+    "name": "해피브레드",
+    "type": "store",
+    "x": 383,
+    "y": 350,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 20,
+    "storeNo": 20,
+    "name": "명성왕족발",
+    "type": "store",
+    "x": 501,
+    "y": 350,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "Block12",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1163,
+    "y": 388,
+    "width": 296,
+    "height": 417
+  },
+  {
+    "id": 12,
+    "storeNo": 12,
+    "name": "잠실김밥",
+    "type": "store",
+    "x": 383,
+    "y": 400,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 21,
+    "storeNo": 21,
+    "name": "민영활어공장",
+    "type": "store",
+    "x": 501,
+    "y": 400,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 6,
+    "storeNo": 6,
+    "name": "오렌지분식",
+    "type": "store",
+    "x": 745,
+    "y": 401,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 5,
+    "storeNo": 5,
+    "name": "자연애곳간",
+    "type": "store",
+    "x": 907,
+    "y": 401,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 4,
+    "storeNo": 4,
+    "name": "대성정육식당",
+    "type": "store",
+    "x": 1025,
+    "y": 401,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 14,
+    "storeNo": 14,
+    "name": "알파디씨마트(2층)",
+    "type": "store",
+    "x": 383,
+    "y": 450,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 22,
+    "storeNo": 22,
+    "name": "바다한스푼(어사또)",
+    "type": "store",
+    "x": 501,
+    "y": 450,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 7,
+    "storeNo": 7,
+    "name": "두란노커피",
+    "type": "store",
+    "x": 745,
+    "y": 451,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell12",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 451,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 23,
+    "storeNo": 23,
+    "name": "새마을순대국",
+    "type": "store",
+    "x": 501,
+    "y": 500,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 8,
+    "storeNo": 8,
+    "name": "고향전집",
+    "type": "store",
+    "x": 745,
+    "y": 501,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell1",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 501,
+    "width": 112,
+    "height": 143
+  },
+  {
+    "id": "EmptyCell3",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 1025,
+    "y": 501,
+    "width": 112,
+    "height": 93
+  },
+  {
+    "id": 29,
+    "storeNo": 29,
+    "name": "서울텐트",
+    "type": "store",
+    "x": 383,
+    "y": 550,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 24,
+    "storeNo": 24,
+    "name": "우연",
+    "type": "store",
+    "x": 501,
+    "y": 550,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 26,
+    "storeNo": 26,
+    "name": "생선파는청년들",
+    "type": "store",
+    "x": 745,
+    "y": 551,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 25,
+    "storeNo": 25,
+    "name": "남서울축산물전문점",
+    "type": "store",
+    "x": 501,
+    "y": 600,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "special-31",
+    "storeNo": null,
+    "name": "새마을시장\n고객센터",
+    "type": "store",
+    "x": 1025,
+    "y": 601,
+    "width": 112,
+    "height": 194
+  },
+  {
+    "id": "EmptyCell13",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 383,
+    "y": 650,
+    "width": 112,
+    "height": 144
+  },
+  {
+    "id": 27,
+    "storeNo": 27,
+    "name": "생선파는청년들",
+    "type": "store",
+    "x": 501,
+    "y": 650,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell2",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 650,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 9,
+    "storeNo": 9,
+    "name": "강남지물포",
+    "type": "store",
+    "x": 745,
+    "y": 651,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 28,
+    "storeNo": 28,
+    "name": "미남생선",
+    "type": "store",
+    "x": 501,
+    "y": 700,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 10,
+    "storeNo": 10,
+    "name": "칼라분식",
+    "type": "store",
+    "x": 745,
+    "y": 701,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 30,
+    "storeNo": 30,
+    "name": "금빛행운복권방",
+    "type": "store",
+    "x": 501,
+    "y": 750,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 11,
+    "storeNo": 11,
+    "name": "명동이용원",
+    "type": "store",
+    "x": 907,
+    "y": 751,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Block16",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -138,
+    "y": 820,
+    "width": 377,
+    "height": 318
+  },
+  {
+    "id": "Block1",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 927,
+    "y": 820,
+    "width": 222,
+    "height": 318
+  },
+  {
+    "id": "Block11",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1163,
+    "y": 820,
+    "width": 296,
+    "height": 318
+  },
+  {
+    "id": "EmptyCell14",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 265,
+    "y": 832,
+    "width": 228,
+    "height": 94
+  },
+  {
+    "id": 31,
+    "storeNo": 31,
+    "name": "생선구이-잠실새마을생선",
+    "type": "store",
+    "x": 499,
+    "y": 832,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 39,
+    "storeNo": 39,
+    "name": "새내방앗간",
+    "type": "store",
+    "x": 745,
+    "y": 832,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 32,
+    "storeNo": 32,
+    "name": "강경상회",
+    "type": "store",
+    "x": 499,
+    "y": 882,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 40,
+    "storeNo": 40,
+    "name": "새마을지물포",
+    "type": "store",
+    "x": 745,
+    "y": 882,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell4",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 265,
+    "y": 932,
+    "width": 228,
+    "height": 144
+  },
+  {
+    "id": 33,
+    "storeNo": 33,
+    "name": "늘푸른야채",
+    "type": "store",
+    "x": 499,
+    "y": 932,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 41,
+    "storeNo": 41,
+    "name": "행복전집",
+    "type": "store",
+    "x": 745,
+    "y": 932,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 34,
+    "storeNo": 34,
+    "name": "마을축산",
+    "type": "store",
+    "x": 499,
+    "y": 982,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": 42,
+    "storeNo": 42,
+    "name": "명가떡집",
+    "type": "store",
+    "x": 745,
+    "y": 982,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 43,
+    "storeNo": 43,
+    "name": "박가네두부",
+    "type": "store",
+    "x": 745,
+    "y": 1032,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 35,
+    "storeNo": 35,
+    "name": "싱싱한과일-마을생선",
+    "type": "store",
+    "x": 499,
+    "y": 1082,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 44,
+    "storeNo": 44,
+    "name": "강동상회",
+    "type": "store",
+    "x": 745,
+    "y": 1082,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 37,
+    "storeNo": 37,
+    "name": "신천포차",
+    "type": "store",
+    "x": 263,
+    "y": 1083,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 36,
+    "storeNo": 36,
+    "name": "나눔상회",
+    "type": "store",
+    "x": 381,
+    "y": 1083,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Block26",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -113,
+    "y": 1152,
+    "width": 169,
+    "height": 368
+  },
+  {
+    "id": "Block17",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 70,
+    "y": 1152,
+    "width": 169,
+    "height": 368
+  },
+  {
+    "id": "Block2",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 927,
+    "y": 1152,
+    "width": 531,
+    "height": 368
+  },
+  {
+    "id": 38,
+    "storeNo": 38,
+    "name": "천수횟집",
+    "type": "store",
+    "x": 263,
+    "y": 1164,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 45,
+    "storeNo": 45,
+    "name": "잠실생삼겹살",
+    "type": "store",
+    "x": 381,
+    "y": 1164,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 46,
+    "storeNo": 46,
+    "name": "서울축산",
+    "type": "store",
+    "x": 499,
+    "y": 1164,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 54,
+    "storeNo": 54,
+    "name": "중앙청과",
+    "type": "store",
+    "x": 745,
+    "y": 1164,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell16",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 263,
+    "y": 1214,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell15",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1214,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 47,
+    "storeNo": 47,
+    "name": "서울떡집",
+    "type": "store",
+    "x": 499,
+    "y": 1214,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 55,
+    "storeNo": 55,
+    "name": "서울진바베큐",
+    "type": "store",
+    "x": 745,
+    "y": 1214,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell17",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 263,
+    "y": 1264,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell5",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1264,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": 48,
+    "storeNo": 48,
+    "name": "미소담찬",
+    "type": "store",
+    "x": 499,
+    "y": 1264,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": "special-57",
+    "storeNo": null,
+    "name": "빈 점포",
+    "type": "store",
+    "isVacant": true,
+    "x": 745,
+    "y": 1264,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell18",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 263,
+    "y": 1314,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 56,
+    "storeNo": 56,
+    "name": "맛사랑전집",
+    "type": "store",
+    "x": 745,
+    "y": 1314,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 53,
+    "storeNo": 53,
+    "name": "포도마당",
+    "type": "store",
+    "x": 263,
+    "y": 1364,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell6",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1364,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 49,
+    "storeNo": 49,
+    "name": "매일야채",
+    "type": "store",
+    "x": 499,
+    "y": 1364,
+    "width": 136,
+    "height": 144
+  },
+  {
+    "id": 57,
+    "storeNo": 57,
+    "name": "쌍둥이네 한과",
+    "type": "store",
+    "x": 745,
+    "y": 1364,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 50,
+    "storeNo": 50,
+    "name": "시골토종 막걸리",
+    "type": "store",
+    "x": 381,
+    "y": 1414,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 58,
+    "storeNo": 58,
+    "name": "명가왕만두",
+    "type": "store",
+    "x": 745,
+    "y": 1414,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": 52,
+    "storeNo": 52,
+    "name": "팥단지",
+    "type": "store",
+    "x": 263,
+    "y": 1464,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 51,
+    "storeNo": 51,
+    "name": "달달한 술상",
+    "type": "store",
+    "x": 381,
+    "y": 1464,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": "Block18",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -28,
+    "y": 1534,
+    "width": 385,
+    "height": 268
+  },
+  {
+    "id": "Block3",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 927,
+    "y": 1534,
+    "width": 339,
+    "height": 268
+  },
+  {
+    "id": "Block10",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1280,
+    "y": 1534,
+    "width": 339,
+    "height": 268
+  },
+  {
+    "id": "EmptyCell19",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1546,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell20",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1546,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell21",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1546,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 64,
+    "storeNo": 64,
+    "name": "새마을농산",
+    "type": "store",
+    "x": 501,
+    "y": 1546,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 59,
+    "storeNo": 59,
+    "name": "우리한우 곰탕",
+    "type": "store",
+    "x": 745,
+    "y": 1546,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell22",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1596,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 65,
+    "storeNo": 65,
+    "name": "보금당",
+    "type": "store",
+    "x": 501,
+    "y": 1596,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 60,
+    "storeNo": 60,
+    "name": "대보선식",
+    "type": "store",
+    "x": 745,
+    "y": 1596,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell23",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1646,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 66,
+    "storeNo": 66,
+    "name": "박가네 두부-명가식품",
+    "type": "store",
+    "x": 501,
+    "y": 1646,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 61,
+    "storeNo": 61,
+    "name": "기섭이네생선가게",
+    "type": "store",
+    "x": 745,
+    "y": 1646,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell24",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1696,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 67,
+    "storeNo": 67,
+    "name": "명품구제-다모아패션",
+    "type": "store",
+    "x": 501,
+    "y": 1696,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 62,
+    "storeNo": 62,
+    "name": "별콩다방",
+    "type": "store",
+    "x": 745,
+    "y": 1696,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell25",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1746,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 68,
+    "storeNo": 68,
+    "name": "우리청과",
+    "type": "store",
+    "x": 501,
+    "y": 1746,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 63,
+    "storeNo": 63,
+    "name": "깻잎닭강정",
+    "type": "store",
+    "x": 745,
+    "y": 1746,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "Block20",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -57,
+    "y": 1816,
+    "width": 200,
+    "height": 318
+  },
+  {
+    "id": "Block21",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 157,
+    "y": 1816,
+    "width": 200,
+    "height": 318
+  },
+  {
+    "id": "Block4",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1041,
+    "y": 1816,
+    "width": 417,
+    "height": 318
+  },
+  {
+    "id": 69,
+    "storeNo": 69,
+    "name": "정민식품",
+    "type": "store",
+    "x": 383,
+    "y": 1828,
+    "width": 112,
+    "height": 44
+  },
+  {
+    "id": 70,
+    "storeNo": 70,
+    "name": "곱창과순댓국의만남",
+    "type": "store",
+    "x": 501,
+    "y": 1828,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 76,
+    "storeNo": 76,
+    "name": "명품치킨&꼬치",
+    "type": "store",
+    "x": 745,
+    "y": 1828,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 75,
+    "storeNo": 75,
+    "name": "민속보리밥",
+    "type": "store",
+    "x": 907,
+    "y": 1828,
+    "width": 112,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell51",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1878,
+    "width": 114,
+    "height": 94
+  },
+  {
+    "id": 71,
+    "storeNo": 71,
+    "name": "장충동한방족발",
+    "type": "store",
+    "x": 501,
+    "y": 1878,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 77,
+    "storeNo": 77,
+    "name": "트라이쌍방울",
+    "type": "store",
+    "x": 745,
+    "y": 1878,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 72,
+    "storeNo": 72,
+    "name": "맥반석김",
+    "type": "store",
+    "x": 501,
+    "y": 1928,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 78,
+    "storeNo": 78,
+    "name": "공씨네 족발",
+    "type": "store",
+    "x": 745,
+    "y": 1928,
+    "width": 156,
+    "height": 144
+  },
+  {
+    "id": "EmptyCell54",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 1928,
+    "width": 114,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell52",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 1978,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 73,
+    "storeNo": 73,
+    "name": "오복떡방앗간",
+    "type": "store",
+    "x": 501,
+    "y": 1978,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell53",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2028,
+    "width": 114,
+    "height": 94
+  },
+  {
+    "id": 74,
+    "storeNo": 74,
+    "name": "김자순수제돈까스",
+    "type": "store",
+    "x": 501,
+    "y": 2028,
+    "width": 136,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell55",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2028,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": 79,
+    "storeNo": 79,
+    "name": "반찬나라",
+    "type": "store",
+    "x": 745,
+    "y": 2078,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell56",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2078,
+    "width": 114,
+    "height": 44
+  },
+  {
+    "id": "Block19",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -28,
+    "y": 2148,
+    "width": 385,
+    "height": 318
+  },
+  {
+    "id": "Block5",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1041,
+    "y": 2148,
+    "width": 185,
+    "height": 318
+  },
+  {
+    "id": "Block9",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1240,
+    "y": 2148,
+    "width": 239,
+    "height": 318
+  },
+  {
+    "id": "EmptyCell44",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2160,
+    "width": 119,
+    "height": 44
+  },
+  {
+    "id": 85,
+    "storeNo": 85,
+    "name": "월드건강면세점",
+    "type": "store",
+    "x": 501,
+    "y": 2160,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 80,
+    "storeNo": 80,
+    "name": "주연식자재",
+    "type": "store",
+    "x": 745,
+    "y": 2160,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell48",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2160,
+    "width": 110,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell45",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2210,
+    "width": 119,
+    "height": 94
+  },
+  {
+    "id": 86,
+    "storeNo": 86,
+    "name": "도그버디애완용품",
+    "type": "store",
+    "x": 501,
+    "y": 2210,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 87,
+    "storeNo": 87,
+    "name": "치킨박사호프",
+    "type": "store",
+    "x": 501,
+    "y": 2260,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 81,
+    "storeNo": 81,
+    "name": "김반장",
+    "type": "store",
+    "x": 745,
+    "y": 2260,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell49",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2260,
+    "width": 110,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell46",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2310,
+    "width": 119,
+    "height": 92
+  },
+  {
+    "id": 88,
+    "storeNo": 88,
+    "name": "동양식품",
+    "type": "store",
+    "x": 501,
+    "y": 2310,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 82,
+    "storeNo": 82,
+    "name": "서울은마꽈배기",
+    "type": "store",
+    "x": 745,
+    "y": 2310,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": 89,
+    "storeNo": 89,
+    "name": "산골옛날바베큐",
+    "type": "store",
+    "x": 501,
+    "y": 2360,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 83,
+    "storeNo": 83,
+    "name": "족발미녀잠실점",
+    "type": "store",
+    "x": 745,
+    "y": 2360,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell50",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2360,
+    "width": 110,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell47",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2408,
+    "width": 119,
+    "height": 44
+  },
+  {
+    "id": 90,
+    "storeNo": 90,
+    "name": "속옷할인매장",
+    "type": "store",
+    "x": 501,
+    "y": 2410,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 84,
+    "storeNo": 84,
+    "name": "다미청과",
+    "type": "store",
+    "x": 745,
+    "y": 2410,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "Block25",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -14,
+    "y": 2480,
+    "width": 50,
+    "height": 268
+  },
+  {
+    "id": "Block22",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 50,
+    "y": 2480,
+    "width": 307,
+    "height": 268
+  },
+  {
+    "id": "Block6",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1041,
+    "y": 2480,
+    "width": 340,
+    "height": 268
+  },
+  {
+    "id": "Block8",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1395,
+    "y": 2480,
+    "width": 112,
+    "height": 268
+  },
+  {
+    "id": "EmptyCell32",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2492,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": 91,
+    "storeNo": 91,
+    "name": "파오파오",
+    "type": "store",
+    "x": 501,
+    "y": 2492,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 96,
+    "storeNo": 96,
+    "name": "청춘청과",
+    "type": "store",
+    "x": 745,
+    "y": 2492,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell37",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2492,
+    "width": 108,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell33",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2542,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": 92,
+    "storeNo": 92,
+    "name": "동천곱창",
+    "type": "store",
+    "x": 501,
+    "y": 2542,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell38",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2542,
+    "width": 108,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell34",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2592,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": 93,
+    "storeNo": 93,
+    "name": "잠실수구레",
+    "type": "store",
+    "x": 501,
+    "y": 2592,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 97,
+    "storeNo": 97,
+    "name": "조선육회",
+    "type": "store",
+    "x": 745,
+    "y": 2592,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell35",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2642,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": 94,
+    "storeNo": 94,
+    "name": "한모네소문난순대",
+    "type": "store",
+    "x": 501,
+    "y": 2642,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 98,
+    "storeNo": 98,
+    "name": "은정국수",
+    "type": "store",
+    "x": 745,
+    "y": 2642,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell39",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2642,
+    "width": 108,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell36",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 377,
+    "y": 2692,
+    "width": 118,
+    "height": 44
+  },
+  {
+    "id": 95,
+    "storeNo": 95,
+    "name": "나주왕대포",
+    "type": "store",
+    "x": 501,
+    "y": 2692,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": 99,
+    "storeNo": 99,
+    "name": "홍코너",
+    "type": "store",
+    "x": 745,
+    "y": 2692,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell40",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 909,
+    "y": 2692,
+    "width": 108,
+    "height": 44
+  },
+  {
+    "id": "Block23",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -28,
+    "y": 2762,
+    "width": 385,
+    "height": 168
+  },
+  {
+    "id": "Block7",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": 1041,
+    "y": 2762,
+    "width": 417,
+    "height": 357
+  },
+  {
+    "id": "EmptyCell7",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2772,
+    "width": 116,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell41",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 503,
+    "y": 2773,
+    "width": 136,
+    "height": 149
+  },
+  {
+    "id": 100,
+    "storeNo": 100,
+    "name": "미쳐버린파닭",
+    "type": "store",
+    "x": 745,
+    "y": 2774,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell26",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2774,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": 101,
+    "storeNo": 101,
+    "name": "이모네곱창",
+    "type": "store",
+    "x": 745,
+    "y": 2824,
+    "width": 156,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell27",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2824,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell8",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2872,
+    "width": 116,
+    "height": 44
+  },
+  {
+    "id": 102,
+    "storeNo": 102,
+    "name": "새마을빨래방(호두과자)",
+    "type": "store",
+    "x": 745,
+    "y": 2874,
+    "width": 156,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell28",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2874,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell9",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 2922,
+    "width": 116,
+    "height": 94
+  },
+  {
+    "id": "EmptyCell29",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2924,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell42",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 503,
+    "y": 2928,
+    "width": 136,
+    "height": 44
+  },
+  {
+    "id": "Block24",
+    "storeNo": null,
+    "name": "외부건물",
+    "type": "block",
+    "x": -28,
+    "y": 2944,
+    "width": 385,
+    "height": 176
+  },
+  {
+    "id": "EmptyCell43",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 745,
+    "y": 2974,
+    "width": 156,
+    "height": 136
+  },
+  {
+    "id": "EmptyCell30",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 2974,
+    "width": 110,
+    "height": 44
+  },
+  {
+    "id": "EmptyCell10",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 381,
+    "y": 3022,
+    "width": 116,
+    "height": 87
+  },
+  {
+    "id": "EmptyCell31",
+    "storeNo": null,
+    "name": "공실",
+    "type": "empty_cell",
+    "x": 907,
+    "y": 3024,
+    "width": 110,
+    "height": 86
+  },
+  {
+    "id": 103,
+    "storeNo": 103,
+    "name": "큰나무유통",
+    "type": "store",
+    "x": 503,
+    "y": 3030,
+    "width": 136,
+    "height": 79
+  }
+]

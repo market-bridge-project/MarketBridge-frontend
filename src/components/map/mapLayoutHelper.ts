@@ -1,4 +1,5 @@
-import { Store } from '@/types/store'
+import { Store, StoreResponse } from '@/types/store'
+import marketLayoutData from '@/api/market-layout-fin.json'
 
 export interface LayoutItem {
   id: number | string
@@ -8,6 +9,9 @@ export interface LayoutItem {
   y: number
   width: number
   height: number
+  storeNo?: number | null
+  isVacant?: boolean
+  imageUrl?: string | null
 }
 
 export interface ComputedPosition {
@@ -43,6 +47,19 @@ export const CROSSWALKS = [
 ]
 
 export const CORRIDOR = { left: 645, width: 88 }
+
+const curatedStoreNames = new Map<number, string>(
+  (marketLayoutData as LayoutItem[])
+    .filter(
+      (item): item is LayoutItem & { storeNo: number } =>
+        item.type === 'store' && typeof item.storeNo === 'number',
+    )
+    .map((item) => [item.storeNo, item.name]),
+)
+
+export function getCuratedStoreName(storeNo: number): string | undefined {
+  return curatedStoreNames.get(storeNo)
+}
 
 export function computeLayout(
   layoutItems: LayoutItem[],
@@ -111,16 +128,9 @@ export function computeLayout(
           id: String(item.id),
           name: '',
           category: '',
-          subCategory: '',
           hours: '',
-          description: '',
           isFood: false,
-          tags: [],
-          info: '',
-          rating: 0,
-          badgeText: '',
           isDummy: true,
-          span: 1,
         },
         left: item.x,
         top: clipY,
@@ -131,22 +141,25 @@ export function computeLayout(
       let storeInfo = stores.find((s) => s.id === String(item.id))
 
       if (!storeInfo) {
-        const isVacantStore = item.name === '빈 점포'
+        const isVacantStore = item.name === '빈 점포' || item.isVacant
         storeInfo = {
           id: String(item.id),
           name: item.name,
           category: isVacantStore ? '생활·서비스' : '음식',
-          subCategory: isVacantStore ? '공실' : '시장점포',
           hours: '09:00~21:00',
-          description: isVacantStore
-            ? '공실 상태의 빈 점포 구역입니다.'
-            : '시장의 신선한 점포입니다.',
           isFood: !isVacantStore && Number(item.id) % 2 === 0,
-          tags: [],
-          info: '',
-          rating: 4.5,
-          badgeText: '',
           isVacant: isVacantStore,
+          storeNo: item.storeNo,
+          imageUrl: item.imageUrl ?? undefined,
+        }
+      } else {
+        const isVacantStore = item.name === '빈 점포' || item.isVacant
+        storeInfo = {
+          ...storeInfo,
+          name: item.name,
+          storeNo: item.storeNo,
+          isVacant: isVacantStore,
+          imageUrl: item.imageUrl ?? storeInfo.imageUrl,
         }
       }
 
@@ -211,4 +224,80 @@ export function calculateZoomOffset(
   const nextY = pivotY - mapY * nextZoom
 
   return clampOffset({ x: nextX, y: nextY }, nextZoom, winSize)
+}
+
+const FOOD_CATEGORIES = [
+  '음식점',
+  '음식',
+  '떡·빵·간식',
+  '반찬·식재료',
+  '농산물',
+  '수산·정육',
+]
+
+function toStore(apiStore: StoreResponse): Store {
+  return {
+    id: String(apiStore.id),
+    name: apiStore.name,
+    category: apiStore.category,
+    hours: apiStore.openTime || '',
+    isFood: FOOD_CATEGORIES.includes(apiStore.category),
+    menuNames: apiStore.menuNames,
+    imageUrl: apiStore.imageUrl ?? undefined,
+  }
+}
+
+export function getMappedLayoutWithApiData(
+  layoutItems: LayoutItem[],
+  stores: Store[],
+  apiStores?: unknown,
+): { layoutItems: LayoutItem[]; stores: Store[] } {
+  let apiStoresList: StoreResponse[] = []
+  if (Array.isArray(apiStores)) {
+    apiStoresList = apiStores as StoreResponse[]
+  } else if (apiStores && typeof apiStores === 'object') {
+    const obj = apiStores as Record<string, unknown>
+    if (Array.isArray(obj.result)) {
+      apiStoresList = obj.result as StoreResponse[]
+    } else if (Array.isArray(obj.data)) {
+      apiStoresList = obj.data as StoreResponse[]
+    } else if (Array.isArray(obj.content)) {
+      apiStoresList = obj.content as StoreResponse[]
+    } else if (Array.isArray(obj.stores)) {
+      apiStoresList = obj.stores as StoreResponse[]
+    } else if (Array.isArray(obj.storeList)) {
+      apiStoresList = obj.storeList as StoreResponse[]
+    }
+  }
+
+  if (!apiStoresList || apiStoresList.length === 0) {
+    return { layoutItems, stores }
+  }
+
+  const mappedStores = apiStoresList.map(toStore)
+
+  const apiStoresById = new Map(apiStoresList.map((b) => [b.id, b]))
+  const mappedLayout = layoutItems.map((item) => {
+    if (item.type === 'store') {
+      if (item.storeNo === null || item.storeNo === undefined) {
+        return item
+      }
+      const matched = apiStoresById.get(item.storeNo)
+      if (matched) {
+        return {
+          ...item,
+          id: String(matched.id),
+          imageUrl: matched.imageUrl,
+        }
+      }
+      return {
+        ...item,
+        name: '빈 점포',
+        isVacant: true,
+      }
+    }
+    return item
+  })
+
+  return { layoutItems: mappedLayout, stores: mappedStores }
 }

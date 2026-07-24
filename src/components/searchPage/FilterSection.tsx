@@ -1,10 +1,11 @@
+import type { KeywordOption } from '../../types/keyword'
 import { FilterChip } from './FilterChip'
 
 interface FilterSectionProps {
   title: string
-  options: string[]
+  options: KeywordOption[]
   selected: string[]
-  onToggle: (option: string) => void
+  onToggle: (label: string) => void
 }
 
 export const FilterSection = ({
@@ -19,10 +20,10 @@ export const FilterSection = ({
       <div className="flex flex-wrap gap-2">
         {options.map((option) => (
           <FilterChip
-            key={option}
-            label={option}
-            isSelected={selected.includes(option)}
-            onClick={() => onToggle(option)}
+            key={option.name}
+            label={option.label}
+            isSelected={selected.includes(option.label)}
+            onClick={() => onToggle(option.label)}
           />
         ))}
       </div>

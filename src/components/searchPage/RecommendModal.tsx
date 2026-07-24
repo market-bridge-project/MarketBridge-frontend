@@ -1,34 +1,25 @@
 import { useNavigate } from 'react-router-dom'
+import type { RecommendResult } from '../../types/recommend'
 import closeIcon from '../../assets/icons/material-symbols_close.svg'
 
 interface RecommendModalProps {
   open: boolean
   onClose: () => void
-  filters: {
-    companion: string[]
-    purpose: string[]
-    duration: string[]
-  }
+  result?: RecommendResult
 }
-
-const DUMMY_COURSES = [
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
-  { name: '광장 호떡집', tags: '간식 · 호떡' },
-]
 
 export const RecommendModal = ({
   open,
   onClose,
-  filters,
+  result,
 }: RecommendModalProps) => {
   const navigate = useNavigate()
 
-  if (!open) return null
+  if (!open || !result) return null
 
   const handleDetail = () => {
     onClose()
-    navigate('/recommend-result', { state: filters })
+    navigate('/recommend-result', { state: result })
   }
 
   return (
@@ -60,17 +51,17 @@ export const RecommendModal = ({
               추천 코스 미리보기
             </p>
             <ul className="flex flex-col gap-2">
-              {DUMMY_COURSES.map((course, i) => (
+              {result.stores.map((store, i) => (
                 <li
-                  key={i}
+                  key={store.storeId}
                   className="flex items-center gap-3 rounded-2xl border border-border-default bg-elevated p-3 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"
                 >
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-bold text-white">
                     {i + 1}
                   </span>
                   <div>
-                    <p className="text-sm font-semibold">{course.name}</p>
-                    <p className="text-xs text-gray-500">{course.tags}</p>
+                    <p className="text-sm font-semibold">{store.name}</p>
+                    <p className="text-xs text-gray-500">{store.category}</p>
                   </div>
                 </li>
               ))}

@@ -1,6 +1,9 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FilterCard, RecommendModal } from '../components/SearchPage'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { FilterCard, RecommendModal } from '../components/searchPage'
+import { postRecommend } from '../api/recommend'
+import { getKeywords } from '../api/keyword'
 import backIcon from '../assets/icons/weui_back-filled.svg'
 
 const toggleItem = (list: string[], item: string): string[] => {
@@ -17,6 +20,20 @@ const SearchPage = () => {
   const hasSelection =
     companion.length > 0 && purpose.length > 0 && duration.length > 0
 
+  const {
+    data: keywords,
+    isLoading: isKeywordsLoading,
+    isError: isKeywordsError,
+  } = useQuery({
+    queryKey: ['keywords'],
+    queryFn: getKeywords,
+  })
+
+  const recommendMutation = useMutation({
+    mutationFn: postRecommend,
+    onSuccess: () => setIsRecommendModalOpen(true),
+  })
+
   const handleToggle = useCallback(
     (setter: React.Dispatch<React.SetStateAction<string[]>>) =>
       (value: string) =>
@@ -25,7 +42,11 @@ const SearchPage = () => {
   )
 
   const handleSubmit = () => {
-    setIsRecommendModalOpen(true)
+    recommendMutation.mutate({
+      who: companion[0],
+      what: purpose[0],
+      time: duration[0],
+    })
   }
 
   return (
@@ -56,14 +77,27 @@ const SearchPage = () => {
       </main>
 
       <div className="flex-1 px-5 pt-8">
-        <FilterCard
-          companion={companion}
-          purpose={purpose}
-          duration={duration}
-          onToggleCompanion={handleToggle(setCompanion)}
-          onTogglePurpose={handleToggle(setPurpose)}
-          onToggleDuration={handleToggle(setDuration)}
-        />
+        {isKeywordsLoading && (
+          <p className="text-center text-sm text-gray-500">불러오는 중...</p>
+        )}
+        {!isKeywordsLoading && (isKeywordsError || !keywords) && (
+          <p className="text-center text-sm text-gray-500">
+            선택지를 불러오지 못했어요.
+          </p>
+        )}
+        {keywords && (
+          <FilterCard
+            companion={companion}
+            purpose={purpose}
+            duration={duration}
+            companionOptions={keywords.WHO ?? []}
+            purposeOptions={keywords.WHAT ?? []}
+            durationOptions={keywords.DURATION ?? []}
+            onToggleCompanion={handleToggle(setCompanion)}
+            onTogglePurpose={handleToggle(setPurpose)}
+            onToggleDuration={handleToggle(setDuration)}
+          />
+        )}
       </div>
 
       <div className="px-5 pt-6 pb-8">
@@ -72,7 +106,7 @@ const SearchPage = () => {
         </p>
         <button
           type="button"
-          disabled={!hasSelection}
+          disabled={!hasSelection || recommendMutation.isPending}
           onClick={handleSubmit}
           className={`w-full rounded-2xl py-4 shadow-[0_10px_22px_0_rgba(21,95,58,0.24)] ${
             hasSelection
@@ -80,13 +114,18 @@ const SearchPage = () => {
               : 'bg-[#A0BCA8] text-[#FDFBF8] text-[18px] font-bold leading-[22px]'
           }`}
         >
-          AI 추천 받기
+          {recommendMutation.isPending ? '추천 받는 중...' : 'AI 추천 받기'}
         </button>
+        {recommendMutation.isError && (
+          <p className="mt-3 text-center text-[13px] font-medium text-red-500">
+            추천을 받아오지 못했어요. 다시 시도해주세요.
+          </p>
+        )}
       </div>
       <RecommendModal
         open={isRecommendModalOpen}
         onClose={() => setIsRecommendModalOpen(false)}
-        filters={{ companion, purpose, duration }}
+        result={recommendMutation.data}
       />
     </div>
   )

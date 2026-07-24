@@ -2,19 +2,20 @@ export interface Store {
   id: string
   name: string
   category: string
-  subCategory: string
   hours: string
-  description: string
   isFood: boolean
-  tags: string[]
-  menus?: { name: string; price: string }[]
-  info: string
-  rating: number
-  badgeText: string
+  menuNames?: string[]
   imageUrl?: string
-  block?: number
-  column?: 'leftOuter' | 'leftInner' | 'rightInner' | 'rightOuter'
-  span?: number
   isDummy?: boolean
   isVacant?: boolean
+  storeNo?: number | null
+}
+
+export interface StoreResponse {
+  id: number
+  name: string
+  category: string
+  openTime?: string | null
+  imageUrl?: string | null
+  menuNames?: string[]
 }
