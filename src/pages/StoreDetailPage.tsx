@@ -7,7 +7,12 @@ import backIcon from '../assets/icons/weui_back-filled.svg'
 const StoreDetail = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { storeId } = (location.state as { storeId?: number | string }) ?? {}
+  const { storeId, courseStoreIds, courseTitle } =
+    (location.state as {
+      storeId?: number | string
+      courseStoreIds?: string[]
+      courseTitle?: string
+    }) ?? {}
   const numericStoreId = Number(storeId)
 
   const {
@@ -132,7 +137,14 @@ const StoreDetail = () => {
             <button
               type="button"
               onClick={() =>
-                navigate('/map', { state: { focusStoreId: String(store.id) } })
+                navigate('/map', {
+                  state: {
+                    focusStoreId: String(store.id),
+                    ...(courseStoreIds && courseStoreIds.length > 0
+                      ? { courseStoreIds, courseTitle }
+                      : {}),
+                  },
+                })
               }
               className="w-full rounded-2xl bg-brand py-4 text-base font-semibold text-white shadow-[0_10px_22px_0_rgba(21,95,58,0.24)]"
             >
