@@ -98,10 +98,6 @@ export function useCourseRoute({
     const hasFocusRequest = Boolean(stateFocusStoreId)
     if (hasFocusRequest) {
       if (!hasCenteredCourse) setHasCenteredCourse(true)
-      // courseStoreIds를 이미 처리했다면 location.state에서 제거해
-      // 다음 effect 실행 시 위 블록이 반복 실행되며 hasCenteredCourse가
-      // 계속 리셋되는 무한 루프를 방지한다. focusStoreId는 유지해
-      // useFocusStoreFromRoute가 이어서 처리할 수 있게 한다.
       if (stateCourseIds && stateCourseIds.length > 0) {
         navigate(location.pathname, {
           replace: true,
