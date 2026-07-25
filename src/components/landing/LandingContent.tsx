@@ -11,7 +11,7 @@ export const LandingContent: React.FC = () => {
           시장의 숨겨진 재미를 발견하다
         </h2>
         <p className="text-body-copy text-[#8B8B8B] font-normal">
-          114개 점포 / 맛집 추천 / AI 코스 / 스탬프 투어까지 한 번에
+          103개 점포 / 맛집 추천 / AI 코스 / 스탬프 투어까지 한 번에
         </p>
       </div>
 
