@@ -16,7 +16,7 @@ interface FloatingActionButtonProps {
 }
 
 const FLOATING_BUTTON_BASE_CLASS =
-  'absolute right-[16px] z-50 min-w-[125px] w-max h-[48px] rounded-full bg-[rgba(255,255,255,0.90)] border border-[#EDE5DE] flex items-center pl-[12px] pr-[14px] shadow-[0_8px_20px_-6px_rgba(10,54,28,0.12)] active:scale-95 transition-all duration-300 ease-out select-none whitespace-nowrap'
+  'absolute right-[16px] z-50 w-[128px] h-[42px] rounded-full bg-[rgba(255,255,255,0.90)] border border-[#EDE5DE] flex items-center pl-[10px] pr-[12px] shadow-[0_8px_20px_-6px_rgba(10,54,28,0.12)] active:scale-95 transition-all duration-300 ease-out select-none whitespace-nowrap'
 
 const FloatingActionButton = ({
   bottom,
@@ -48,9 +48,9 @@ const FloatingActionButton = ({
     <img
       src={iconSrc}
       alt={iconAlt}
-      className="w-[32px] h-[32px] object-contain select-none shrink-0 mr-[16px]"
+      className="w-[24px] h-[24px] object-contain select-none shrink-0 mr-[10px]"
     />
-    <span className="text-[13px] font-bold text-[#2B2B2B] leading-none shrink-0">
+    <span className="text-[12px] font-bold text-[#2B2B2B] leading-none shrink-0">
       {label}
     </span>
   </button>
@@ -73,7 +73,7 @@ const MapFloatingMenu = ({ isOpen, onToggle }: MapFloatingMenuProps) => {
     <>
       {/* 유형 테스트 버튼 (외부 링크) */}
       <FloatingActionButton
-        bottom={208}
+        bottom={180}
         iconSrc={typeTestIconSvg}
         iconAlt="유형 테스트 아이콘"
         label="유형 테스트"
@@ -85,7 +85,7 @@ const MapFloatingMenu = ({ isOpen, onToggle }: MapFloatingMenuProps) => {
 
       {/* 검색 버튼 */}
       <FloatingActionButton
-        bottom={144}
+        bottom={130}
         iconSrc={aiSearchIconSvg}
         iconAlt="검색 아이콘"
         label="검색"
