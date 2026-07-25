@@ -93,11 +93,17 @@ export function useCourseRoute({
     // 개별 점포 포커스 요청(focusStoreId)이 함께 들어온 경우, 카메라는
     // useFocusStoreFromRoute가 담당하므로 코스 재포커싱을 양보합니다.
     // (재마운트 시 hasCenteredCourse가 초기화되며 두 포커싱이 경합하는 것을 방지)
-    const hasFocusRequest = Boolean(
-      (location.state as { focusStoreId?: string })?.focusStoreId,
-    )
+    const stateFocusStoreId = (location.state as { focusStoreId?: string })
+      ?.focusStoreId
+    const hasFocusRequest = Boolean(stateFocusStoreId)
     if (hasFocusRequest) {
       if (!hasCenteredCourse) setHasCenteredCourse(true)
+      if (stateCourseIds && stateCourseIds.length > 0) {
+        navigate(location.pathname, {
+          replace: true,
+          state: { focusStoreId: stateFocusStoreId },
+        })
+      }
       return
     }
 

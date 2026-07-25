@@ -27,19 +27,19 @@ export const FilterCard = ({
   return (
     <div className="flex flex-col gap-6 rounded-2xl bg-[#FFFFFFB2] p-6 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]">
       <FilterSection
-        title="누구와"
+        title="누구와 함께하나요?"
         options={companionOptions}
         selected={companion}
         onToggle={onToggleCompanion}
       />
       <FilterSection
-        title="무엇을"
+        title="무엇을 하실건가요?"
         options={purposeOptions}
         selected={purpose}
         onToggle={onTogglePurpose}
       />
       <FilterSection
-        title="얼마나"
+        title="얼마나 머무르실건가요?"
         options={durationOptions}
         selected={duration}
         onToggle={onToggleDuration}
