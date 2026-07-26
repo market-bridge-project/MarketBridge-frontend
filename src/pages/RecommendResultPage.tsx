@@ -43,7 +43,11 @@ const RecommendResultPage = () => {
                 type="button"
                 onClick={() =>
                   navigate('/store-detail', {
-                    state: { storeId: store.storeId },
+                    state: {
+                      storeId: store.storeId,
+                      courseStoreIds: stores.map((s) => String(s.storeId)),
+                      courseTitle: courseTitle.replace('\n', ' '),
+                    },
                   })
                 }
                 className="flex items-center gap-4 rounded-2xl border border-border-default bg-white p-4 shadow-[0_8px_22px_0_rgba(43,27,14,0.05)]"

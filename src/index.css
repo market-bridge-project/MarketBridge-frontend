@@ -95,6 +95,8 @@ body {
   overflow-y: auto;
   font-family: var(--font-pretendard-jp);
   overscroll-behavior: none;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 body {

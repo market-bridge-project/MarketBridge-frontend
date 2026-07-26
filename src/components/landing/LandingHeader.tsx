@@ -31,7 +31,7 @@ export const LandingHeader: React.FC = () => {
             어디 갈지 고민된다면
           </h1>
           <p className="text-body-copy text-[#8B8B8B] font-normal mt-1">
-            114개 점포를 한눈에 보고 빠르게 찾아보세요
+            103개 점포를 한눈에 보고 빠르게 찾아보세요
           </p>
         </div>
       </div>

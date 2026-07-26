@@ -18,6 +18,11 @@ export const RecommendModal = ({
   if (!open || !result) return null
 
   const handleDetail = () => {
+    try {
+      localStorage.setItem('savedCourse', JSON.stringify(result))
+    } catch {
+      // storage 사용 불가 시 저장은 건너뛰고 이동은 계속 진행
+    }
     onClose()
     navigate('/recommend-result', { state: result })
   }
