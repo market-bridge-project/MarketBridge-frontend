@@ -18,16 +18,39 @@ export const RecommendModal = ({
   if (!open || !result) return null
 
   const handleDetail = () => {
+    const keys = [
+      'savedCourse',
+      'courseStoreIds',
+      'courseTitle',
+      'isCourseVisible',
+    ]
+    const previousValues = keys.map((key) => localStorage.getItem(key))
+
     try {
       localStorage.setItem('savedCourse', JSON.stringify(result))
       localStorage.setItem(
         'courseStoreIds',
         JSON.stringify(result.stores.map((s) => String(s.storeId))),
       )
-      localStorage.setItem('courseTitle', result.courseTitle.replace('\n', ' '))
+      localStorage.setItem(
+        'courseTitle',
+        result.courseTitle.replace(/[\r\n]+/g, ' '),
+      )
       localStorage.setItem('isCourseVisible', 'true')
     } catch {
-      // storage 사용 불가 시 저장은 건너뛰고 이동은 계속 진행
+      // 저장 도중 실패하면 서로 다른 코스의 값이 섞이지 않도록 이전 값으로 되돌린다
+      keys.forEach((key, i) => {
+        try {
+          const prev = previousValues[i]
+          if (prev === null) {
+            localStorage.removeItem(key)
+          } else {
+            localStorage.setItem(key, prev)
+          }
+        } catch {
+          // 복구도 실패하면 더 이상 할 수 있는 것이 없으므로 무시
+        }
+      })
     }
     onClose()
     navigate('/recommend-result', { state: result })
