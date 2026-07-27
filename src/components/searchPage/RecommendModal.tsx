@@ -24,9 +24,11 @@ export const RecommendModal = ({
       'courseTitle',
       'isCourseVisible',
     ]
-    const previousValues = keys.map((key) => localStorage.getItem(key))
+    let previousValues: (string | null)[] | null = null
 
     try {
+      previousValues = keys.map((key) => localStorage.getItem(key))
+
       localStorage.setItem('savedCourse', JSON.stringify(result))
       localStorage.setItem(
         'courseStoreIds',
@@ -39,18 +41,22 @@ export const RecommendModal = ({
       localStorage.setItem('isCourseVisible', 'true')
     } catch {
       // 저장 도중 실패하면 서로 다른 코스의 값이 섞이지 않도록 이전 값으로 되돌린다
-      keys.forEach((key, i) => {
-        try {
-          const prev = previousValues[i]
-          if (prev === null) {
-            localStorage.removeItem(key)
-          } else {
-            localStorage.setItem(key, prev)
+      // (이전 값 스냅샷 자체를 못 얻었다면 되돌릴 기준이 없으므로 건너뛴다)
+      if (previousValues) {
+        const snapshot = previousValues
+        keys.forEach((key, i) => {
+          try {
+            const prev = snapshot[i]
+            if (prev === null) {
+              localStorage.removeItem(key)
+            } else {
+              localStorage.setItem(key, prev)
+            }
+          } catch {
+            // 복구도 실패하면 더 이상 할 수 있는 것이 없으므로 무시
           }
-        } catch {
-          // 복구도 실패하면 더 이상 할 수 있는 것이 없으므로 무시
-        }
-      })
+        })
+      }
     }
     onClose()
     navigate('/recommend-result', { state: result })
