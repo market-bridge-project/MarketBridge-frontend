@@ -20,6 +20,12 @@ export const RecommendModal = ({
   const handleDetail = () => {
     try {
       localStorage.setItem('savedCourse', JSON.stringify(result))
+      localStorage.setItem(
+        'courseStoreIds',
+        JSON.stringify(result.stores.map((s) => String(s.storeId))),
+      )
+      localStorage.setItem('courseTitle', result.courseTitle.replace('\n', ' '))
+      localStorage.setItem('isCourseVisible', 'true')
     } catch {
       // storage 사용 불가 시 저장은 건너뛰고 이동은 계속 진행
     }
