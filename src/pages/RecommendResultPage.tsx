@@ -46,7 +46,7 @@ const RecommendResultPage = () => {
                     state: {
                       storeId: store.storeId,
                       courseStoreIds: stores.map((s) => String(s.storeId)),
-                      courseTitle: courseTitle.replace('\n', ' '),
+                      courseTitle: courseTitle.replace(/[\r\n]+/g, ' '),
                     },
                   })
                 }
@@ -97,7 +97,7 @@ const RecommendResultPage = () => {
             navigate('/map', {
               state: {
                 courseStoreIds: stores.map((s) => String(s.storeId)),
-                courseTitle: courseTitle.replace('\n', ' '),
+                courseTitle: courseTitle.replace(/[\r\n]+/g, ' '),
               },
             })
           }

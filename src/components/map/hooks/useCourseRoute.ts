@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { clampOffset, type ComputedPosition } from '../mapLayoutHelper'
 
@@ -48,6 +48,7 @@ export function useCourseRoute({
 }: UseCourseRouteParams) {
   const navigate = useNavigate()
   const location = useLocation()
+  const processedCourseIdsRef = useRef<string[] | null>(null)
 
   const [courseStoreIds, setCourseStoreIds] =
     useState<string[]>(readCourseStoreIds)
@@ -68,8 +69,17 @@ export function useCourseRoute({
 
     let activeCourseIds = courseStoreIds
 
+    // 같은 stateCourseIds 배열을 (다른 훅의 navigate로 인해 location.state가
+    // 되살아나는 등) 이미 처리했다면 다시 처리하지 않는다.
+    const isNewCourseState = Boolean(
+      stateCourseIds &&
+        stateCourseIds.length > 0 &&
+        processedCourseIdsRef.current !== stateCourseIds,
+    )
+
     // 1. 라우터 상태에 새 코스가 전달된 경우 localStorage 덮어쓰기
-    if (stateCourseIds && stateCourseIds.length > 0) {
+    if (isNewCourseState && stateCourseIds) {
+      processedCourseIdsRef.current = stateCourseIds
       activeCourseIds = stateCourseIds
       setCourseStoreIds(stateCourseIds)
       setCourseTitle(stateCourseTitle || '추천 코스')
@@ -96,14 +106,19 @@ export function useCourseRoute({
     const stateFocusStoreId = (location.state as { focusStoreId?: string })
       ?.focusStoreId
     const hasFocusRequest = Boolean(stateFocusStoreId)
+
+    // 코스 정보를 이미 state/localStorage에 반영했으므로, 카메라 센터링이
+    // 끝나기 전에 effect가 재실행되더라도(예: 토글 클릭) 위 블록이 중복
+    // 실행되지 않도록 location.state를 즉시 정리한다.
+    if (isNewCourseState) {
+      navigate(location.pathname, {
+        replace: true,
+        state: hasFocusRequest ? { focusStoreId: stateFocusStoreId } : {},
+      })
+    }
+
     if (hasFocusRequest) {
       if (!hasCenteredCourse) setHasCenteredCourse(true)
-      if (stateCourseIds && stateCourseIds.length > 0) {
-        navigate(location.pathname, {
-          replace: true,
-          state: { focusStoreId: stateFocusStoreId },
-        })
-      }
       return
     }
 
@@ -157,11 +172,6 @@ export function useCourseRoute({
       setZoom(targetZoom)
       setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
       setHasCenteredCourse(true)
-
-      // 라우터 상태로 들어온 새로운 진입인 경우에만 history state를 클리어하여 뒤로가기 동작 대응
-      if (stateCourseIds && stateCourseIds.length > 0) {
-        navigate(location.pathname, { replace: true, state: {} })
-      }
     }, 50)
 
     return () => clearTimeout(timer)

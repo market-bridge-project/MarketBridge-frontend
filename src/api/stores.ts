@@ -742,4 +742,3 @@ export const DUMMY_STORES: Store[] = [
     isFood: false,
   },
 ]
-
