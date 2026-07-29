@@ -27,10 +27,15 @@ export function useFocusStoreFromRoute({
   const navigate = useNavigate()
   const location = useLocation()
   const processedFocusIdRef = useRef<string | null>(null)
+  // location.state 객체 자체가 아니라 focusStoreId 값만 의존성으로 사용한다.
+  // (다른 훅이 courseStoreIds 등 state의 다른 필드를 지우려고 늦게 navigate()를
+  // 호출해도, location.state 참조만 바뀌고 focusStoreId 값은 그대로인 경우가
+  // 있는데, 이때 이 값이 아니라 location.state를 의존성으로 쓰면 아래 effect가
+  // 불필요하게 재실행되어 진행 중이던 카메라 이동 타이머가 취소돼버린다.)
+  const focusStoreId = (location.state as { focusStoreId?: string })
+    ?.focusStoreId
 
   useEffect(() => {
-    const focusStoreId = (location.state as { focusStoreId?: string })
-      ?.focusStoreId
     if (!focusStoreId || positions.length === 0 || !isMeasured) return
     if (processedFocusIdRef.current === focusStoreId) return
 
@@ -41,11 +46,6 @@ export function useFocusStoreFromRoute({
     // (다른 훅의 navigate 등으로) 다시 같은 값을 갖게 되어도 중복 처리되지
     // 않도록 한다.
     processedFocusIdRef.current = focusStoreId
-
-    // 포커스 요청을 처리하는 즉시 location.state에서 제거해, 카메라 이동이
-    // 끝나기 전에 effect가 재실행되어도(예: 코스 표시 토글) 이 로직이
-    // 중복 실행되지 않도록 한다.
-    navigate(location.pathname, { replace: true, state: {} })
 
     const targetZoom = Math.max(1.5, minZoom)
     setZoom(targetZoom)
@@ -63,11 +63,17 @@ export function useFocusStoreFromRoute({
       setOffset(clampOffset({ x: targetX, y: targetY }, targetZoom, winSize))
       setHighlightedId(focusStoreId)
       setIsTransitioning(false)
+
+      // 카메라 이동이 끝난 뒤에야 location.state를 비운다. 처리 직후 곧바로
+      // navigate하면 location.state 참조가 바뀌어 이 effect가 cleanup되면서
+      // 위 타이머가 실행되기도 전에 취소돼버려(오프셋이 끝내 반영되지 않음),
+      // 지도가 대상 점포로 이동하지 않고 초기 위치에 확대만 되는 버그가 있었다.
+      navigate(location.pathname, { replace: true, state: {} })
     }, 50)
 
     return () => clearTimeout(timer)
   }, [
-    location.state,
+    focusStoreId,
     positions,
     winSize,
     minZoom,
