@@ -18,27 +18,31 @@ export const RecommendModal = ({
   if (!open || !result) return null
 
   const handleDetail = () => {
+    const SAVED_COURSE_KEY = 'savedCourse'
+    const COURSE_STORE_IDS_KEY = 'courseStoreIds'
+    const COURSE_TITLE_KEY = 'courseTitle'
+    const IS_COURSE_VISIBLE_KEY = 'isCourseVisible'
     const keys = [
-      'savedCourse',
-      'courseStoreIds',
-      'courseTitle',
-      'isCourseVisible',
+      SAVED_COURSE_KEY,
+      COURSE_STORE_IDS_KEY,
+      COURSE_TITLE_KEY,
+      IS_COURSE_VISIBLE_KEY,
     ]
     let previousValues: (string | null)[] | null = null
 
     try {
       previousValues = keys.map((key) => localStorage.getItem(key))
 
-      localStorage.setItem('savedCourse', JSON.stringify(result))
+      localStorage.setItem(SAVED_COURSE_KEY, JSON.stringify(result))
       localStorage.setItem(
-        'courseStoreIds',
+        COURSE_STORE_IDS_KEY,
         JSON.stringify(result.stores.map((s) => String(s.storeId))),
       )
       localStorage.setItem(
-        'courseTitle',
+        COURSE_TITLE_KEY,
         result.courseTitle.replace(/[\r\n]+/g, ' '),
       )
-      localStorage.setItem('isCourseVisible', 'true')
+      localStorage.setItem(IS_COURSE_VISIBLE_KEY, 'true')
     } catch {
       // 저장 도중 실패하면 서로 다른 코스의 값이 섞이지 않도록 이전 값으로 되돌린다
       // (이전 값 스냅샷 자체를 못 얻었다면 되돌릴 기준이 없으므로 건너뛴다)
