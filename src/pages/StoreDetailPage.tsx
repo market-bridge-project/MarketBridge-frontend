@@ -25,7 +25,7 @@ const StoreDetail = () => {
     enabled: Number.isFinite(numericStoreId),
   })
 
-  const name = store ? (getCuratedStoreName(store.id) ?? store.name) : ''
+  const name = store ? getCuratedStoreName(store.id) ?? store.name : ''
 
   const handleBack = () => {
     if (window.history.state && window.history.state.idx > 0) {
